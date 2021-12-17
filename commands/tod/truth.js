@@ -4,9 +4,9 @@ const colors = require("../../configuration/colors.json");
 
 module.exports = {
   name: "truth",
-  category: "settings",
-  description: "Sets the channel that moderation actions will be logged in.",
-  usage: `modlog <#channel>`,
+  category: "tod",
+  description: "Truth",
+  usage: `truth`,
   run: async (client, message) => {
     let question =
       client.truths[Math.floor(Math.random() * client.truths.length)];

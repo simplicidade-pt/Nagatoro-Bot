@@ -116,8 +116,8 @@ function readdares(input) {
   });
 }
 
-readtruths(createReadStream("files/truths.txt"));
-readdares(createReadStream("files/dares.txt"));
+readtruths(createReadStream("./files/truth.txt"));
+readdares(createReadStream("./files/dares.txt"));
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
