@@ -129,7 +129,7 @@ client.on("message", async (message) => {
 
   if (cmd.length === 0) return;
 
-  if (!message.guild.me.hasPermission("EMBED_MESSAGES")) {
+  if (!message.guild.me.hasPermission("EMBED_LINKS")) {
     message.channel.send(
       'Senpai~ I need the "Embed messages" permission to work properly!'
     );
