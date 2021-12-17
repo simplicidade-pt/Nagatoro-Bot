@@ -146,11 +146,10 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
   if (command == "help") {
     const embed = new Discord.MessageEmbed()
       .setColor(colors.info)
-      .setTitle("Server:" + " " + message.guild.name + " " + emojis.Verified)
+      .setTitle("List of all available command categories" + emojis.Verified)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .setDescription("ㅤ")
       .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag)
       .addField(
         emojis.Giggle +
           "*Teehee senpai~* My prefix for this server is " +
