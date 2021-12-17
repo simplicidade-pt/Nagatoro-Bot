@@ -27,11 +27,9 @@ const client = new Discord.Client({
 client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
-
   client.user.setStatus("available");
-  client.truths = new Array();
-  client.queue = new Map();
 
+  client.queue = new Map();
   client.emojis_status = new Array();
 
   function getemoji(input) {
