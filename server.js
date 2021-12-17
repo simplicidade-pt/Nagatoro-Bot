@@ -28,6 +28,16 @@ client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
 
+  client.api
+    .applications(client.user.id)
+    .guilds("848627856815685713")
+    .commands.post({
+      data: {
+        name: "help",
+        description: "Displays the list of all available commands",
+      },
+    });
+
   client.user.setStatus("available");
   client.truths = new Array();
   client.queue = new Map();
@@ -82,6 +92,17 @@ let ops = {
   active: {},
 };
 
+async function createAPIMessage(interaction, content) {
+  const apiMessage = await discord.APIMessage.create(
+    client.channels.resolve(interaction.channel_id),
+    content
+  )
+    .resolveData()
+    .resolveFiles();
+
+  return { ...apiMessage.data, files: apiMessage.files };
+}
+
 // Truth or dare
 const { readdirSync, createReadStream } = require("fs");
 
@@ -118,6 +139,74 @@ function readdares(input) {
 
 readtruths(createReadStream("files/truths.txt"));
 readdares(createReadStream("files/dares.txt"));
+
+client.ws.on("INTERACTION_CREATE", async (interaction) => {
+  const command = interaction.data.name.toLowerCase();
+
+  if (command == "help") {
+    var embed = new Discord.MessageEmbed()
+      .setColor(colors.info)
+      .setTitle("Server:" + " " + message.guild.name + " " + emojis.Verified)
+      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+      .setDescription("ㅤ")
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag)
+      .addField(
+        emojis.Giggle +
+          "*Teehee senpai~* My prefix for this server is " +
+          "`" +
+          configs.prefix +
+          "`",
+        '*Only server moderators are able to use and view commands in the "Moderation" category.*'
+      )
+      .addField("ㅤ", emojis.Hah + " __**Public Commands:**__")
+      .addField(
+        emojis.Tag + "**" + " | Entertainment" + "**",
+        "```" + configs.prefix + "cmds entertainment```",
+        true
+      )
+      .addField(
+        emojis.Tag + "**" + " | Miscellaneous" + "**",
+        "```" + configs.prefix + "cmds miscellaneous```",
+        true
+      )
+      .addField(
+        emojis.Tag + "**" + " | Pictures" + "**",
+        "```" + configs.prefix + "cmds pictures```",
+        true
+      )
+      .addField(
+        emojis.Tag + "**" + " | Activity" + "**",
+        "```" + configs.prefix + "cmds activity```",
+        true
+      )
+      .addField(
+        emojis.Tag + "**" + " | Emotes" + "**",
+        "```" + configs.prefix + "cmds emotes```",
+        true
+      )
+      .addField(
+        emojis.Tag + "**" + " | Music" + "**",
+        "```" + configs.prefix + "cmds music```",
+        true
+      )
+      .addField("ㅤ", emojis.Hah + " __**Moderator Commands:**__")
+      .addField(
+        emojis.Tag + "**" + " | Moderation" + "**",
+        "```" + configs.prefix + "cmds moderation```",
+        true
+      );
+
+    client.api.interactions(interaction.id, interaction.token).callback.post({
+      data: {
+        type: 4,
+        data: {
+          data: await createAPIMessage(interaction, embed),
+        },
+      },
+    });
+  }
+});
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
