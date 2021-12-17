@@ -189,12 +189,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
       data: {
         type: 4,
         data: {
-          data: await createAPIMessage(
-            interaction,
-            client.channels.cache
-              .get(interaction.channel_id)
-              .send({ embeds: helpembed })
-          ),
+          content: helpembed,
         },
       },
     });
