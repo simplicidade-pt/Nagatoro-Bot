@@ -144,7 +144,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
   const command = interaction.data.name.toLowerCase();
 
   if (command == "help") {
-    var embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.info)
       .setTitle("Server:" + " " + message.guild.name + " " + emojis.Verified)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
