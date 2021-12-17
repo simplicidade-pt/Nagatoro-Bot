@@ -137,7 +137,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
       .setColor(colors.info)
       .setTitle("List of all available command categories" + emojis.Verified)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-      .setDescription("ㅤ")
+      .setDescription("jㅤ")
       .setTimestamp()
       .addField(
         emojis.Giggle +
@@ -147,7 +147,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
           "`",
         '*Only server moderators are able to use and view commands in the "Moderation" category.*'
       )
-      .addField("ㅤ", emojis.Hah + " __**Public Commands:**__")
+      .addField("jㅤ", emojis.Hah + " __**Public Commands:**__")
       .addField(
         emojis.Tag + "**" + " | Entertainment" + "**",
         "```" + configs.prefix + "cmds entertainment```",
@@ -178,7 +178,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
         "```" + configs.prefix + "cmds music```",
         true
       )
-      .addField("ㅤ", emojis.Hah + " __**Moderator Commands:**__")
+      .addField("jㅤ", emojis.Hah + " __**Moderator Commands:**__")
       .addField(
         emojis.Tag + "**" + " | Moderation" + "**",
         "```" + configs.prefix + "cmds moderation```",
@@ -186,10 +186,11 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
       );
 
     client.api.interactions(interaction.id, interaction.token).callback.post({
+      
       data: {
         type: 4,
         data: {
-          data: await createAPIMessage(interaction, helpembed),
+          data: await createAPIMessage(interaction, client.channels.cache.get(interaction.channel_id).send({ embeds: [helpembed] })),
         },
       },
     });
@@ -203,7 +204,6 @@ async function createAPIMessage(interaction, content) {
   )
     .resolveData()
     .resolveFiles();
-
   return { ...apiMessage.data, files: apiMessage.files };
 }
 
