@@ -123,7 +123,7 @@ module.exports = {
       msg.delete({ timeout: 5000 });
     });
 
-    if (query.includes("www.youtube.com")) {
+    if (query.includes("https://www.youtube.com")) {
       try {
         const ytdata = await await yt.getBasicInfo(query);
         if (!ytdata) return message.channel.send({ embed: err1 });
