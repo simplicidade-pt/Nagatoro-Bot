@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/Scxipted-Tech/Nagatoro-Bot"><img src="https://imgur.com/pY1WUFX.png" alt="Ñagatoro - Discord Bot"></a>
+  <a href="https://github.com/Scxipted-Tech/Nagatoro-Bot"><img src="https://cdn.discordapp.com/attachments/849230417537007676/921343672304414750/unknown.png" alt="Ñagatoro - Discord Bot"></a>
   <br>
  Nagatoro Bot
   <br>
