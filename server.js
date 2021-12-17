@@ -92,17 +92,6 @@ let ops = {
   active: {},
 };
 
-async function createAPIMessage(interaction, content) {
-  const apiMessage = await Discord.APIMessage.create(
-    client.channels.resolve(interaction.channel_id),
-    content
-  )
-    .resolveData()
-    .resolveFiles();
-
-  return { ...apiMessage.data, files: apiMessage.files };
-}
-
 // Truth or dare
 const { readdirSync, createReadStream } = require("fs");
 
@@ -144,7 +133,7 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
   const command = interaction.data.name.toLowerCase();
 
   if (command == "help") {
-    const embed = new Discord.MessageEmbed()
+    const helpembed = new Discord.MessageEmbed()
       .setColor(colors.info)
       .setTitle("List of all available command categories" + emojis.Verified)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
@@ -200,12 +189,23 @@ client.ws.on("INTERACTION_CREATE", async (interaction) => {
       data: {
         type: 4,
         data: {
-          data: await createAPIMessage(interaction, embed),
+          data: await createAPIMessage(interaction, helpembed),
         },
       },
     });
   }
 });
+
+async function createAPIMessage(interaction, content) {
+  const apiMessage = await Discord.APIMessage.create(
+    client.channels.resolve(interaction.channel_id),
+    content
+  )
+    .resolveData()
+    .resolveFiles();
+
+  return { ...apiMessage.data, files: apiMessage.files };
+}
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
