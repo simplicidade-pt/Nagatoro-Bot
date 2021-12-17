@@ -132,65 +132,69 @@ readdares(createReadStream("files/dares.txt"));
 client.ws.on("INTERACTION_CREATE", async (interaction) => {
   const command = interaction.data.name.toLowerCase();
 
-  if (command == "help") {
-    const helpembed = new Discord.MessageEmbed()
-      .setColor(colors.info)
-      .setTitle("List of all available command categories" + emojis.Verified)
-      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-      .setDescription("jㅤ")
-      .setTimestamp()
-      .addField(
-        emojis.Giggle +
-          "*Teehee senpai~* My prefix for this server is " +
-          "`" +
-          configs.prefix +
-          "`",
-        '*Only server moderators are able to use and view commands in the "Moderation" category.*'
-      )
-      .addField("jㅤ", emojis.Hah + " __**Public Commands:**__")
-      .addField(
-        emojis.Tag + "**" + " | Entertainment" + "**",
-        "```" + configs.prefix + "cmds entertainment```",
-        true
-      )
-      .addField(
-        emojis.Tag + "**" + " | Miscellaneous" + "**",
-        "```" + configs.prefix + "cmds miscellaneous```",
-        true
-      )
-      .addField(
-        emojis.Tag + "**" + " | Pictures" + "**",
-        "```" + configs.prefix + "cmds pictures```",
-        true
-      )
-      .addField(
-        emojis.Tag + "**" + " | Activity" + "**",
-        "```" + configs.prefix + "cmds activity```",
-        true
-      )
-      .addField(
-        emojis.Tag + "**" + " | Emotes" + "**",
-        "```" + configs.prefix + "cmds emotes```",
-        true
-      )
-      .addField(
-        emojis.Tag + "**" + " | Music" + "**",
-        "```" + configs.prefix + "cmds music```",
-        true
-      )
-      .addField("jㅤ", emojis.Hah + " __**Moderator Commands:**__")
-      .addField(
-        emojis.Tag + "**" + " | Moderation" + "**",
-        "```" + configs.prefix + "cmds moderation```",
-        true
-      );
+  const helpembed = new Discord.MessageEmbed()
+    .setColor(colors.info)
+    .setTitle("List of all available command categories" + emojis.Verified)
+    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+    .setDescription("jㅤ")
+    .setTimestamp()
+    .addField(
+      emojis.Giggle +
+        "*Teehee senpai~* My prefix for this server is " +
+        "`" +
+        configs.prefix +
+        "`",
+      '*Only server moderators are able to use and view commands in the "Moderation" category.*'
+    )
+    .addField("jㅤ", emojis.Hah + " __**Public Commands:**__")
+    .addField(
+      emojis.Tag + "**" + " | Entertainment" + "**",
+      "```" + configs.prefix + "cmds entertainment```",
+      true
+    )
+    .addField(
+      emojis.Tag + "**" + " | Miscellaneous" + "**",
+      "```" + configs.prefix + "cmds miscellaneous```",
+      true
+    )
+    .addField(
+      emojis.Tag + "**" + " | Pictures" + "**",
+      "```" + configs.prefix + "cmds pictures```",
+      true
+    )
+    .addField(
+      emojis.Tag + "**" + " | Activity" + "**",
+      "```" + configs.prefix + "cmds activity```",
+      true
+    )
+    .addField(
+      emojis.Tag + "**" + " | Emotes" + "**",
+      "```" + configs.prefix + "cmds emotes```",
+      true
+    )
+    .addField(
+      emojis.Tag + "**" + " | Music" + "**",
+      "```" + configs.prefix + "cmds music```",
+      true
+    )
+    .addField("jㅤ", emojis.Hah + " __**Moderator Commands:**__")
+    .addField(
+      emojis.Tag + "**" + " | Moderation" + "**",
+      "```" + configs.prefix + "cmds moderation```",
+      true
+    );
 
+  if (command == "help") {
     client.api.interactions(interaction.id, interaction.token).callback.post({
-      
       data: {
         type: 4,
         data: {
-          data: await createAPIMessage(interaction, client.channels.cache.get(interaction.channel_id).send({ embeds: [helpembed] })),
+          data: await createAPIMessage(
+            interaction,
+            client.channels.cache
+              .get(interaction.channel_id)
+              .send({ embeds: helpembed })
+          ),
         },
       },
     });
