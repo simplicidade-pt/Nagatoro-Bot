@@ -28,16 +28,6 @@ client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
 
-  client.api
-    .applications(client.user.id)
-    .guilds("848627856815685713")
-    .commands.post({
-      data: {
-        name: "help",
-        description: "Displays the list of all available commands",
-      },
-    });
-
   client.user.setStatus("available");
   client.truths = new Array();
   client.queue = new Map();
@@ -128,83 +118,6 @@ function readdares(input) {
 
 readtruths(createReadStream("files/truths.txt"));
 readdares(createReadStream("files/dares.txt"));
-
-client.ws.on("INTERACTION_CREATE", async (interaction) => {
-  const command = interaction.data.name.toLowerCase();
-
-  const helpembed = new Discord.MessageEmbed()
-    .setColor(colors.info)
-    .setTitle("List of all available command categories" + emojis.Verified)
-    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-    .setDescription("jㅤ")
-    .setTimestamp()
-    .addField(
-      emojis.Giggle +
-        "*Teehee senpai~* My prefix for this server is " +
-        "`" +
-        configs.prefix +
-        "`",
-      '*Only server moderators are able to use and view commands in the "Moderation" category.*'
-    )
-    .addField("jㅤ", emojis.Hah + " __**Public Commands:**__")
-    .addField(
-      emojis.Tag + "**" + " | Entertainment" + "**",
-      "```" + configs.prefix + "cmds entertainment```",
-      true
-    )
-    .addField(
-      emojis.Tag + "**" + " | Miscellaneous" + "**",
-      "```" + configs.prefix + "cmds miscellaneous```",
-      true
-    )
-    .addField(
-      emojis.Tag + "**" + " | Pictures" + "**",
-      "```" + configs.prefix + "cmds pictures```",
-      true
-    )
-    .addField(
-      emojis.Tag + "**" + " | Activity" + "**",
-      "```" + configs.prefix + "cmds activity```",
-      true
-    )
-    .addField(
-      emojis.Tag + "**" + " | Emotes" + "**",
-      "```" + configs.prefix + "cmds emotes```",
-      true
-    )
-    .addField(
-      emojis.Tag + "**" + " | Music" + "**",
-      "```" + configs.prefix + "cmds music```",
-      true
-    )
-    .addField("jㅤ", emojis.Hah + " __**Moderator Commands:**__")
-    .addField(
-      emojis.Tag + "**" + " | Moderation" + "**",
-      "```" + configs.prefix + "cmds moderation```",
-      true
-    );
-
-  if (command == "help") {
-    client.api.interactions(interaction.id, interaction.token).callback.post({
-      data: {
-        type: 4,
-        data: {
-          content: helpembed,
-        },
-      },
-    });
-  }
-});
-
-async function createAPIMessage(interaction, content) {
-  const apiMessage = await Discord.APIMessage.create(
-    client.channels.resolve(interaction.channel_id),
-    content
-  )
-    .resolveData()
-    .resolveFiles();
-  return { ...apiMessage.data, files: apiMessage.files };
-}
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
