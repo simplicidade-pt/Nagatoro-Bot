@@ -147,7 +147,7 @@ client.on("message", async (message) => {
 
   process.setMaxListeners(0);
 
-  if (isCommand("help", message) || isCommand("cmds", message)) {
+  if (isCommand("help", message)) {
     var embed = new Discord.MessageEmbed()
 
       .setColor(colors.info)
