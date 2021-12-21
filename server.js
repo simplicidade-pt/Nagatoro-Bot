@@ -18,6 +18,7 @@ const { config } = require("dotenv");
 
 const client = new Discord.Client({
   ws: { properties: { $browser: "Discord iOS" } },
+  intents: [Intents.FLAGS.GUILDS],
 });
 
 client.mongoose = require("./utils/mongoose");
