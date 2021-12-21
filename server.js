@@ -18,8 +18,6 @@ const { config } = require("dotenv");
 
 const client = new Discord.Client({
   ws: { properties: { $browser: "Discord iOS" } },
-  intents: [Intents.FLAGS.GUILDS],
-  allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });
 
 client.mongoose = require("./utils/mongoose");
@@ -54,7 +52,7 @@ client.on("ready", () => {
       ];
 
     client.user.setPresence({
-      activity: [{ name: status + " " + selectedemoji }],
+      activities: [{ name: status + " " + selectedemoji }],
       status: "available",
       url: "https://www.twitch.tv/scxipted",
     });
