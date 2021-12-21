@@ -22,6 +22,6 @@ module.exports = {
       )
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: pingembed });
+    message.channel.send({ embed: [pingembed] });
   },
 };
