@@ -13,7 +13,7 @@ const emojis = require("./configuration/emojis.json");
 const prefix = configs.prefix;
 
 const Discord = require("discord.js");
-const { Client, Collection } = require("discord.js");
+const { Intents, Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Discord.Client({
