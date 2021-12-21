@@ -79,7 +79,7 @@ let ops = {
 };
 
 // Truth or dare
-const { readdirSync, createReadStream } = require("fs");
+const { createReadStream } = require("fs");
 
 client.truths = new Array();
 client.dares = new Array();
