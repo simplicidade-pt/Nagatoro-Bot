@@ -7,11 +7,10 @@ module.exports = {
   name: "ping",
   category: "misc",
   description: "Shows the bots ping",
-  run: async (client, message, args) => {
+  run: (message) => {
     if (message.author.bot) return;
 
     const pingembed = new Discord.MessageEmbed()
-
       .setColor(colors.info)
       .setTimestamp()
       .setDescription(
