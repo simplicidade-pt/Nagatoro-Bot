@@ -22,7 +22,7 @@ module.exports = {
         `Silly senpai~ you don't have permission to remove users from voice channels. (**MOVE_MEMBERS**)`
       );
 
-    if (!message.member.permissions.has("MOVE_MEMBERS"))
+    if (!message.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS))
       return message.channel.send({ embed: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });

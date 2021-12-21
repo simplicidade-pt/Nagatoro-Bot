@@ -32,7 +32,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.permissions.has("MANAGE_MESSAGES"))
+    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       return message.channel.send({ embed: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });

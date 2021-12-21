@@ -23,7 +23,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.permissions.has("KICK_MEMBERS"))
+    if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS))
       return message.channel.send({ embed: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });

@@ -125,7 +125,7 @@ client.on("messageCreate", (message) => {
 
   if (cmd.length === 0) return;
 
-  if (!message.guild.me.permissions.has("EMBED_LINKS")) {
+  if (!message.guild.me.permissions.has(Permissions.FLAGS.EMBED_LINKS)) {
     message.channel.send({
       content:
         'Senpai~ I need the "Embed messages" permission to work properly!',
