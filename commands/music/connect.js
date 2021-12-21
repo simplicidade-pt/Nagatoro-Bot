@@ -31,7 +31,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -52,7 +52,7 @@ module.exports = {
 
     if (!message.member.voice.channel) {
       return message.channel.send({ embed: err0 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     }
 
@@ -70,7 +70,7 @@ module.exports = {
 
     if (message.guild.me.voice.channel) {
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     }
 

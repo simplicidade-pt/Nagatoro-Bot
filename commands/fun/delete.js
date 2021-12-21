@@ -13,7 +13,9 @@ module.exports = {
   run: async (client, message, args) => {
     if (message.author.bot) return;
 
-    let member = message.guild.member(message.mentions.users.first());
+    let member = message.guild.members.cache.get(
+      message.mentions.users.first().id
+    );
     const invalidmember = new Discord.MessageEmbed()
 
       .setColor(colors.error)
@@ -25,9 +27,14 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member)
-      return message.reply({ embed: invalidmember }).then((msg) => {
-        msg.delete({ timeout: 15000 });
-      });
+      return message
+        .reply({
+          embed: [invalidmember],
+          allowedMentions: { repliedUser: false },
+        })
+        .then((msg) => {
+          setTimeout(() => message.delete(), 15000);
+        });
 
     const canvas = Canvas.createCanvas(700, 250);
     const context = canvas.getContext("2d");
@@ -47,6 +54,6 @@ module.exports = {
       "nagatoro.png"
     );
 
-    message.channel.send(attachment);
+    message.channel.send({ files: [attachment] });
   },
 };

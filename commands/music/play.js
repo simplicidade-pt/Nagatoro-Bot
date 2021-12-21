@@ -35,7 +35,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -83,16 +83,16 @@ module.exports = {
 
     if (!channel)
       return message.channel.send({ embed: err2 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     if (!channel.permissionsFor(message.client.user).has("CONNECT"))
       return message.channel.send({ embed: errjoin1 });
 
     if (!channel.permissionsFor(message.client.user).has("SPEAK"))
-      return message.channel.send(
-        "I don't have permission to speak in the voice channel"
-      );
+      return message.channel.send({
+        content: "I don't have permission to speak in the voice channel!",
+      });
 
     const query = args.join(" ");
     const err4 = new Discord.MessageEmbed()
@@ -107,7 +107,7 @@ module.exports = {
 
     if (!query)
       return message.channel.send({ embed: err4 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     const searching = new Discord.MessageEmbed()
@@ -120,7 +120,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     message.channel.send({ embed: searching }).then((msg) => {
-      msg.delete({ timeout: 5000 });
+      setTimeout(() => message.delete(), 5000);
     });
 
     if (query.includes("https://www.youtube.com")) {

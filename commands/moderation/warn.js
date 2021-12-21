@@ -22,13 +22,15 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
+    if (!message.member.permissions.has("MANAGE_MESSAGES"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     let server = message.guild.name;
-    let dUser = message.guild.member(message.mentions.users.first());
+    let dUser = message.guild.members.cache.get(
+      message.mentions.users.first().id
+    );
 
     const invalidmember = new Discord.MessageEmbed()
 
@@ -102,7 +104,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
     logchannel.send({ embed: logembed });
   },
 };

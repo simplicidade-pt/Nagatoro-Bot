@@ -37,7 +37,9 @@ module.exports = {
       .addField(
         "Owner",
         "```" +
-          `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}` +
+          `${guild.fetchOwner().user.username}#${
+            guild.fetchOwner().user.discriminator
+          }` +
           "```",
         true
       )

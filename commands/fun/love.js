@@ -51,7 +51,7 @@ module.exports = {
         .setFooter("Requested by " + message.member.user.tag);
       if (!user)
         return message.channel.send({ embed: er }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+          setTimeout(() => message.delete(), 15000);
         });
 
       let avatarEmbed = new Discord.MessageEmbed()

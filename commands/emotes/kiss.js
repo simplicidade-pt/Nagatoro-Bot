@@ -31,7 +31,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -55,7 +55,9 @@ module.exports = {
           message.member.user.tag
       );
 
-    let member = message.guild.member(message.mentions.users.first());
+    let member = message.guild.members.cache.get(
+      message.mentions.users.first().id
+    );
     if (!member) return message.channel.send({ embed: er2 });
 
     let gifs = [

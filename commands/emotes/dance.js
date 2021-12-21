@@ -32,7 +32,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);

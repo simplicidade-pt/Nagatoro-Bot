@@ -44,7 +44,7 @@ module.exports = {
 
     if (!message.member.voice.channel) {
       return message.channel.send({ embed: err0 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     }
 
@@ -58,7 +58,7 @@ module.exports = {
 
     if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE"))
       return message.channel.send({ embed: err1 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     const success0 = new Discord.MessageEmbed()
@@ -129,7 +129,7 @@ module.exports = {
       .then((invite) => {
         if (invite.error || !invite.code)
           return message.channel.send({ embed: err3 }).then((msg) => {
-            msg.delete({ timeout: 15000 });
+            setTimeout(() => message.delete(), 15000);
           });
 
         const success1 = new Discord.MessageEmbed()

@@ -24,7 +24,7 @@ module.exports = {
 
     if (text.length < 1)
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     let choose = ["Rock", "Paper", "Scissors"];

@@ -12,16 +12,14 @@ const emojis = require("./configuration/emojis.json");
 
 const prefix = configs.prefix;
 
-/* 
-#43A6C6 
-*/
-
 const Discord = require("discord.js");
 const { Client, Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Discord.Client({
   ws: { properties: { $browser: "Discord iOS" } },
+  intents: [Intents.FLAGS.GUILDS],
+  allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });
 
 client.mongoose = require("./utils/mongoose");
@@ -56,7 +54,7 @@ client.on("ready", () => {
       ];
 
     client.user.setPresence({
-      activity: { name: status + " " + selectedemoji },
+      activity: [{ name: status + " " + selectedemoji }],
       status: "available",
       url: "https://www.twitch.tv/scxipted",
     });
@@ -117,7 +115,7 @@ function readdares(input) {
 readtruths(createReadStream("./files/truths.txt"));
 readdares(createReadStream("./files/dares.txt"));
 
-client.on("message", async (message) => {
+client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
@@ -129,10 +127,11 @@ client.on("message", async (message) => {
 
   if (cmd.length === 0) return;
 
-  if (!message.guild.me.hasPermission("EMBED_LINKS")) {
-    message.channel.send(
-      'Senpai~ I need the "Embed messages" permission to work properly!'
-    );
+  if (!message.guild.me.permissions.has("EMBED_LINKS")) {
+    message.channel.send({
+      content:
+        'Senpai~ I need the "Embed messages" permission to work properly!',
+    });
   }
 
   let command = client.commands.get(cmd);
@@ -658,11 +657,12 @@ client.on("guildMemberAdd", async (member) => {
 
   if (!settings) return;
   let welcomechannel = member.guild.channels.cache.get(
-    settings.welcomeChannelID
+    settings.welcomechannelId
   );
 
-  welcomechannel.send(
-    "Welcome " +
+  welcomechannel.send({
+    content:
+      "Welcome " +
       "<@" +
       member +
       ">, " +
@@ -670,9 +670,9 @@ client.on("guildMemberAdd", async (member) => {
       "**" +
       member.guild.name +
       "** " +
-      emojis.Greeting
-  );
-  welcomechannel.send(attachment);
+      emojis.Greeting,
+  });
+  welcomechannel.send({ files: [attachment] });
 });
 
 client.mongoose.init();

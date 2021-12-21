@@ -24,9 +24,9 @@ module.exports = {
           emojis.Hmm
       );
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
+    if (!message.member.permissions.has("MANAGE_MESSAGES"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     const text = args.slice(0).join(" ");
@@ -43,7 +43,7 @@ module.exports = {
 
     if (!args.length)
       return message.channel.send({ embed: errm }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     message.delete();
@@ -82,7 +82,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
     logchannel.send({ embed: logembed });
   },
 };

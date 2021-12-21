@@ -32,7 +32,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -71,6 +71,6 @@ module.exports = {
 
     if (lyricsEmbed.description.length >= 2048)
       lyricsEmbed.description = lyricsEmbed.description.substr(0, 2046) + "```";
-    return message.channel.send(lyricsEmbed).catch(console.error);
+    return message.channel.send({ embeds: [lyricsEmbed] }).catch(console.error);
   },
 };

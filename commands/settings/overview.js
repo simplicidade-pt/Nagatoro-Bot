@@ -21,9 +21,9 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MANAGE_GUILD"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (!message.member.permissions.has("MANAGE_GUILD"))
+      return message.channel.send({ embed: [err] }).then((msg) => {
+        setTimeout(() => message.delete(), 15000);
       });
 
     const settings = await Guild.findOne(
@@ -33,7 +33,7 @@ module.exports = {
       (err, guild) => {
         if (err) console.error(err);
         if (!guild) {
-          message.channel.send(err);
+          message.channel.send({ embed: [err] });
         }
       }
     );
@@ -46,12 +46,12 @@ module.exports = {
       )
       .addField(
         emojis.Tag + " Welcome Logs",
-        "<#" + settings.welcomeChannelID + ">",
+        "<#" + settings.welcomechannelId + ">",
         true
       )
       .addField(
         emojis.Tag + " Moderation Logs",
-        "<#" + settings.logChannelID + ">",
+        "<#" + settings.logchannelId + ">",
         true
       )
       .setTimestamp()

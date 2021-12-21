@@ -30,7 +30,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -63,7 +63,7 @@ module.exports = {
     try {
       queue.connection.dispatcher.end("skipped");
     } catch (e) {
-      message.channel.send(e);
+      message.channel.send({ content: e });
       console.error(e);
     }
 

@@ -22,9 +22,9 @@ module.exports = {
       )
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MUTE_MEMBERS"))
+    if (!message.member.permissions.has("MUTE_MEMBERS"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     try {
@@ -52,12 +52,12 @@ module.exports = {
 
       if (!args[1])
         return message.channel.send({ embed: errname }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+          setTimeout(() => message.delete(), 15000);
         });
 
       if (!args[0])
         return message.channel.send({ embed: errtype }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+          setTimeout(() => message.delete(), 15000);
         });
 
       let success = new Discord.MessageEmbed()
@@ -81,7 +81,9 @@ module.exports = {
             reason: "Moderator: " + message.member.user.tag,
           })
           .catch((err) => {
-            message.channel.send("Whoops, seems like there was an error!");
+            message.channel.send({
+              content: "Whoops, seems like there was an error!",
+            });
           });
       });
 
@@ -112,7 +114,7 @@ module.exports = {
         }
       );
 
-      let logchannel = message.guild.channels.cache.get(settings.logChannelID);
+      let logchannel = message.guild.channels.cache.get(settings.logchannelId);
       logchannel.send({ embed: logembed });
     } catch (err) {
       message.channel.send("There was an error!\n" + err).catch();

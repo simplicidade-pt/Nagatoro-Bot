@@ -39,7 +39,7 @@ module.exports = {
 
     if (!args.length)
       return message.channel.send({ embed: errm }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     let content = args.join(" ");

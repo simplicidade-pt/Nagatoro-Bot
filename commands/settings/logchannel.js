@@ -22,9 +22,9 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MANAGE_GUILD"))
+    if (!message.member.permissions.has("MANAGE_GUILD"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     const channel = await message.mentions.channels.first();
@@ -55,8 +55,8 @@ module.exports = {
             _id: mongoose.Types.ObjectId(),
             guildID: message.guild.id,
             guildName: message.guild.name,
-            logChannelID: channel.id,
-            welcomeChannelID: "N/A",
+            logchannelId: channel.id,
+            welcomechannelId: "N/A",
           });
 
           await newGuild
@@ -81,7 +81,7 @@ module.exports = {
         } else {
           guild
             .updateOne({
-              logChannelID: channel.id,
+              logchannelId: channel.id,
             })
             .then((result) => console.log(result))
             .catch((err) => console.error(err));

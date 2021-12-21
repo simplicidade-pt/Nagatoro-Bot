@@ -29,7 +29,7 @@ module.exports = {
         );
 
       return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -40,9 +40,9 @@ module.exports = {
 
     const channel = message.member.voice.channel;
     if (!channel)
-      return message.channel.send(
-        "You must Join a voice channel before using this command!"
-      );
+      return message.channel.send({
+        content: "You must Join a voice channel before using this command!",
+      });
     let queue = message.client.queue.get(message.guild.id);
     if (!queue)
       return message.channel.send(

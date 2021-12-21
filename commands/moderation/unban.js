@@ -22,9 +22,9 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("BAN_MEMBERS"))
+    if (!message.member.permissions.has("BAN_MEMBERS"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     let userID = args[0];
@@ -41,7 +41,7 @@ module.exports = {
 
     if (!userID)
       return message.reply({ embed: invalidmember }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     message.guild.fetchBans().then((bans) => {
@@ -81,7 +81,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
     logchannel.send({ embed: logembed });
   },
 };

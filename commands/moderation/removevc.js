@@ -22,9 +22,9 @@ module.exports = {
         `Silly senpai~ you don't have permission to remove users from voice channels. (**MOVE_MEMBERS**)`
       );
 
-    if (!message.member.hasPermission("MOVE_MEMBERS"))
+    if (!message.member.permissions.has("MOVE_MEMBERS"))
       return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     const err1 = new Discord.MessageEmbed()
@@ -37,10 +37,12 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    const member = message.guild.member(message.mentions.users.first());
+    const member = message.guild.members.cache.get(
+      message.mentions.users.first().id
+    );
     if (!member)
       return message.channel.send({ embed: err1 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     let reason = args.slice(1).join(" ");
@@ -56,7 +58,7 @@ module.exports = {
 
     if (!member.voice.channel)
       return message.channel.send({ embed: err2 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+        setTimeout(() => message.delete(), 15000);
       });
 
     member.voice.kick();
@@ -91,7 +93,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
     logchannel.send({ embed: logembed });
   },
 };

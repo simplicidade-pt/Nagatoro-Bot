@@ -14,8 +14,8 @@ module.exports = {
     if (message.author.bot) return;
 
     const userMention =
-      message.guild.member(message.mentions.users.first()) ||
-      message.member.user;
+      message.guild.members.cache.get(message.mentions.users.first()).id ||
+      message.member.user.id;
 
     let userinfo = {};
     userinfo.bot = userMention.bot;
