@@ -681,4 +681,4 @@ client.on("guildMemberAdd", async (member) => {
   welcomechannel.send({ files: [attachment] });
 });
 
-client.login("NjU0MzgzNTg3OTY1MTQxMDIz.XfEwNQ.DwJJtKAaRV8fYi4KubHqxC0ujCo");
+client.login(process.env.token);
