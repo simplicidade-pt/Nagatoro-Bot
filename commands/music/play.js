@@ -264,11 +264,16 @@ module.exports = {
           opusEncoded: true,
         });
 
-        let resource = createAudioResource(source);
-
-        const player = createAudioPlayer(resource, {
+        const player = createAudioPlayer(source, {
           type: "opus",
-        }).on("finish", () => {
+          behaviors: {
+            noSubscriber: NoSubscriberBehavior.Pause,
+          },
+        });
+
+        player.play();
+
+        player.on("finish", () => {
           var removed = data.queue.shift();
           if (data.loop == true) {
             data.queue.push(removed);
