@@ -12,6 +12,7 @@
     "ascii-table": "0.0.9",
     "canvas": "^2.8.0",
     "canvas-senpai": "^2.0.3",
+    "discord-player": "^5.2.0",
     "discord-ytdl-core": "^5.0.4",
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",

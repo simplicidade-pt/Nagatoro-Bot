@@ -13,6 +13,8 @@ const emojis = require("./configuration/emojis.json");
 const prefix = configs.prefix;
 
 const Discord = require("discord.js");
+const { Player } = require("discord-player");
+
 const { Intents, Collection } = require("discord.js");
 const { config } = require("dotenv");
 
@@ -30,8 +32,15 @@ const client = new Discord.Client({
 client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
-  client.user.setStatus("available");
 
+  new Player(client, {
+    ytdlOptions: {
+      quality: "highestaudio",
+      highWaterMark: 1 << 25,
+    },
+  });
+
+  client.user.setStatus("available");
   client.queue = new Map();
   client.emojis_status = new Array();
 
