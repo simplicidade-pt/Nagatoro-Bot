@@ -62,7 +62,6 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    // const error = err => message.channel.send({ embeds: err1, err }.then(console.log(err)));
     const send = (content) => message.channel.send(content);
     const setqueue = (id, obj) => message.client.queue.set(id, obj);
     const deletequeue = (id) => message.client.queue.delete(id);
@@ -152,7 +151,7 @@ module.exports = {
       try {
         const fetched = await (await youtubeScraper(query)).videos;
         if (fetched.length === 0 || !fetched)
-          return message.channel.send({ embeds: [err1] }); // error("I couldn't find the song you requested!'");
+          return message.channel.send({ embeds: [err1] });
         const data = fetched[0];
         song = {
           name: data.title,
@@ -165,7 +164,7 @@ module.exports = {
         };
       } catch (err) {
         console.log(err);
-        return message.channel.send({ embeds: [err1] }); // error("An error occured, Please check console");
+        return message.channel.send({ embeds: [err1] });
       }
     }
 
@@ -289,8 +288,6 @@ module.exports = {
             error.resource.metadata.title
           );
         });
-
-        // player.setVolumeLogarithmic(data.volume / 100);
 
         let embedplaying = new Discord.MessageEmbed()
           .setTitle("Senpai~ I'm now playing" + " " + emojis.Greeting)
