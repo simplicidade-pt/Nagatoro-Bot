@@ -76,7 +76,6 @@ module.exports = {
       });
     }
 
-    const channel = message.member.voice.channel;
     const success = new Discord.MessageEmbed()
       .setColor(colors.success)
       .setTitle("Connected " + emojis.Hype)
