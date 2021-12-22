@@ -7,20 +7,21 @@ module.exports = {
   name: "ping",
   category: "misc",
   description: "Shows the bots ping",
-  run: async (message) => {
-    if (!message.user) return;
-
-    const pingembed = new Discord.MessageEmbed()
+  run: async (client, message, args) => {
+    if (message.author.bot) return;
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.info)
-      .setTimestamp()
+      .setTitle("Pong! :ping_pong:")
       .setDescription(
-        emojis.Hype +
-          `**Pong! Time took:** __**${
-            Date.now() - message.createdTimestamp
-          }**__ **ms**`
+        `**Time took:** __**${
+          Date.now() - message.createdTimestamp
+        }**__ **ms**` + emojis.Hype
       )
-      .setFooter("Requested by " + message.user.tag);
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: [pingembed] });
+    message.channel.send({
+      embeds: [embed],
+    });
   },
 };

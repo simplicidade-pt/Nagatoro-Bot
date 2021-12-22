@@ -22,6 +22,7 @@ const client = new Discord.Client({
     Discord.Intents.FLAGS.GUILDS,
     Discord.Intents.FLAGS.GUILD_MESSAGES,
     Discord.Intents.FLAGS.GUILD_BANS,
+    Discord.Intents.FLAGS.GUILD_VOICE_STATES,
   ],
   allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });

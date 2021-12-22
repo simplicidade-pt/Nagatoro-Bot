@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -30,8 +30,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -44,7 +44,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_emotes + emojis.Hmm)
       .setDescription(
-        "**You can't hug no one silly, please mention a valid member.**"
+        "You can't hug no one silly, please mention a valid member."
       )
       .setTimestamp()
       .setFooter(
@@ -55,10 +55,8 @@ module.exports = {
           message.member.user.tag
       );
 
-    let member = message.guild.members.cache.get(
-      message.mentions.users.first().id
-    );
-    if (!member) return message.channel.send({ embeds: er2 });
+    let member = message.mentions.users.first();
+    if (!member) return message.channel.send({ embeds: [er2] });
 
     let gifs = [
       "https://media1.tenor.com/images/1d94b18b89f600cbb420cce85558b493/tenor.gif?itemid=15942846",
@@ -128,6 +126,6 @@ module.exports = {
       .setTimestamp()
       .setImage(response)
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

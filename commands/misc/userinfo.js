@@ -13,9 +13,7 @@ module.exports = {
   run: async (client, message, args) => {
     if (message.author.bot) return;
 
-    const userMention =
-      message.guild.members.cache.get(message.mentions.users.first()).id ||
-      message.member.user.id;
+    const userMention = message.mentions.users.first() || message.member.user;
 
     let userinfo = {};
     userinfo.bot = userMention.bot;
@@ -38,11 +36,7 @@ module.exports = {
         "```" + userinfo.discrim + "```",
         true
       )
-      .addField(
-        emojis.Tag + " " + "Client Tag",
-        "```" + userinfo.tag + "```",
-        true
-      )
+      .addField(emojis.Tag + " " + "Tag", "```" + userinfo.tag + "```", true)
       .addField(
         emojis.Tag + " " + "Created",
         "```" + userinfo.createdat + "```",
@@ -64,8 +58,8 @@ module.exports = {
         "User Information:" + " " + userinfo.tag + " " + emojis.Verified
       )
       .setTimestamp()
-      .setThumbnail(message.member.user.avatarURL({ dynamic: true }));
+      .setThumbnail(userMention.avatarURL({ dynamic: true }));
 
-    message.channel.send({ embeds: myInfo });
+    message.channel.send({ embeds: [myInfo] });
   },
 };

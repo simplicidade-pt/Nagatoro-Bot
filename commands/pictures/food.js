@@ -26,8 +26,8 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -69,7 +69,7 @@ module.exports = {
         .setTimestamp()
         .setImage(url)
         .setFooter("Requested by " + message.member.user.tag);
-      message.channel.send({ embeds: embed });
+      message.channel.send({ embeds: [embed] });
     });
   },
 };

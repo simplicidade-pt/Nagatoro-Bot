@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const { joinVoiceChannel } = require("@discordjs/voice");
+
 const talkedRecently = new Set();
 
 const ytdl = require("discord-ytdl-core");
@@ -23,7 +25,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -34,8 +36,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -82,12 +84,12 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!channel)
-      return message.channel.send({ embeds: err2 }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [err2] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     if (!channel.permissionsFor(message.client.user).has("CONNECT"))
-      return message.channel.send({ embeds: errjoin1 });
+      return message.channel.send({ embeds: [errjoin1] });
 
     if (!channel.permissionsFor(message.client.user).has("SPEAK"))
       return message.channel.send({
@@ -106,8 +108,8 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!query)
-      return message.channel.send({ embeds: err4 }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [err4] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const searching = new Discord.MessageEmbed()
@@ -119,14 +121,14 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: searching }).then((msg) => {
-      setTimeout(() => message.delete(), 5000);
+    message.channel.send({ embeds: [searching] }).then((msg) => {
+      setTimeout(() => msg.delete(), 5000);
     });
 
     if (query.includes("https://www.youtube.com")) {
       try {
         const ytdata = await await yt.getBasicInfo(query);
-        if (!ytdata) return message.channel.send({ embeds: err1 });
+        if (!ytdata) return message.channel.send({ embeds: [err1] });
         song = {
           name: ytdata.videoDetails.title,
           thumbnail:
@@ -139,13 +141,13 @@ module.exports = {
         };
       } catch (e) {
         console.log(e);
-        return message.channel.send({ embeds: err1 });
+        return message.channel.send({ embeds: [err1] });
       }
     } else {
       try {
         const fetched = await (await youtubeScraper(query)).videos;
         if (fetched.length === 0 || !fetched)
-          return message.channel.send({ embeds: err1 }); // error("I couldn't find the song you requested!'");
+          return message.channel.send({ embeds: [err1] }); // error("I couldn't find the song you requested!'");
         const data = fetched[0];
         song = {
           name: data.title,
@@ -158,7 +160,7 @@ module.exports = {
         };
       } catch (err) {
         console.log(err);
-        return message.channel.send({ embeds: err1 }); // error("An error occured, Please check console");
+        return message.channel.send({ embeds: [err1] }); // error("An error occured, Please check console");
       }
     }
 
@@ -216,14 +218,18 @@ module.exports = {
     structure.queue.push(song);
 
     try {
-      const join = await channel.join();
+      const join = joinVoiceChannel({
+        channelId: message.member.voice.channel.id,
+        guildId: message.member.guild.id,
+        adapterCreator: message.channel.guild.voiceAdapterCreator,
+      });
       structure.connection = join;
-      structure.connection.voice.setSelfDeaf(true);
+      //  structure.connection.voice.setSelfDeaf(true);
       play(structure.queue[0]);
     } catch (e) {
       console.log(e);
       deletequeue(message.guild.id);
-      return message.channel.send({ embeds: err1 }); // error("I couldn't join the voice channel, please check console");
+      return message.channel.send({ embeds: [err1] }); // error("I couldn't join the voice channel, please check console");
     }
 
     async function play(track) {
@@ -241,7 +247,7 @@ module.exports = {
             .setFooter("Requested by " + message.member.user.tag);
 
           data.channel.send({ embeds: errempty });
-          message.guild.me.voice.channel.leave();
+          getVoiceConnection(message.guild.id).destroy();
           return deletequeue(message.guild.id);
         }
 

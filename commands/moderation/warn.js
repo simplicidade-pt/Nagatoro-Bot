@@ -22,15 +22,15 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
-      return message.channel.send({ embeds: err }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+    if (
+      !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
+    )
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     let server = message.guild.name;
-    let dUser = message.guild.members.cache.get(
-      message.mentions.users.first().id
-    );
+    let dUser = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
 
@@ -42,8 +42,9 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!dUser) return message.channel.send({ embeds: invalidmember });
-    let reason = args.join(" ").slice(22);
+    if (!dUser) return message.channel.send({ embeds: [invalidmember] });
+    let reason = args.slice(1).join(" ");
+    if (!reason) reason = "No reason provided";
 
     var embed = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -59,15 +60,15 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    dUser.send({ embeds: embed });
+    dUser.send({ embeds: [embed] });
 
-    const suc = new Discord.MessageEmbed()
+    const success = new Discord.MessageEmbed()
 
       .setColor(colors.success)
       .setTitle("Successfully warned!")
       .setDescription(
         "Teehee senpai~ I've successfully warned `" +
-          dUser.user.tag +
+          dUser +
           "`" +
           " with the reason: ```" +
           reason +
@@ -76,7 +77,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: suc });
+    message.channel.send({ embeds: [success] });
 
     const responsable_mod = message.member;
     const channel_occured = message.channel;
@@ -105,6 +106,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: logembed });
+    logchannel.send({ embeds: [logembed] });
   },
 };

@@ -13,15 +13,13 @@ module.exports = {
   run: async (client, message, args) => {
     if (message.author.bot) return;
 
-    let member = message.guild.members.cache.get(
-      message.mentions.users.first().id
-    );
+    let member = message.mentions.users.first();
     const invalidmember = new Discord.MessageEmbed()
 
       .setColor(colors.error)
       .setTitle(configs.missing_title_fun + " " + emojis.Hmm)
       .setDescription(
-        `**Silly senpai~ you need to mention a valid member of this server.**`
+        "Silly senpai~ you need to mention a valid member of this server."
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
@@ -33,7 +31,7 @@ module.exports = {
           allowedMentions: { repliedUser: false },
         })
         .then((msg) => {
-          setTimeout(() => message.delete(), 15000);
+          setTimeout(() => msg.delete(), 15000);
         });
 
     const canvas = Canvas.createCanvas(700, 250);
@@ -45,7 +43,7 @@ module.exports = {
     context.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     const avatar = await Canvas.loadImage(
-      member.user.displayAvatarURL({ format: "jpg" })
+      message.author.displayAvatarURL({ format: "jpg" })
     );
     context.drawImage(avatar, 170, 70, 150, 150);
 

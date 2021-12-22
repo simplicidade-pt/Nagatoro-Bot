@@ -21,9 +21,9 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD))
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD))
       return message.channel.send({ embeds: [err] }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const settings = await Guild.findOne(
@@ -68,6 +68,6 @@ module.exports = {
         }
       }
     );
-    if (settingsconfirm) message.channel.send({ embeds: success });
+    if (settingsconfirm) message.channel.send({ embeds: [success] });
   },
 };

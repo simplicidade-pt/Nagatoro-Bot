@@ -20,7 +20,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -32,7 +32,7 @@ module.exports = {
         );
 
       return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -79,6 +79,6 @@ module.exports = {
       .setTimestamp()
       .setImage(response)
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

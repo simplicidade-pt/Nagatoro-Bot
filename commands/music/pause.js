@@ -18,7 +18,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -29,8 +29,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -48,7 +48,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!channel) return message.channel.send({ embeds: err });
+    if (!channel) return message.channel.send({ embeds: [err] });
     let queue = message.client.queue.get(message.guild.id);
     if (!queue)
       return message.channel.send(

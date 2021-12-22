@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const { joinVoiceChannel } = require("@discordjs/voice");
+
 const talkedRecently = new Set();
 
 const configs = require("../../configuration/settings.json");
@@ -19,7 +21,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -30,8 +32,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -51,14 +53,14 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel) {
-      return message.channel.send({ embeds: err0 }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [err0] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     }
 
     const err = new Discord.MessageEmbed()
 
-      .setColor(colors.info)
+      .setColor(colors.error)
       .setTitle(configs.err_title_music + " " + emojis.Sip)
       .setDescription(
         "Senpai~ I'm already in your voice channel; don't you see me? ```" +
@@ -69,15 +71,14 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (message.guild.me.voice.channel) {
-      return message.channel.send({ embeds: err }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     }
 
     const channel = message.member.voice.channel;
     const success = new Discord.MessageEmbed()
-
-      .setColor(colors.info)
+      .setColor(colors.success)
       .setTitle("Connected " + emojis.Hype)
       .setDescription(
         "Senpai~ I've successfully connected to ```" +
@@ -87,13 +88,12 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    channel
-      .join()
-      .then((connection) =>
-        connection.voice
-          .setSelfDeaf(true)
-          .then(message.channel.send({ embeds: success }))
-      )
-      .catch(console.error);
+    joinVoiceChannel({
+      channelId: message.member.voice.channel.id,
+      guildId: message.member.guild.id,
+      adapterCreator: message.channel.guild.voiceAdapterCreator,
+    });
+
+    message.channel.send({ embeds: [success] });
   },
 };

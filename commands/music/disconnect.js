@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { getVoiceConnection } = require("@discordjs/voice");
 const talkedRecently = new Set();
 
 const configs = require("../../configuration/settings.json");
@@ -19,7 +20,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  ```5 seconds``` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -30,8 +31,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -40,61 +41,26 @@ module.exports = {
       }, 5000);
     }
 
-    const err0 = new Discord.MessageEmbed()
-
-      .setColor(colors.error)
-      .setTitle(configs.err_title_music + " " + emojis.Sip)
-      .setDescription(
-        "Senpai~ I can't disconnect if you're not in the voice call."
-      )
-      .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag);
-
-    if (!message.member.voice.channel) {
-      return message.channel.send({ embeds: err0 }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
-      });
-    }
-
     const err = new Discord.MessageEmbed()
-
       .setColor(colors.info)
       .setTitle(configs.err_title_music + " " + emojis.Sip)
       .setDescription(
-        "Silly senpai~ you can't disconnect me If I'm not in a voice chat.```" +
+        "Silly senpai~ you can't disconnect me If I'm not in a voice channel.```" +
           message.member.voice.channel.name +
           "```"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-
-    const err2 = new Discord.MessageEmbed()
-
-      .setColor(colors.info)
-      .setTitle(configs.err_title_music + " " + emojis.Sip)
-      .setDescription(
-        "Silly senpai~ you can't disconnect me If you're not in the voice chat.```" +
-          message.member.voice.channel.name +
-          "```"
-      )
-      .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag);
-
-    if (!message.member.voice.channel.name) {
-      return message.channel.send({ embeds: err2 }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
-      });
-    }
 
     if (!message.guild.me.voice.channel) {
-      return message.channel.send({ embeds: err }).then((msg) => {
-        setTimeout(() => message.delete(), 15000);
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     }
 
     const success = new Discord.MessageEmbed()
 
-      .setColor(colors.info)
+      .setColor(colors.success)
       .setTitle("Disconnected " + emojis.Hype)
       .setDescription(
         "Senpai~ I've successfully disconnected from ```" +
@@ -104,7 +70,8 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.member.voice.channel.leave();
-    message.channel.send({ embeds: success });
+    message.channel.send({ embeds: [success] });
+
+    getVoiceConnection(message.guild.id).destroy();
   },
 };

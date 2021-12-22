@@ -16,8 +16,8 @@ module.exports = {
       embeds: [
         {
           color: colors.info,
-          title: `Searching Wikipedia just for you ⌛`,
-          description: `Please stand by...`,
+          title: `Searching Wikipedia ⌛`,
+          description: `Please allow me a moment!`,
         },
       ],
     });
