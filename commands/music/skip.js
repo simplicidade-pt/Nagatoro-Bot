@@ -49,16 +49,15 @@ module.exports = {
 
     if (!channel) return message.channel.send({ embeds: [err] });
 
+    let noqueueembed = new MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription("There are no songs playing in this server")
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
     let queue = message.client.queue.get(message.guild.id);
-    if (!queue)
-      return message.channel.send(
-        new MessageEmbed()
-          .setTitle(configs.err_title_music + " " + emojis.Sip)
-          .setDescription("There are no songs playing in this server")
-          .setColor(colors.error)
-          .setTimestamp()
-          .setFooter("Requested by " + message.member.user.tag)
-      );
+    if (!queue) return message.channel.send({ embeds: [noqueueembed] });
 
     try {
       queue.connection.dispatcher.end("skipped");
@@ -67,15 +66,15 @@ module.exports = {
       console.error(e);
     }
 
-    return message.channel.send(
-      new MessageEmbed()
-        .setTitle("Senpai, I've skipped the song! " + emojis.Giggle)
-        .setDescription(
-          "Woah there senpai, was the last song no good? Next song it is."
-        )
-        .setColor(colors.info)
-        .setTimestamp()
-        .setFooter("Requested by " + message.member.user.tag)
-    );
+    let skippedembed = new MessageEmbed()
+      .setTitle("Senpai, I've skipped the song! " + emojis.Giggle)
+      .setDescription(
+        "Woah there senpai, was the last song no good? Next song it is."
+      )
+      .setColor(colors.info)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    return message.channel.send({ embeds: [skippedembed] });
   },
 };

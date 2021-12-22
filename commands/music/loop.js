@@ -29,7 +29,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
+      return message.channel.send({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -50,20 +50,20 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!queue) return message.channel.send({ embeds: err });
+    if (!queue) return message.channel.send({ embeds: [err] });
+
+    let loopedembed = new MessageEmbed()
+      .setTitle("Senpai, I've looped the song " + emojis.Giggle)
+      .setColor(colors.info)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag)
+      .setDescription(
+        "I " +
+          (queue.loop == true ? " enabled " : " disabled ") +
+          "loop for the current song!"
+      );
 
     queue.loop = !queue.loop;
-    message.channel.send(
-      new MessageEmbed()
-        .setTitle("Senpai, I've looped the song " + emojis.Giggle)
-        .setColor(colors.info)
-        .setTimestamp()
-        .setFooter("Requested by " + message.member.user.tag)
-        .setDescription(
-          "I " +
-            (queue.loop == true ? " enabled " : " disabled ") +
-            "loop for the current song!"
-        )
-    );
+    message.channel.send({ embeds: [loopedembed] });
   },
 };

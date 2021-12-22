@@ -51,7 +51,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!queue)
-      return message.channel.send({ embeds: errq }).catch(console.error);
+      return message.channel.send({ embeds: [errq] }).catch(console.error);
 
     let lyrics = null;
 

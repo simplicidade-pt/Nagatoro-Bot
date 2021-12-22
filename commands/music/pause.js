@@ -50,15 +50,15 @@ module.exports = {
 
     if (!channel) return message.channel.send({ embeds: [err] });
     let queue = message.client.queue.get(message.guild.id);
-    if (!queue)
-      return message.channel.send(
-        new MessageEmbed()
-          .setTitle(configs.err_title_music + " " + emojis.Sip)
-          .setDescription("Senpai~ there is nothing playing in this server!")
-          .setColor(colors.error)
-          .setFooter("Requested by " + message.member.user.tag)
-          .setTimestamp()
-      );
+
+    let noqueuembed = new MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription("Senpai~ there is nothing playing in this server!")
+      .setColor(colors.error)
+      .setFooter("Requested by " + message.member.user.tag)
+      .setTimestamp();
+
+    if (!queue) return message.channel.send({ embeds: [noqueuembed] });
     if (queue.playing == false)
       return message.channel.send(
         new MessageEmbed()
@@ -71,18 +71,19 @@ module.exports = {
     queue.connection.dispatcher.pause();
     message.react("⏸");
     queue.playing = false;
-    return message.channel.send(
-      new MessageEmbed()
-        .setTitle("Senpai, I've paused your music " + emojis.Giggle)
-        .setDescription(
-          emojis.Hype +
-            " I've paused the music in ```" +
-            message.member.voice.channel.name +
-            "```"
-        )
-        .setColor(colors.info)
-        .setFooter("Requested by " + message.member.user.tag)
-        .setTimestamp()
-    );
+
+    let pausedembed = new MessageEmbed()
+      .setTitle("Senpai, I've paused your music " + emojis.Giggle)
+      .setDescription(
+        emojis.Hype +
+          " I've paused the music in ```" +
+          message.member.voice.channel.name +
+          "```"
+      )
+      .setColor(colors.info)
+      .setFooter("Requested by " + message.member.user.tag)
+      .setTimestamp();
+
+    return message.channel.send({ embeds: [pausedembed] });
   },
 };

@@ -1,5 +1,10 @@
 const Discord = require("discord.js");
-const { joinVoiceChannel } = require("@discordjs/voice");
+const {
+  joinVoiceChannel,
+  createAudioPlayer,
+  createAudioResource,
+  NoSubscriberBehavior,
+} = require("@discordjs/voice");
 
 const talkedRecently = new Set();
 
@@ -168,41 +173,42 @@ module.exports = {
 
     if (list) {
       list.queue.push(song);
-      return send(
-        new Discord.MessageEmbed()
-          .setTitle(
-            "Senpai~ I've added your song to the queue!" + " " + emojis.Greeting
-          )
-          .setColor(colors.info)
-          .setThumbnail(song.thumbnail)
-          .addField(
-            emojis.Tag + " " + "Requested By",
-            "```" + song.requested.tag + " " + "(User)" + "```",
-            true
-          )
-          .addField(
-            emojis.Tag + " " + "Views",
-            "```" + song.views + " " + "(YouTube)" + "```",
-            true
-          )
-          .addField(
-            emojis.Tag + " " + "Duration",
-            "```" + song.duration + "```",
-            true
-          )
-          .addField(
-            emojis.Tag + " " + "Song Name",
-            "```" + song.name + "```",
-            true
-          )
-          .addField(
-            emojis.Tag + " " + "Positioned ",
-            "```" + list.queue.length + " " + "(In queue)" + "```",
-            true
-          )
-          .setTimestamp()
-          .setFooter("Requested by " + message.member.user.tag)
-      );
+
+      let newq = new Discord.MessageEmbed()
+        .setTitle(
+          "Senpai~ I've added your song to the queue!" + " " + emojis.Greeting
+        )
+        .setColor(colors.info)
+        .setThumbnail(song.thumbnail)
+        .addField(
+          emojis.Tag + " " + "Requested By",
+          "```" + song.requested.tag + " " + "(User)" + "```",
+          true
+        )
+        .addField(
+          emojis.Tag + " " + "Views",
+          "```" + song.views + " " + "(YouTube)" + "```",
+          true
+        )
+        .addField(
+          emojis.Tag + " " + "Duration",
+          "```" + song.duration + "```",
+          true
+        )
+        .addField(
+          emojis.Tag + " " + "Song Name",
+          "```" + song.name + "```",
+          true
+        )
+        .addField(
+          emojis.Tag + " " + "Positioned ",
+          "```" + list.queue.length + " " + "(In queue)" + "```",
+          true
+        )
+        .setTimestamp()
+        .setFooter("Requested by " + message.member.user.tag);
+
+      return send({ embeds: [newq] });
     }
 
     const structure = {
@@ -246,7 +252,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          data.channel.send({ embeds: errempty });
+          data.channel.send({ embeds: [errempty] });
           getVoiceConnection(message.guild.id).destroy();
           return deletequeue(message.guild.id);
         }
@@ -255,50 +261,60 @@ module.exports = {
 
         const source = await ytdl(track.url, {
           filter: "audioonly",
-          // quality: "highestaudio",
-          // highWaterMark: 1 << 25,
           opusEncoded: true,
         });
 
-        const player = data.connection
-          .play(source, { type: "opus" })
-          .on("finish", () => {
-            var removed = data.queue.shift();
-            if (data.loop == true) {
-              data.queue.push(removed);
-            }
-            play(data.queue[0]);
-          });
+        let resource = createAudioResource(source);
 
-        player.setVolumeLogarithmic(data.volume / 100);
-        data.channel.send(
-          new Discord.MessageEmbed()
-            .setTitle("Senpai~ I'm now playing" + " " + emojis.Greeting)
-            .setColor(colors.info)
-            .setThumbnail(track.thumbnail)
-            .addField(
-              emojis.Tag + " " + "Requested By",
-              "```" + message.member.user.tag + " " + "(User)" + "```",
-              true
-            )
-            .addField(
-              emojis.Tag + " " + "Duration",
-              "```" + track.duration + "```",
-              true
-            )
-            .addField(
-              emojis.Tag + " " + "Views",
-              "```" + track.views + " " + "(YouTube)" + "```",
-              true
-            )
-            .addField(
-              emojis.Tag + " " + "Song Name",
-              "```" + song.name + "```",
-              true
-            )
-            .setTimestamp()
-            .setFooter("Requested by " + message.member.user.tag)
-        );
+        const player = createAudioPlayer(resource, {
+          type: "opus",
+        }).on("finish", () => {
+          var removed = data.queue.shift();
+          if (data.loop == true) {
+            data.queue.push(removed);
+          }
+          play(data.queue[0]);
+        });
+
+        player.on("error", (error) => {
+          console.error(
+            "Error:",
+            error.message,
+            "with track",
+            error.resource.metadata.title
+          );
+        });
+
+        // player.setVolumeLogarithmic(data.volume / 100);
+
+        let embedplaying = new Discord.MessageEmbed()
+          .setTitle("Senpai~ I'm now playing" + " " + emojis.Greeting)
+          .setColor(colors.info)
+          .setThumbnail(track.thumbnail)
+          .addField(
+            emojis.Tag + " " + "Requested By",
+            "```" + message.member.user.tag + " " + "(User)" + "```",
+            true
+          )
+          .addField(
+            emojis.Tag + " " + "Duration",
+            "```" + track.duration + "```",
+            true
+          )
+          .addField(
+            emojis.Tag + " " + "Views",
+            "```" + track.views + " " + "(YouTube)" + "```",
+            true
+          )
+          .addField(
+            emojis.Tag + " " + "Song Name",
+            "```" + song.name + "```",
+            true
+          )
+          .setTimestamp()
+          .setFooter("Requested by " + message.member.user.tag);
+
+        data.channel.send({ embeds: [embedplaying] });
       } catch (e) {
         console.error(e);
       }

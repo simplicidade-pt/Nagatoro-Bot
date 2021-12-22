@@ -38,45 +38,46 @@ module.exports = {
       }, 5000);
     }
 
+    let playingembed = new MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription("Senpai~ I can't resume what's already playing")
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    let noqueueembed = new MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(":x: There are no songs playing in this server")
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
     const channel = message.member.voice.channel;
     if (!channel)
       return message.channel.send({
         content: "You must Join a voice channel before using this command!",
       });
     let queue = message.client.queue.get(message.guild.id);
-    if (!queue)
-      return message.channel.send(
-        new MessageEmbed()
-          .setTitle(configs.err_title_music + " " + emojis.Sip)
-          .setDescription(":x: There are no songs playing in this server")
-          .setColor(colors.error)
-          .setTimestamp()
-          .setFooter("Requested by " + message.member.user.tag)
-      );
+
+    if (!queue) return message.channel.send({ embeds: [noqueueembed] });
     if (queue.playing == true)
-      return message.channel.send(
-        new MessageEmbed()
-          .setTitle(configs.err_title_music + " " + emojis.Sip)
-          .setDescription("Senpai~ I can't resume what's already playing")
-          .setColor(colors.error)
-          .setTimestamp()
-          .setFooter("Requested by " + message.member.user.tag)
-      );
+      return message.channel.send({ embeds: [playingembed] });
     queue.connection.dispatcher.resume();
     message.react("▶");
     queue.playing = true;
-    return message.channel.send(
-      new MessageEmbed()
-        .setTitle("**Senpai, I've resumed your music!**")
-        .setDescription(
-          emojis.Hype +
-            " I've resumed your music in ```" +
-            message.member.voice.channel.name +
-            "```"
-        )
-        .setColor(colors.info)
-        .setTimestamp()
-        .setFooter("Requested by " + message.member.user.tag)
-    );
+
+    let resumeembed = new MessageEmbed()
+      .setTitle("**Senpai, I've resumed your music!**")
+      .setDescription(
+        emojis.Hype +
+          " I've resumed your music in ```" +
+          message.member.voice.channel.name +
+          "```"
+      )
+      .setColor(colors.info)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    return message.channel.send({ embeds: [resumeembed] });
   },
 };

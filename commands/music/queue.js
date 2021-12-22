@@ -76,15 +76,16 @@ module.exports = {
     else np = queue.queue[0].name;
     if (queue) thumbnail = queue.queue[0].thumbnail;
     else thumbnail = message.guild.iconURL();
-    message.channel.send(
-      new MessageEmbed()
-        .setTitle("Senpai, here's your music queue! " + emojis.Hype)
-        .setThumbnail(thumbnail)
-        .setColor(colors.info)
-        .addField("Now Playing", "```" + np + "```", true)
-        .setDescription(status)
-        .setFooter("Requested by " + message.member.user.tag)
-        .setTimestamp()
-    );
+
+    let queueembed = new MessageEmbed()
+      .setTitle("Senpai, here's your music queue! " + emojis.Hype)
+      .setThumbnail(thumbnail)
+      .setColor(colors.info)
+      .addField("Now Playing", "```" + np + "```", true)
+      .setDescription(status)
+      .setFooter("Requested by " + message.member.user.tag)
+      .setTimestamp();
+
+    message.channel.send({ embeds: [queueembed] });
   },
 };
