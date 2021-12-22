@@ -24,7 +24,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -45,7 +45,7 @@ module.exports = {
     if (!member)
       return message
         .reply({
-          embed: [invalidmember],
+          embeds: [invalidmember],
           allowedMentions: { repliedUser: false },
         })
         .then((msg) => {
@@ -65,7 +65,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member.bannable)
-      return message.channel.send({ embed: bannable }).then((msg) => {
+      return message.channel.send({ embeds: bannable }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -86,7 +86,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embed: embed });
+    member.send({ embeds: embed });
     await member
       .ban({ reason: "Moderator: " + message.member.user.tag + reason })
       .then(message.react("✅"));
@@ -118,6 +118,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embed: logembed });
+    logchannel.send({ embeds: logembed });
   },
 };

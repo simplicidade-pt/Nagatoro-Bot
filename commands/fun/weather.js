@@ -29,7 +29,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          message.channel.send({ embed: errm }).then((msg) => {
+          message.channel.send({ embeds: errm }).then((msg) => {
             setTimeout(() => message.delete(), 15000);
           });
           return;

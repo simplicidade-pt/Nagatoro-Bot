@@ -29,7 +29,7 @@ module.exports = {
     if (!member)
       return message
         .reply({
-          embed: [invalidmember],
+          embeds: [invalidmember],
           allowedMentions: { repliedUser: false },
         })
         .then((msg) => {

@@ -31,7 +31,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -51,7 +51,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!queue)
-      return message.channel.send({ embed: errq }).catch(console.error);
+      return message.channel.send({ embeds: errq }).catch(console.error);
 
     let lyrics = null;
 

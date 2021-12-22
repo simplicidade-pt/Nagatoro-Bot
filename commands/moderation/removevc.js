@@ -23,7 +23,7 @@ module.exports = {
       );
 
     if (!message.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS))
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -41,7 +41,7 @@ module.exports = {
       message.mentions.users.first().id
     );
     if (!member)
-      return message.channel.send({ embed: err1 }).then((msg) => {
+      return message.channel.send({ embeds: err1 }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -57,7 +57,7 @@ module.exports = {
       .setTimestamp();
 
     if (!member.voice.channel)
-      return message.channel.send({ embed: err2 }).then((msg) => {
+      return message.channel.send({ embeds: err2 }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -94,6 +94,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embed: logembed });
+    logchannel.send({ embeds: logembed });
   },
 };

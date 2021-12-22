@@ -23,7 +23,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -42,7 +42,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!dUser) return message.channel.send({ embed: invalidmember });
+    if (!dUser) return message.channel.send({ embeds: invalidmember });
     let reason = args.join(" ").slice(22);
 
     var embed = new Discord.MessageEmbed()
@@ -59,7 +59,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    dUser.send({ embed: embed });
+    dUser.send({ embeds: embed });
 
     const suc = new Discord.MessageEmbed()
 
@@ -76,7 +76,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: suc });
+    message.channel.send({ embeds: suc });
 
     const responsable_mod = message.member;
     const channel_occured = message.channel;
@@ -105,6 +105,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embed: logembed });
+    logchannel.send({ embeds: logembed });
   },
 };

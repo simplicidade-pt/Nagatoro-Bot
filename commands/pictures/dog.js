@@ -26,7 +26,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -73,7 +73,7 @@ module.exports = {
               .setFooter("Requested by " + message.member.user.tag)
               .setImage(json.url);
 
-            message.channel.send({ embed: embed });
+            message.channel.send({ embeds: embed });
           }
         }
       );

@@ -27,6 +27,6 @@ module.exports = {
       .setColor(colors.info)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   },
 };

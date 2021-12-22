@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -51,7 +51,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel) {
-      return message.channel.send({ embed: err0 }).then((msg) => {
+      return message.channel.send({ embeds: err0 }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     }
@@ -81,13 +81,13 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel.name) {
-      return message.channel.send({ embed: err2 }).then((msg) => {
+      return message.channel.send({ embeds: err2 }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     }
 
     if (!message.guild.me.voice.channel) {
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     }
@@ -105,6 +105,6 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     message.member.voice.channel.leave();
-    message.channel.send({ embed: success });
+    message.channel.send({ embeds: success });
   },
 };

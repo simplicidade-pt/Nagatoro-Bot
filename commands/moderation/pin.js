@@ -25,7 +25,7 @@ module.exports = {
       );
 
     if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -42,7 +42,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!args.length)
-      return message.channel.send({ embed: errm }).then((msg) => {
+      return message.channel.send({ embeds: errm }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -55,7 +55,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Pinned by " + message.member.user.tag);
 
-    message.channel.send({ embed: embed }).then((msg) => msg.pin());
+    message.channel.send({ embeds: embed }).then((msg) => msg.pin());
 
     const responsable_mod = message.member;
     const channel_occured = message.channel;
@@ -83,6 +83,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embed: logembed });
+    logchannel.send({ embeds: logembed });
   },
 };

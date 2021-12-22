@@ -23,7 +23,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Permissions.FLAGS.MUTE_MEMBERS))
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -51,12 +51,12 @@ module.exports = {
         .setFooter("Requested by " + message.member.user.tag);
 
       if (!args[1])
-        return message.channel.send({ embed: errname }).then((msg) => {
+        return message.channel.send({ embeds: errname }).then((msg) => {
           setTimeout(() => message.delete(), 15000);
         });
 
       if (!args[0])
-        return message.channel.send({ embed: errtype }).then((msg) => {
+        return message.channel.send({ embeds: errtype }).then((msg) => {
           setTimeout(() => message.delete(), 15000);
         });
 
@@ -73,7 +73,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: success }).then(() => {
+      message.channel.send({ embeds: success }).then(() => {
         message.guild.channels
           .create(args[1], {
             type: args[0],
@@ -115,7 +115,7 @@ module.exports = {
       );
 
       let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-      logchannel.send({ embed: logembed });
+      logchannel.send({ embeds: logembed });
     } catch (err) {
       message.channel.send("There was an error!\n" + err).catch();
     }

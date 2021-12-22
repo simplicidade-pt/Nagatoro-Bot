@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -58,7 +58,7 @@ module.exports = {
     let member = message.guild.members.cache.get(
       message.mentions.users.first().id
     );
-    if (!member) return message.channel.send({ embed: er2 });
+    if (!member) return message.channel.send({ embeds: er2 });
 
     let gifs = [
       "https://media1.tenor.com/images/1d94b18b89f600cbb420cce85558b493/tenor.gif?itemid=15942846",
@@ -128,6 +128,6 @@ module.exports = {
       .setTimestamp()
       .setImage(response)
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   },
 };

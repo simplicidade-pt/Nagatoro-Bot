@@ -29,7 +29,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -47,7 +47,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!channel) return message.channel.send({ embed: err });
+    if (!channel) return message.channel.send({ embeds: err });
 
     let queue = message.client.queue.get(message.guild.id);
     if (!queue)

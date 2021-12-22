@@ -17,10 +17,7 @@ module.exports = (client) => {
         client.commands.set(pull.name, pull);
         table.addRow(file, "✅");
       } else {
-        table.addRow(
-          file,
-          `❌`
-        );
+        table.addRow(file, `❌`);
         continue;
       }
 
@@ -28,5 +25,5 @@ module.exports = (client) => {
         pull.aliases.forEach((alias) => client.aliases.set(alias, pull.name));
     }
   });
-  console.log(table.toString());
+  // console.log(table.toString());
 };

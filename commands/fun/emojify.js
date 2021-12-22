@@ -38,7 +38,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!args.length)
-      return message.channel.send({ embed: errm }).then((msg) => {
+      return message.channel.send({ embeds: errm }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -61,6 +61,6 @@ module.exports = {
       .setColor(colors.info)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   },
 };

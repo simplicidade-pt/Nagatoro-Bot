@@ -23,7 +23,7 @@ module.exports = {
     const text = args.slice(0).join(" ");
 
     if (text.length < 1)
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -40,6 +40,6 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   },
 };

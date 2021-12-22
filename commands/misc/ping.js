@@ -7,8 +7,8 @@ module.exports = {
   name: "ping",
   category: "misc",
   description: "Shows the bots ping",
-  run: (message) => {
-    if (message.author.bot) return;
+  run: async (message) => {
+    if (!message.user) return;
 
     const pingembed = new Discord.MessageEmbed()
       .setColor(colors.info)
@@ -19,8 +19,8 @@ module.exports = {
             Date.now() - message.createdTimestamp
           }**__ **ms**`
       )
-      .setFooter("Requested by " + message.member.user.tag);
+      .setFooter("Requested by " + message.user.tag);
 
-    message.channel.send({ embed: [pingembed] });
+    message.channel.send({ embeds: [pingembed] });
   },
 };

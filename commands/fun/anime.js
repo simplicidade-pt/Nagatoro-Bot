@@ -27,7 +27,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embed: errm });
+      return message.channel.send({ embeds: errm });
     }
 
     let option = {
@@ -49,7 +49,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: searching }).then((msg) => {
+    message.channel.send({ embeds: searching }).then((msg) => {
       get(option).then((body) => {
         try {
           let embed = new Discord.MessageEmbed()
@@ -87,7 +87,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.send({ embed: errmsg });
+          return message.channel.send({ embeds: errmsg });
         }
       });
     });

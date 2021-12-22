@@ -23,6 +23,6 @@ module.exports = {
           emojis.Hype,
         true
       );
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   },
 };

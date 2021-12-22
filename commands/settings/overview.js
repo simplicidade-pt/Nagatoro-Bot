@@ -22,7 +22,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD))
-      return message.channel.send({ embed: [err] }).then((msg) => {
+      return message.channel.send({ embeds: [err] }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
 
@@ -33,7 +33,7 @@ module.exports = {
       (err, guild) => {
         if (err) console.error(err);
         if (!guild) {
-          message.channel.send({ embed: [err] });
+          message.channel.send({ embeds: [err] });
         }
       }
     );
@@ -68,6 +68,6 @@ module.exports = {
         }
       }
     );
-    if (settingsconfirm) message.channel.send({ embed: success });
+    if (settingsconfirm) message.channel.send({ embeds: success });
   },
 };

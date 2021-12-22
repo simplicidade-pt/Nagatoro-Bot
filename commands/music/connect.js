@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
+      return message.channel.send({ embeds: er }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     } else {
@@ -51,7 +51,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel) {
-      return message.channel.send({ embed: err0 }).then((msg) => {
+      return message.channel.send({ embeds: err0 }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     }
@@ -69,7 +69,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (message.guild.me.voice.channel) {
-      return message.channel.send({ embed: err }).then((msg) => {
+      return message.channel.send({ embeds: err }).then((msg) => {
         setTimeout(() => message.delete(), 15000);
       });
     }
@@ -92,7 +92,7 @@ module.exports = {
       .then((connection) =>
         connection.voice
           .setSelfDeaf(true)
-          .then(message.channel.send({ embed: success }))
+          .then(message.channel.send({ embeds: success }))
       )
       .catch(console.error);
   },
