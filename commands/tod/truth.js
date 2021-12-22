@@ -14,6 +14,6 @@ module.exports = {
       .setTitle("Senpai~")
       .setDescription(question)
       .setColor(colors.success);
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };
