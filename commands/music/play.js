@@ -88,7 +88,7 @@ module.exports = {
     if (!searchResult || !searchResult.tracks.length)
       return message.channel.send({ embeds: [notFound] });
 
-    const queue = await player.createQueue(message.guild, {
+    const queue = player.createQueue(message.guild, {
       metadata: message.channel,
     });
 
