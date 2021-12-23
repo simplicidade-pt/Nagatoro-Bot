@@ -13,9 +13,8 @@ const emojis = require("./configuration/emojis.json");
 const prefix = configs.prefix;
 
 const Discord = require("discord.js");
-const { Player } = require("discord-player");
 
-const { Intents, Collection } = require("discord.js");
+const { Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Discord.Client({
@@ -28,17 +27,11 @@ const client = new Discord.Client({
   ],
   allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });
+module.exports = client;
 
 client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
-
-  new Player(client, {
-    ytdlOptions: {
-      quality: "highestaudio",
-      highWaterMark: 1 << 25,
-    },
-  });
 
   client.user.setStatus("available");
   client.queue = new Map();
@@ -146,7 +139,7 @@ client.on("messageCreate", async (message) => {
   ) {
     message.channel.send({
       content:
-        'Senpai~ I need the "Embed messages" permission to work properly!',
+        'Senpai~ I need the "Embed messages" permissions to work properly, please contact your servers administrators!',
     });
   }
 

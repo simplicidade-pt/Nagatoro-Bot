@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 const talkedRecently = new Set();
 
@@ -6,24 +5,26 @@ const configs = require("../../configuration/settings.json");
 const colors = require("../../configuration/colors.json");
 const emojis = require("../../configuration/emojis.json");
 
+const player = require("../../handlers/player");
+
 module.exports = {
   name: "skip",
   category: "music",
-  description: "Skips the song",
+  description: "Skips a song",
   usage: "skip",
-  run: async (client, message) => {
+  run: async (client, message, args) => {
     if (talkedRecently.has(message.author.id)) {
       const er = new Discord.MessageEmbed()
         .setColor(colors.error)
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  ```5 seconds``` before using the command again!"
+            "Please wait  **5 seconds** before using the command again!"
         )
         .setTimestamp()
         .setFooter(
           configs.prefix +
-            "skip" +
+            "play" +
             " | " +
             "Requested by " +
             message.member.user.tag
@@ -39,42 +40,28 @@ module.exports = {
       }, 5000);
     }
 
-    const channel = message.member.voice.channel;
-    const err = new Discord.MessageEmbed()
-      .setColor(colors.info)
-      .setTitle(configs.err_title_music + " " + emojis.Sip)
-      .setDescription("Silly senpai~ you're not in a voice channel!")
-      .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag);
-
-    if (!channel) return message.channel.send({ embeds: [err] });
-
-    let noqueueembed = new MessageEmbed()
-      .setTitle(configs.err_title_music + " " + emojis.Sip)
-      .setDescription("There are no songs playing in this server")
+    const noSong = new Discord.MessageEmbed()
       .setColor(colors.error)
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription("Silly senpai~ There is no music currently being played!")
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    let queue = message.client.queue.get(message.guild.id);
-    if (!queue) return message.channel.send({ embeds: [noqueueembed] });
+    const queue = player.getQueue(message.guildId);
+    if (!queue?.playing)
+      return message.channel.send({
+        embeds: [noSong],
+      });
 
-    try {
-      queue.connection.dispatcher.end("skipped");
-    } catch (e) {
-      message.channel.send({ content: e });
-      console.error(e);
-    }
+    await queue.skip();
 
-    let skippedembed = new MessageEmbed()
-      .setTitle("Senpai, I've skipped the song! " + emojis.Giggle)
-      .setDescription(
-        "Woah there senpai, was the last song no good? Next song it is."
-      )
-      .setColor(colors.info)
+    const Skipped = new Discord.MessageEmbed()
+      .setColor(colors.success)
+      .setTitle("Senpai~" + " " + emojis.Hype)
+      .setDescription("I've successfully skipped the song!")
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    return message.channel.send({ embeds: [skippedembed] });
+    message.channel.send({ embeds: [Skipped] });
   },
 };

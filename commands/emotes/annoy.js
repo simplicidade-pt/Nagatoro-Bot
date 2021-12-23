@@ -18,7 +18,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  ```5 seconds``` **before using the command again!"
+            "Please wait  **5 seconds** **before using the command again!"
         )
         .setTimestamp()
         .setFooter(

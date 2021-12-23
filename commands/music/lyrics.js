@@ -1,37 +1,38 @@
-const { MessageEmbed } = require("discord.js");
-const lyricsFinder = require("lyrics-finder");
-const talkedRecently = new Set();
-
 const Discord = require("discord.js");
+const lyricsFinder = require("lyrics-finder");
+
+const talkedRecently = new Set();
 
 const configs = require("../../configuration/settings.json");
 const colors = require("../../configuration/colors.json");
 const emojis = require("../../configuration/emojis.json");
 
+const player = require("../../handlers/player");
+
 module.exports = {
   name: "lyrics",
   category: "music",
-  description: "Searches lyrics for the current song",
+  description: "Displays the songs lyrics",
   usage: "lyrics",
-  run: async (client, message, args, ops) => {
+  run: async (client, message, args) => {
     if (talkedRecently.has(message.author.id)) {
       const er = new Discord.MessageEmbed()
         .setColor(colors.error)
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  ```5 seconds``` before using the command again!"
+            "Please wait  **5 seconds** before using the command again!"
         )
         .setTimestamp()
         .setFooter(
           configs.prefix +
-            "lyrics" +
+            "play" +
             " | " +
             "Requested by " +
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: er }).then((msg) => {
+      return message.channel.send({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -41,7 +42,7 @@ module.exports = {
       }, 5000);
     }
 
-    const queue = message.client.queue.get(message.guild.id);
+    const queue = player.getQueue(message.guildId);
     const errq = new Discord.MessageEmbed()
 
       .setColor(colors.info)
@@ -56,14 +57,14 @@ module.exports = {
     let lyrics = null;
 
     try {
-      lyrics = await lyricsFinder(queue.queue[0].name, "");
-      if (!lyrics) lyrics = `No lyrics found for ${queue.queue[0].name} `;
+      lyrics = await lyricsFinder(queue.current.title, "");
+      if (!lyrics) lyrics = `No lyrics found for ${queue.current.title} `;
     } catch (error) {
-      lyrics = `No lyrics found for "${queue.queue[0].name}"`;
+      lyrics = `No lyrics found for "${queue.current.title}"`;
     }
 
-    let lyricsEmbed = new MessageEmbed()
-      .setAuthor(`Senpai~ here's youyr lyrics For ${queue.queue[0].name}`)
+    let lyricsEmbed = new Discord.MessageEmbed()
+      .setAuthor(`Senpai~ Here's your lyrics For ${queue.current.title}`)
       .setDescription("```" + lyrics + "```")
       .setColor(colors.info)
       .setFooter("Requested by " + message.member.user.tag)
