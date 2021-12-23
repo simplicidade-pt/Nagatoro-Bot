@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -41,17 +41,30 @@ module.exports = {
     }
 
     const queue = player.getQueue(message.guildId);
+    const noQueue = new Discord.MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "Silly~ There is no song currently playing in this server!"
+      )
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (!queue?.playing)
+      return message.channel.send({
+        embeds: [noQueue],
+      });
+
     queue.setPaused(true);
 
-    const pausedEmbed = new MessageEmbed()
+    const pausedEmbed = new Discord.MessageEmbed()
       .setTitle("Senpai~ I've paused your music " + emojis.Giggle)
+      .setColor(colors.success)
       .setDescription(
-        emojis.Hype +
-          " I've paused the music in ```" +
+        " I've paused the music in `" +
           message.member.voice.channel.name +
-          "```"
+          "`!"
       )
-      .setColor(colors.info)
       .setFooter("Requested by " + message.member.user.tag)
       .setTimestamp();
 

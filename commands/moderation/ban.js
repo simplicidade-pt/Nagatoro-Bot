@@ -58,7 +58,9 @@ module.exports = {
 
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
-      .setDescription(`Senpai~ I cannot ban this user.`)
+      .setDescription(
+        `Senpai~ I cannot ban this user, do they have a higher role then me?`
+      )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 

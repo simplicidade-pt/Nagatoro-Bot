@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -40,9 +40,11 @@ module.exports = {
       }, 5000);
     }
 
-    let noQueue = new MessageEmbed()
+    const noQueue = new Discord.MessageEmbed()
       .setTitle(configs.err_title_music + " " + emojis.Sip)
-      .setDescription("There is no song currently playing")
+      .setDescription(
+        "Silly~ There is no song currently playing in this server!"
+      )
       .setColor(colors.error)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
@@ -56,11 +58,17 @@ module.exports = {
     const progress = queue.createProgressBar();
     const perc = queue.getPlayerTimestamp();
 
-    let nowPlaying = new MessageEmbed()
+    let nowPlaying = new Discord.MessageEmbed()
       .setTitle("Senpai~ Here's what's currently playing!" + " " + emojis.Sip)
-      .setDescription(`**${queue.current.title}**! (\`${perc.progress}%\`)`)
-      .addField("\u200b", progress, true)
-      .addField("Queued by ", queue.current.requestedBy.tag, true)
+      .setDescription(
+        `**${queue.current.title}**! (\`${perc.progress}%\` Complete)`
+      )
+      .addField(emojis.Tag + " Progress ", progress, true)
+      .addField(
+        emojis.Tag + " Queued by ",
+        "```" + queue.current.requestedBy.tag + "```",
+        true
+      )
       .setColor(colors.error)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);

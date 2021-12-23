@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -57,7 +57,7 @@ module.exports = {
 
     const Skipped = new Discord.MessageEmbed()
       .setColor(colors.success)
-      .setTitle("Senpai~" + " " + emojis.Hype)
+      .setTitle("Senpai~" + emojis.Hype)
       .setDescription("I've successfully skipped the song!")
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);

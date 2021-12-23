@@ -8,7 +8,7 @@ const emojis = require("../../configuration/emojis.json");
 const player = require("../../handlers/player");
 
 module.exports = {
-  name: "pause",
+  name: "resume",
   category: "music",
   description: "Plauses the current song",
   usage: "pause",
@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -41,17 +41,30 @@ module.exports = {
     }
 
     const queue = player.getQueue(message.guildId);
+    const noQueue = new Discord.MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "Silly~ There is no song currently playing in this server!"
+      )
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (!queue?.playing)
+      return message.channel.send({
+        embeds: [noQueue],
+      });
+
     queue.setPaused(false);
 
-    const resumeembed = new MessageEmbed()
-      .setTitle("**Senpai, I've resumed your music!**")
+    const resumeembed = new Discord.MessageEmbed()
+      .setTitle("Senpai, I've resumed your music!" + emojis.Giggle)
+      .setColor(colors.success)
       .setDescription(
-        emojis.Hype +
-          " I've resumed your music in ```" +
+        "I've resumed your music in `" +
           message.member.voice.channel.name +
-          "```"
+          "`!"
       )
-      .setColor(colors.info)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 

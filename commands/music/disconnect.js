@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
-const { getVoiceConnection } = require("@discordjs/voice");
 const talkedRecently = new Set();
+
+const player = require("../../handlers/player");
 
 const configs = require("../../configuration/settings.json");
 const colors = require("../../configuration/colors.json");
@@ -20,7 +21,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -45,9 +46,7 @@ module.exports = {
       .setColor(colors.info)
       .setTitle(configs.err_title_music + " " + emojis.Sip)
       .setDescription(
-        "Silly senpai~ you can't disconnect me If I'm not in a voice channel.```" +
-          message.member.voice.channel.name +
-          "```"
+        "Silly senpai~ you can't disconnect me If I'm not in a voice channel."
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
@@ -59,11 +58,10 @@ module.exports = {
     }
 
     const success = new Discord.MessageEmbed()
-
       .setColor(colors.success)
       .setTitle("Disconnected " + emojis.Hype)
       .setDescription(
-        "Senpai~ I've successfully disconnected from ```" +
+        "Senpai~ I've successfully disconnected from the following voice channel: ```" +
           message.member.voice.channel.name +
           "```"
       )
@@ -72,6 +70,7 @@ module.exports = {
 
     message.channel.send({ embeds: [success] });
 
-    getVoiceConnection(message.guild.id).destroy();
+    const queue = player.getQueue(message.guild);
+    if (queue) queue.destroy(true);
   },
 };

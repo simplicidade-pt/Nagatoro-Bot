@@ -21,7 +21,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -43,7 +43,6 @@ module.exports = {
     }
 
     const songSearch = args.slice(0).join(" ");
-
     const noRequest = new Discord.MessageEmbed()
       .setColor(colors.error)
       .setTitle(configs.err_title_music + " " + emojis.Sip)
@@ -53,9 +52,23 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.voice.channel)
-      return message.member.channel.send({
+    if (!songSearch)
+      return message.channel.send({
         embeds: [noRequest],
+      });
+
+    const noChannel = new Discord.MessageEmbed()
+      .setColor(colors.error)
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "Silly~ You need to join a voice channel for me to play a song!"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (!message.member.voice.channel)
+      return message.channel.send({
+        embeds: [noChannel],
       });
 
     const searchResult = await player.search(songSearch, {

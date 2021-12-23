@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "Please wait  **5 seconds** before using the command again!"
+            "Please wait  `5 seconds` before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -41,9 +41,18 @@ module.exports = {
     }
 
     const queue = player.getQueue(message.guildId);
+    const noQueue = new Discord.MessageEmbed()
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "Silly~ There is no song currently playing in this server!"
+      )
+      .setColor(colors.error)
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
     if (!queue?.playing)
       return message.channel.send({
-        content: "No songs are currently playing",
+        embeds: [noQueue],
       });
 
     const currentTrack = queue.current;
@@ -53,7 +62,7 @@ module.exports = {
 
     const songQueue = new Discord.MessageEmbed()
       .setColor(colors.success)
-      .setTitle("Senpai~ Here's your song queue!" + " " + emojis.Giggle)
+      .setTitle("Senpai~ Here's your queue!" + " " + emojis.Giggle)
       .setDescription(
         `${tracks.join("\n")}${
           queue.tracks.length > tracks.length
