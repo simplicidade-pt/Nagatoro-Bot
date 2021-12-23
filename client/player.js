@@ -1,5 +1,5 @@
 const { Player } = require("discord-player");
-const client = require("../server.js");
+const client = require("discord.js");
 
 const player = new Player(client, {
   ytdlOptions: {
