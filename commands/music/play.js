@@ -76,15 +76,42 @@ module.exports = {
       searchEngine: QueryType.AUTO,
     });
 
+    const notFound = new Discord.MessageEmbed()
+      .setColor(colors.error)
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "Hmm, I couldn't quite find the song you requested for; try playing another one!"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (!searchResult || !searchResult.tracks.length)
+      return message.channel.send({ embeds: [notFound] });
+
     const queue = await player.createQueue(message.guild, {
       metadata: message.channel,
     });
 
-    if (!queue.connection) await queue.connect(message.member.voice.channel);
+    const errorPlaying = new Discord.MessageEmbed()
+      .setColor(colors.error)
+      .setTitle(configs.err_title_music + " " + emojis.Sip)
+      .setDescription(
+        "There was an error with your request, please try again later!"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
 
-    searchResult.playlist
-      ? queue.addTracks(searchResult.tracks)
-      : queue.addTrack(searchResult.tracks[0]);
+    try {
+      if (!queue.connection) await queue.connect(message.member.voice.channel);
+    } catch {
+      queue.destroy();
+      return message.channel.send({ embeds: [errorPlaying] });
+    }
+    if (searchResult.playlist) {
+      queue.addTracks(searchResult.tracks);
+    } else {
+      queue.addTrack(searchResult.tracks[0]);
+    }
 
     if (!queue.playing) await queue.play();
   },
