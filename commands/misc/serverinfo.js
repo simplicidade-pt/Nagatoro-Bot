@@ -34,7 +34,7 @@ module.exports = {
         "```" + message.guild.id + "```",
         true
       )
-      .addField("Owner", "```" + "-" + "```", true)
+      .addField(emojis.Tag + " " + "Owner", "```" + message.guild.owner + "```", true)
       .addField(
         emojis.Tag + " " + "Members",
         "```" + message.guild.memberCount + "```",
