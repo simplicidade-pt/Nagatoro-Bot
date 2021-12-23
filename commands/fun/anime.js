@@ -12,9 +12,7 @@ module.exports = {
   description: "Get information about an anime",
   usage: "anime <anime_name>",
   run: (client, message, args) => {
-    if (message.author.bot) {
-      return;
-    }
+    if (message.author.bot) return;
 
     if (!args.length) {
       const errm = new Discord.MessageEmbed()
@@ -22,12 +20,12 @@ module.exports = {
         .setTitle(configs.missing_title_fun + emojis.Hmm)
         .setDescription(
           emojis.Sip +
-            "**Senpai~ Which anime again? \n Please mention a anime to search for.**"
+            "Senpai~ Which anime should I search for again? \n Please mention a anime to search for silly senpai."
         )
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embed: errm });
+      return message.channel.send({ embeds: [errm] });
     }
 
     let option = {
@@ -49,7 +47,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: searching }).then((msg) => {
+    message.channel.send({ embeds: [searching] }).then((msg) => {
       get(option).then((body) => {
         try {
           let embed = new Discord.MessageEmbed()
@@ -72,7 +70,7 @@ module.exports = {
           //.setImage(body.data[0].attributes.coverImage.large)
           //try it
 
-          message.channel.send(embed);
+          message.channel.send({ embeds: [embed] });
           msg.delete();
         } catch (err) {
           msg.delete();
@@ -87,7 +85,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.send({ embed: errmsg });
+          return message.channel.send({ embeds: [errmsg] });
         }
       });
     });

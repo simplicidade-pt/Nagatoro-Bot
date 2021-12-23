@@ -13,7 +13,6 @@ module.exports = {
     if (message.author.bot) return;
 
     const err = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
@@ -22,15 +21,14 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("BAN_MEMBERS"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS))
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     let userID = args[0];
 
     const invalidmember = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
@@ -40,16 +38,15 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!userID)
-      return message.reply({ embed: invalidmember }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.reply({ embeds: [invalidmember] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
-    message.guild.fetchBans().then((bans) => {
+    message.guild.bans.fetch().then((bans) => {
       if (bans.size == 0) return;
       let bUser = bans.find((b) => b.user.id == userID);
       if (!bUser) return;
       message.guild.members.unban(bUser.user);
-      message.react("✅");
     });
 
     const responsable_mod = message.member;
@@ -57,6 +54,21 @@ module.exports = {
 
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
+
+    const success = new Discord.MessageEmbed()
+      .setColor(colors.success)
+      .setTitle("Successfully unbanned!")
+      .setDescription(
+        "Senpai~ I've successfully unbanned Id `" +
+          userID +
+          "`" +
+          " with the reason: ```" +
+          reason +
+          "```"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+    message.channel.send({ embeds: [success] });
 
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
@@ -81,7 +93,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-    logchannel.send({ embed: logembed });
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+    logchannel.send({ embeds: [logembed] });
   },
 };

@@ -32,24 +32,25 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (
+      !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
+    )
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const deleteCount = parseInt(args[0], 10);
     if (!deleteCount || deleteCount < 1 || deleteCount > 1000)
-      return message.channel.send({ embed: err1 });
+      return message.channel.send({ embeds: [err1] });
 
-    message
-      .delete()
-      .then(
-        message.channel
-          .bulkDelete(deleteCount)
-          .catch((error) =>
-            message.reply(`Couldn't delete messages because of: ${error}`)
-          )
-      );
+    message.delete().then(
+      message.channel.bulkDelete(deleteCount).catch((error) =>
+        message.reply({
+          content: "Couldn't delete messages because of: " + error,
+          allowedMentions: { repliedUser: false },
+        })
+      )
+    );
 
     const responsable_mod = message.member;
     const channel_occured = message.channel;
@@ -76,7 +77,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-    logchannel.send({ embed: logembed });
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+    logchannel.send({ embeds: [logembed] });
   },
 };

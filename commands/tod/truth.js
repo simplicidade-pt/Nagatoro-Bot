@@ -1,5 +1,4 @@
-const { MessageEmbed } = require("discord.js");
-
+const Discord = require("discord.js");
 const colors = require("../../configuration/colors.json");
 
 module.exports = {
@@ -10,10 +9,10 @@ module.exports = {
   run: async (client, message) => {
     let question =
       client.truths[Math.floor(Math.random() * client.truths.length)];
-    const embed = new MessageEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle("Senpai~")
       .setDescription(question)
       .setColor(colors.success);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

@@ -26,7 +26,7 @@ module.exports = {
       .setThumbnail(message.guild.iconURL())
       .addField(
         emojis.Tag + " " + "Server Name",
-        "```" + message.guild.name + "```",
+        "```" + message.guild.fetchOwner() + "```",
         true
       )
       .addField(
@@ -34,7 +34,7 @@ module.exports = {
         "```" + message.guild.id + "```",
         true
       )
-      .addField("Owner", "```" + message.guild.owner + "```", true)
+      .addField(emojis.Tag + " " + "Owner", "```" + message.guild.owner + "```", true)
       .addField(
         emojis.Tag + " " + "Members",
         "```" + message.guild.memberCount + "```",
@@ -67,6 +67,6 @@ module.exports = {
       .setThumbnail(message.guild.iconURL())
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

@@ -50,8 +50,8 @@ module.exports = {
         .setColor(colors.info)
         .setFooter("Requested by " + message.member.user.tag);
       if (!user)
-        return message.channel.send({ embed: er }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+        return message.channel.send({ embeds: [er] }).then((msg) => {
+          setTimeout(() => msg.delete(), 15000);
         });
 
       let avatarEmbed = new Discord.MessageEmbed()
@@ -75,7 +75,7 @@ module.exports = {
         )
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: avatarEmbed });
+      message.channel.send({ embeds: [avatarEmbed] });
     } else {
       let avatarEmbed = new Discord.MessageEmbed()
         .setColor(colors.info)
@@ -91,7 +91,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: avatarEmbed });
+      message.channel.send({ embeds: [avatarEmbed] });
     }
   },
 };

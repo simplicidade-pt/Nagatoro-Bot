@@ -22,9 +22,9 @@ module.exports = {
       )
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("MUTE_MEMBERS"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MUTE_MEMBERS))
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     try {
@@ -46,18 +46,18 @@ module.exports = {
         .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
         .setDescription(
           emojis.Sip +
-            "** Senpai~ you need to specify a channel type!** ```Usage: n!createchannel <voice,text> <name>```"
+            " Senpai~ you need to specify a channel type! ```Usage: n!createchannel <voice,text> <name>```"
         )
         .setFooter("Requested by " + message.member.user.tag);
 
       if (!args[1])
-        return message.channel.send({ embed: errname }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+        return message.channel.send({ embeds: [errname] }).then((msg) => {
+          setTimeout(() => msg.delete(), 15000);
         });
 
       if (!args[0])
-        return message.channel.send({ embed: errtype }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+        return message.channel.send({ embeds: [errtype] }).then((msg) => {
+          setTimeout(() => msg.delete(), 15000);
         });
 
       let success = new Discord.MessageEmbed()
@@ -73,7 +73,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: success }).then(() => {
+      message.channel.send({ embeds: [success] }).then(() => {
         message.guild.channels
           .create(args[1], {
             type: args[0],
@@ -81,7 +81,9 @@ module.exports = {
             reason: "Moderator: " + message.member.user.tag,
           })
           .catch((err) => {
-            message.channel.send("Whoops, seems like there was an error!");
+            message.channel.send({
+              content: "Whoops, seems like there was an error!",
+            });
           });
       });
 
@@ -112,8 +114,8 @@ module.exports = {
         }
       );
 
-      let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-      logchannel.send({ embed: logembed });
+      let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+      logchannel.send({ embeds: [logembed] });
     } catch (err) {
       message.channel.send("There was an error!\n" + err).catch();
     }

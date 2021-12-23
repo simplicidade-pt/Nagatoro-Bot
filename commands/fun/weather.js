@@ -24,13 +24,13 @@ module.exports = {
             .setTitle(configs.missing_title_fun + emojis.Hmm)
             .setDescription(
               emojis.Hmm +
-                `**Senpai~ Which place again? \n Please mention a valid city.**`
+                `Senpai~ Which place am I looking for again? \n Please mention a valid city.`
             )
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          message.channel.send({ embed: errm }).then((msg) => {
-            msg.delete({ timeout: 15000 });
+          message.channel.send({ embeds: [errm] }).then((msg) => {
+            setTimeout(() => msg.delete(), 15000);
           });
           return;
         }
@@ -47,8 +47,7 @@ module.exports = {
           .setDescription(
             emojis.Search +
               " " +
-              `Here's the current 
-        weather ` +
+              `Here's the current weather ` +
               emojis.At +
               ` **${current.observationpoint}**!`
           )
@@ -85,7 +84,7 @@ module.exports = {
             true
           );
 
-        message.channel.send({ embed });
+        message.channel.send({ embeds: [embed] });
       }
     );
   },

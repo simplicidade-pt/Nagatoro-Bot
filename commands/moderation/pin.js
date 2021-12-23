@@ -10,9 +10,7 @@ module.exports = {
   description: "Pin a message",
   usage: "pin <message>",
   run: async (client, message, args) => {
-    if (message.author.bot) {
-      return;
-    }
+    if (message.author.bot) return;
 
     const err = new Discord.MessageEmbed()
 
@@ -24,9 +22,11 @@ module.exports = {
           emojis.Hmm
       );
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (
+      !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
+    )
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const text = args.slice(0).join(" ");
@@ -35,27 +35,26 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_fun + emojis.Sip)
       .setDescription(
-        emojis.Hmm +
-          " Senpai~ What message did you want me to pin again? \n Please mention a message for me to pin!"
+        emojis.Hmm + " Senpai~ What message did you want me to pin again?"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!args.length)
-      return message.channel.send({ embed: errm }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.channel.send({ embeds: [errm] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
-    message.delete();
+    // message.delete();
 
-    const embed = new Discord.MessageEmbed()
+    const pinnedembed = new Discord.MessageEmbed()
       .setColor(colors.success)
       .setTitle(":pushpin: Pinned Message")
       .setDescription(text)
       .setTimestamp()
-      .setFooter("Pinned by " + message.member.user.tag);
+      .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: embed }).then((msg) => msg.pin());
+    message.channel.send({ embeds: [pinnedembed] }).then((msg) => msg.pin());
 
     const responsable_mod = message.member;
     const channel_occured = message.channel;
@@ -82,7 +81,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-    logchannel.send({ embed: logembed });
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+    logchannel.send({ embeds: [logembed] });
   },
 };

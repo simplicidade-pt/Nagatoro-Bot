@@ -34,10 +34,10 @@ module.exports = {
 
     let response = msg[Math.floor(Math.random() * msg.length)];
 
-    const smart = Math.round(Math.random() * 200);
-    const smartIndex = Math.floor(smart / 20);
+    const smart = Math.round(Math.random() * 100);
+    const smartIndex = Math.floor(smart / 10);
     const smartLevel =
-      "🧠".repeat(smartIndex) + " / " + emojis.Brain.repeat(20 - smartIndex);
+      "🧠".repeat(smartIndex) + " / " + emojis.Brain.repeat(10 - smartIndex);
 
     if (args[0]) {
       const user = getUserFromMention(args[0]);
@@ -53,8 +53,8 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
       if (!user)
-        return message.channel.send({ embed: er }).then((msg) => {
-          msg.delete({ timeout: 15000 });
+        return message.channel.send({ embeds: [er] }).then((msg) => {
+          setTimeout(() => msg.delete(), 15000);
         });
 
       let avatarEmbed = new Discord.MessageEmbed()
@@ -77,7 +77,7 @@ module.exports = {
         )
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: avatarEmbed });
+      message.channel.send({ embeds: [avatarEmbed] });
     } else {
       let avatarEmbed = new Discord.MessageEmbed()
         .setColor(colors.info)
@@ -93,7 +93,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embed: avatarEmbed });
+      message.channel.send({ embeds: [avatarEmbed] });
     }
   },
 };

@@ -13,11 +13,13 @@ module.exports = {
     if (message.author.bot) return;
 
     await message.channel.send({
-      embed: {
-        color: colors.info,
-        title: `Searching Wikipedia just for you ⌛`,
-        description: `Please stand by...`,
-      },
+      embeds: [
+        {
+          color: colors.info,
+          title: `Searching Wikipedia ⌛`,
+          description: `Please allow me a moment!`,
+        },
+      ],
     });
     let result;
     if (!message.suffix) {
@@ -27,15 +29,17 @@ module.exports = {
       const search = await wiki.search(message.suffix, 1);
       if (!search.results.length) {
         return message.channel.send({
-          embed: {
-            color: colors.error,
-            title: "What was that again? 📚🤓",
-            description:
-              "Even Wikipedia doesn't seem to know what you're talking about.",
-            footer: {
-              text: "Check for typos or try searching for something else!",
+          embeds: [
+            {
+              color: colors.error,
+              title: "What was that again? 📚🤓",
+              description:
+                "Even Wikipedia doesn't seem to know what you're talking about.",
+              footer: {
+                text: "Check for typos or try searching for something else!",
+              },
             },
-          },
+          ],
         });
       }
       result = await wiki.page(search.results[0]);
@@ -54,15 +58,17 @@ module.exports = {
     }
     const mainImage = await result.mainImage().catch(() => null);
     message.channel.send({
-      embed: {
-        color: colors.success,
-        title: result.raw.title,
-        url: result.raw.fullurl,
-        description,
-        image: {
-          url: mainImage,
+      embeds: [
+        {
+          color: colors.success,
+          title: result.raw.title,
+          url: result.raw.fullurl,
+          description,
+          image: {
+            url: mainImage,
+          },
         },
-      },
+      ],
     });
   },
 };

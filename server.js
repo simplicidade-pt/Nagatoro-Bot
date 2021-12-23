@@ -12,23 +12,28 @@ const emojis = require("./configuration/emojis.json");
 
 const prefix = configs.prefix;
 
-/* 
-#43A6C6 
-*/
-
 const Discord = require("discord.js");
-const { Client, Collection } = require("discord.js");
+
+const { Collection } = require("discord.js");
 const { config } = require("dotenv");
 
 const client = new Discord.Client({
   ws: { properties: { $browser: "Discord iOS" } },
+  intents: [
+    Discord.Intents.FLAGS.GUILDS,
+    Discord.Intents.FLAGS.GUILD_MESSAGES,
+    Discord.Intents.FLAGS.GUILD_BANS,
+    Discord.Intents.FLAGS.GUILD_VOICE_STATES,
+  ],
+  allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });
+module.exports = client;
 
 client.mongoose = require("./utils/mongoose");
 client.on("ready", () => {
   console.log("Online!");
-  client.user.setStatus("available");
 
+  client.user.setStatus("available");
   client.queue = new Map();
   client.emojis_status = new Array();
 
@@ -56,7 +61,7 @@ client.on("ready", () => {
       ];
 
     client.user.setPresence({
-      activity: { name: status + " " + selectedemoji },
+      activities: [{ name: status + " " + selectedemoji }],
       status: "available",
       url: "https://www.twitch.tv/scxipted",
     });
@@ -81,7 +86,7 @@ let ops = {
 };
 
 // Truth or dare
-const { readdirSync, createReadStream } = require("fs");
+const { createReadStream } = require("fs");
 
 client.truths = new Array();
 client.dares = new Array();
@@ -117,7 +122,7 @@ function readdares(input) {
 readtruths(createReadStream("./files/truths.txt"));
 readdares(createReadStream("./files/dares.txt"));
 
-client.on("message", async (message) => {
+client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
@@ -129,10 +134,13 @@ client.on("message", async (message) => {
 
   if (cmd.length === 0) return;
 
-  if (!message.guild.me.hasPermission("EMBED_LINKS")) {
-    message.channel.send(
-      'Senpai~ I need the "Embed messages" permission to work properly!'
-    );
+  if (
+    !message.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)
+  ) {
+    message.channel.send({
+      content:
+        'Senpai~ I need the "Embed messages" permissions to work properly, please contact your servers administrators!',
+    });
   }
 
   let command = client.commands.get(cmd);
@@ -148,7 +156,7 @@ client.on("message", async (message) => {
   process.setMaxListeners(0);
 
   if (isCommand("help", message)) {
-    var embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
 
       .setColor(colors.info)
       .setTitle("Server:" + " " + message.guild.name + " " + emojis.Verified)
@@ -212,7 +220,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds entertainment", message)) {
@@ -303,7 +311,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds music", message)) {
@@ -365,7 +373,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 
   if (isCommand("cmds moderation", message)) {
@@ -452,7 +460,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 
   if (isCommand("cmds activity", message)) {
@@ -497,7 +505,7 @@ client.on("message", async (message) => {
         ""
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 
   if (isCommand("cmds pictures", message)) {
@@ -531,7 +539,7 @@ client.on("message", async (message) => {
         "```" + prefix + "meme```"
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 
   if (isCommand("cmds miscellaneous", message)) {
@@ -574,7 +582,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 
   if (isCommand("cmds emotes", message)) {
@@ -630,7 +638,7 @@ client.on("message", async (message) => {
         true
       );
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: embed });
   }
 });
 
@@ -658,11 +666,12 @@ client.on("guildMemberAdd", async (member) => {
 
   if (!settings) return;
   let welcomechannel = member.guild.channels.cache.get(
-    settings.welcomeChannelID
+    settings.welcomechannelId
   );
 
-  welcomechannel.send(
-    "Welcome " +
+  welcomechannel.send({
+    content:
+      "Welcome " +
       "<@" +
       member +
       ">, " +
@@ -670,10 +679,9 @@ client.on("guildMemberAdd", async (member) => {
       "**" +
       member.guild.name +
       "** " +
-      emojis.Greeting
-  );
-  welcomechannel.send(attachment);
+      emojis.Greeting,
+  });
+  welcomechannel.send({ files: [attachment] });
 });
 
-client.mongoose.init();
 client.login(process.env.token);

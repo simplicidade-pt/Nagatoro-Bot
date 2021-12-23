@@ -22,9 +22,9 @@ module.exports = {
         `Silly senpai~ you don't have permission to remove users from voice channels. (**MOVE_MEMBERS**)`
       );
 
-    if (!message.member.hasPermission("MOVE_MEMBERS"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MOVE_MEMBERS))
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const err1 = new Discord.MessageEmbed()
@@ -37,10 +37,10 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    const member = message.guild.member(message.mentions.users.first());
+    const member = message.mentions.users.first();
     if (!member)
-      return message.channel.send({ embed: err1 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.channel.send({ embeds: [err1] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     let reason = args.slice(1).join(" ");
@@ -54,12 +54,20 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag)
       .setTimestamp();
 
-    if (!member.voice.channel)
-      return message.channel.send({ embed: err2 }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    // message.guild.voiceStates.cache.get(member.id)
+
+    if (!message.guild.voiceStates.cache.get(member.id))
+      return message.channel.send({ embeds: [err2] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
-    member.voice.kick();
+    message.guild.voiceStates.cache
+      .get(member.id)
+      .voice.kick()
+      .then((member) =>
+        message.channel.send(`${member}`)
+      )
+      .catch(console.error);
     message.react(successemoji);
 
     const responsable_mod = message.member;
@@ -91,7 +99,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-    logchannel.send({ embed: logembed });
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+    logchannel.send({ embeds: [logembed] });
   },
 };

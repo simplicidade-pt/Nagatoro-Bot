@@ -9,19 +9,19 @@ module.exports = {
   description: "Shows the bots ping",
   run: async (client, message, args) => {
     if (message.author.bot) return;
-
-    const pingembed = new Discord.MessageEmbed()
-
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.info)
-      .setTimestamp()
+      .setTitle("Pong! :ping_pong:")
       .setDescription(
-        emojis.Hype +
-          `**Pong! Time took:** __**${
-            Date.now() - message.createdTimestamp
-          }**__ **ms**`
+        `**Time took:** __**${
+          Date.now() - message.createdTimestamp
+        }**__ **ms**` + emojis.Hype
       )
+      .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: pingembed });
+    message.channel.send({
+      embeds: [embed],
+    });
   },
 };

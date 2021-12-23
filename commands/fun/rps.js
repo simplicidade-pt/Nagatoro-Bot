@@ -23,8 +23,8 @@ module.exports = {
     const text = args.slice(0).join(" ");
 
     if (text.length < 1)
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     let choose = ["Rock", "Paper", "Scissors"];
@@ -34,12 +34,12 @@ module.exports = {
       .setColor(colors.info)
       .setTitle("R/P/S Results")
       .addField(
-        "**I choose " + result + "!**",
-        "*Senpai~ you choose " + text + "*"
+        "**I chose " + result + "!**",
+        "*Senpai~ you chose " + text + "*"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

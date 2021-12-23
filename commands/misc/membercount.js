@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
-const colors = require("../../configuration/colors.json");
 const emojis = require("../../configuration/emojis.json");
+const colors = require("../../configuration/colors.json");
 
 module.exports = {
   name: "membercount",
@@ -14,15 +14,8 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor(colors.info)
       .setTimestamp()
-      .setDescription(
-        "**Member Count:**" +
-          "```" +
-          message.guild.memberCount +
-          "```" +
-          " server members " +
-          emojis.Hype,
-        true
-      );
-    message.channel.send({ embed: embed });
+      .setTitle(emojis.Hype + "Here's the servers member count!")
+      .setDescription("```" + message.guild.memberCount + "```", true);
+    message.channel.send({ embeds: [embed] });
   },
 };

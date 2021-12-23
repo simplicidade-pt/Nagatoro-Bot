@@ -12,14 +12,13 @@ module.exports = {
   usage: "annoy <@user>",
   run: async (client, message) => {
     if (message.author.bot) return;
-
     if (talkedRecently.has(message.author.id)) {
       const er = new Discord.MessageEmbed()
         .setColor(colors.error)
         .setTitle("Woah there, calm down senpai!")
         .setDescription(
           emojis.Sip +
-            "**Please wait**  ```5 seconds``` **before using the command again!**"
+            "Please wait  `5 seconds` **before using the command again!"
         )
         .setTimestamp()
         .setFooter(
@@ -30,8 +29,8 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embed: er }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.channel.send({ embeds: [er] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
     } else {
       talkedRecently.add(message.author.id);
@@ -44,7 +43,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_emotes + emojis.Hmm)
       .setDescription(
-        "**You can't annoy no one silly, please mention a valid member.**"
+        "You can't annoy no one silly, please mention a valid member."
       )
       .setTimestamp()
       .setFooter(
@@ -55,8 +54,9 @@ module.exports = {
           message.member.user.tag
       );
 
-    let member = message.guild.member(message.mentions.users.first());
-    if (!member) return message.channel.send({ embed: er2 });
+    let member = message.mentions.users.first();
+
+    if (!member) return message.channel.send({ embeds: [er2] });
 
     let gifs = [
       "https://media1.tenor.com/images/bab2ff05e786e8201d53637229b068ca/tenor.gif?itemid=20766201",
@@ -80,7 +80,7 @@ module.exports = {
       "https://c.tenor.com/7EkFRiLUn34AAAAC/poke-anime.gif",
     ];
 
-    let responses = ["cutely annoyed", "annoyed"];
+    let responses = ["cutely annoyed", "annoyed", "is being mean to"];
     let titles = [
       "Senpai~ I could use some attention too you know...",
       "Awww, you're so cute~ senpai!",
@@ -118,6 +118,6 @@ module.exports = {
       .setImage(response)
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
   },
 };

@@ -23,13 +23,13 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!message.member.hasPermission("KICK_MEMBERS"))
-      return message.channel.send({ embed: err }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.KICK_MEMBERS))
+      return message.channel.send({ embeds: [err] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     const server = message.guild.name;
-    let member = message.guild.member(message.mentions.users.first());
+    let member = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
 
@@ -42,9 +42,14 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member)
-      return message.reply({ embed: invalidmember }).then((msg) => {
-        msg.delete({ timeout: 15000 });
-      });
+      return message
+        .reply({
+          embeds: [invalidmember],
+          allowedMentions: { repliedUser: false },
+        })
+        .then((msg) => {
+          setTimeout(() => msg.delete(), 15000);
+        });
 
     if (member.id == message.author.id) {
       return message.react("❌");
@@ -55,12 +60,12 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setTimestamp()
-      .setDescription(`Senpai~ I cannot kick this user. ` + emojis.Sip)
+      .setDescription(`Senpai~ I cannot kick this user. `)
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member.kickable)
-      return message.channel.send({ embed: kickable }).then((msg) => {
-        msg.delete({ timeout: 15000 });
+      return message.channel.send({ embeds: [kickable] }).then((msg) => {
+        setTimeout(() => msg.delete(), 15000);
       });
 
     let reason = args.slice(1).join(" ");
@@ -80,7 +85,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embed: kickmsg });
+    member.send({ embeds: kickmsg });
     await member.kick("Moderator: " + message.member.user.tag + reason);
 
     // message.react("✅");
@@ -111,7 +116,7 @@ module.exports = {
       }
     );
 
-    let logchannel = message.guild.channels.cache.get(settings.logChannelID);
-    logchannel.send({ embed: logembed });
+    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+    logchannel.send({ embeds: [logembed] });
   },
 };
