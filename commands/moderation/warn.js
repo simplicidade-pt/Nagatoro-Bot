@@ -30,7 +30,7 @@ module.exports = {
       });
 
     let server = message.guild.name;
-    let dUser = message.mentions.users.first();
+    let Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
 
@@ -42,7 +42,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!dUser) return message.channel.send({ embeds: [invalidmember] });
+    if (!Target) return message.channel.send({ embeds: [invalidmember] });
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
 
@@ -60,7 +60,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    dUser.send({ embeds: [embed] });
+    Target.send({ embeds: [embed] });
 
     const success = new Discord.MessageEmbed()
 
@@ -68,7 +68,7 @@ module.exports = {
       .setTitle("Successfully warned!")
       .setDescription(
         "Teehee senpai~ I've successfully warned `" +
-          dUser +
+          Target +
           "`" +
           " with the reason: ```" +
           reason +
@@ -79,15 +79,15 @@ module.exports = {
 
     message.channel.send({ embeds: [success] });
 
-    const responsable_mod = message.member;
+    const responsible_mod = message.member;
     const channel_occured = message.channel;
 
-    var logembed = new Discord.MessageEmbed()
+    var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTimestamp()
-      .setAuthor(" ➜ Action || Warn", responsable_mod.user.displayAvatarURL())
-      .addField("Moderator:", responsable_mod, true)
-      .addField("Target:", dUser, true)
+      .setAuthor(" ➜ Action || Warn", responsible_mod.user.displayAvatarURL())
+      .addField("Moderator:", responsible_mod, true)
+      .addField("Target:", Target, true)
       .addField("Channel:", channel_occured, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
@@ -106,6 +106,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logembed] });
+    logchannel.send({ embeds: [logEmbed] });
   },
 };

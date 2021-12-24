@@ -93,7 +93,7 @@ module.exports = {
     const responsable_mod = message.member;
     const channel_occured = message.channel;
 
-    var logembed = new Discord.MessageEmbed()
+    var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTimestamp()
       .setAuthor(" ➜ Action || Kick", responsable_mod.user.displayAvatarURL())
@@ -117,6 +117,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logembed] });
+    logchannel.send({ embeds: [logEmbed] });
   },
 };
