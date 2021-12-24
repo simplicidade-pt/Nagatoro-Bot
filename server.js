@@ -379,7 +379,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds moderation", message)) {
@@ -466,7 +466,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds activity", message)) {
@@ -511,7 +511,7 @@ client.on("messageCreate", async (message) => {
         ""
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds pictures", message)) {
@@ -545,7 +545,7 @@ client.on("messageCreate", async (message) => {
         "```" + prefix + "meme```"
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds miscellaneous", message)) {
@@ -588,7 +588,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 
   if (isCommand("cmds emotes", message)) {
@@ -644,7 +644,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.send({ embeds: embed });
+    message.channel.send({ embeds: [embed] });
   }
 });
 
