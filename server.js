@@ -371,6 +371,12 @@ client.on("messageCreate", async (message) => {
         emojis.Seven + "**" + " | Loop" + "**",
         "```" + prefix + "loop```",
         true
+      )
+
+      .addField(
+        emojis.Eight + "**" + " | NowPlaying" + "**",
+        "```" + prefix + "nowplaying```",
+        true
       );
 
     message.channel.send({ embeds: embed });
@@ -437,8 +443,8 @@ client.on("messageCreate", async (message) => {
       )
 
       .addField(
-        emojis.Eight + "**" + " | Createchannel" + "**",
-        "```" + prefix + "createchannel```",
+        emojis.Eight + "**" + " | TimeOut" + "**",
+        "```" + prefix + "timeout```",
         true
       )
 

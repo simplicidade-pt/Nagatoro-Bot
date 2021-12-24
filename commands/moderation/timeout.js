@@ -36,8 +36,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
-        emojis.Sip +
-          ` Silly senpai~ You need to specify a time for me to timeout this user!`
+        "Silly senpai~ You need to specify a time for me to timeout this user! ```n!Timeout <user> <time> <reason>```"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
@@ -48,8 +47,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
-        emojis.Sip +
-          ` Silly senpai~ You need to mention a user for me to timeout!`
+        " Silly senpai~ You need to mention a user for me to timeout! ```n!Timeout <user> <time> <reason>```"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
@@ -60,8 +58,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
-        emojis.Sip +
-          " Silly senpai~ You've specified an invalid time, it must be between `10s` and `28d`!"
+        "Silly senpai~ You've specified an invalid time, it must be between `10s` and `28d`! ```n!Timeout <user> <time> <reason>```"
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
