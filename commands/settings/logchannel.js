@@ -23,7 +23,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD))
-      return message.channel.send({ embeds: [err] }).then((msg) => {
+      return message.channel.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -40,7 +40,7 @@ module.exports = {
 
     if (!channel)
       return message.channel
-        .send({ embeds: [err1] })
+        .reply({ embeds: [err1] })
         .then((m) => m.delete({ timeout: 15000 }));
 
     await Guild.findOne(
@@ -77,7 +77,7 @@ module.exports = {
             )
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.send({ embeds: [success] });
+          return message.channel.reply({ embeds: [success] });
         } else {
           guild
             .updateOne({
@@ -99,7 +99,7 @@ module.exports = {
             )
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.send({ embeds: [success] });
+          return message.channel.reply({ embeds: [success] });
         }
       }
     );

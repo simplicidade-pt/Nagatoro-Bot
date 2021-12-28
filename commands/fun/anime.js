@@ -25,7 +25,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embeds: [errm] });
+      return message.channel.reply({ embeds: [errm] });
     }
 
     let option = {
@@ -47,7 +47,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: [searching] }).then((msg) => {
+    message.channel.reply({ embeds: [searching] }).then((msg) => {
       get(option).then((body) => {
         try {
           let embed = new Discord.MessageEmbed()
@@ -70,7 +70,7 @@ module.exports = {
           //.setImage(body.data[0].attributes.coverImage.large)
           //try it
 
-          message.channel.send({ embeds: [embed] });
+          message.channel.reply({ embeds: [embed] });
           msg.delete();
         } catch (err) {
           msg.delete();
@@ -85,7 +85,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.send({ embeds: [errmsg] });
+          return message.channel.reply({ embeds: [errmsg] });
         }
       });
     });

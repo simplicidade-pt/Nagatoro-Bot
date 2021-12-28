@@ -35,13 +35,13 @@ module.exports = {
     if (
       !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
     )
-      return message.channel.send({ embeds: [err] }).then((msg) => {
+      return message.channel.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
     const deleteCount = parseInt(args[0], 10);
     if (!deleteCount || deleteCount < 1 || deleteCount > 1000)
-      return message.channel.send({ embeds: [err1] });
+      return message.channel.reply({ embeds: [err1] });
 
     message.delete().then(
       message.channel.bulkDelete(deleteCount).catch((error) =>
@@ -77,6 +77,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logembed] });
+    logchannel.reply({ embeds: [logembed] });
   },
 };

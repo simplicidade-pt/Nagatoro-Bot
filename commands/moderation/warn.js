@@ -25,7 +25,7 @@ module.exports = {
     if (
       !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
     )
-      return message.channel.send({ embeds: [err] }).then((msg) => {
+      return message.channel.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -42,7 +42,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Target) return message.channel.send({ embeds: [invalidmember] });
+    if (!Target) return message.channel.reply({ embeds: [invalidmember] });
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
 
@@ -60,7 +60,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    Target.send({ embeds: [embed] });
+    Target.reply({ embeds: [embed] });
 
     const success = new Discord.MessageEmbed()
 
@@ -77,14 +77,12 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: [success] });
+    message.channel.reply({ embeds: [success] });
 
     const responsible_mod = message.member;
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .setTimestamp()
-      .setAuthor(" ➜ Action || Warn", responsible_mod.user.displayAvatarURL())
       .addField("Moderator:", responsible_mod.user.tag, true)
       .addField("Target:", Target, true)
       .addField("Reason:", "```" + reason + "```", true)
@@ -104,6 +102,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logEmbed] });
+    logchannel.reply({ embeds: [logEmbed] });
   },
 };

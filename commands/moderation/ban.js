@@ -24,7 +24,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS))
-      return message.channel.send({ embeds: err }).then((msg) => {
+      return message.channel.reply({ embeds: err }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -65,7 +65,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member.bannable)
-      return message.channel.send({ embeds: [bannable] }).then((msg) => {
+      return message.channel.reply({ embeds: [bannable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -86,7 +86,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embeds: [embed] });
+    member.reply({ embeds: [embed] });
     await member
       .ban({ reason: "Moderator: " + message.member.user.tag + reason })
       .then(message.react("✅"));
@@ -117,6 +117,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logembed] });
+    logchannel.reply({ embeds: [logembed] });
   },
 };

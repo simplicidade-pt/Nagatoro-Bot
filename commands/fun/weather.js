@@ -16,7 +16,7 @@ module.exports = {
     weather.find(
       { search: args.join(" "), degreeType: "C" },
       function (err, result) {
-        // if (err) message.channel.send(err);
+        // if (err) message.channel.reply(err);
         //  if (result.length === 0) {
         if (err) {
           const errm = new Discord.MessageEmbed()
@@ -29,7 +29,7 @@ module.exports = {
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
 
-          message.channel.send({ embeds: [errm] }).then((msg) => {
+          message.channel.reply({ embeds: [errm] }).then((msg) => {
             setTimeout(() => msg.delete(), 15000);
           });
           return;
@@ -84,7 +84,7 @@ module.exports = {
             true
           );
 
-        message.channel.send({ embeds: [embed] });
+        message.channel.reply({ embeds: [embed] });
       }
     );
   },

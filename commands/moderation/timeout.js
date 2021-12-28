@@ -25,7 +25,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.KICK_MEMBERS))
-      return message.channel.send({ embeds: [noPermission] }).then((msg) => {
+      return message.channel.reply({ embeds: [noPermission] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -41,7 +41,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Time) return message.channel.send({ embeds: [noTime] });
+    if (!Time) return message.channel.reply({ embeds: [noTime] });
 
     const noUser = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -52,7 +52,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Target) return message.channel.send({ embeds: [noUser] });
+    if (!Target) return message.channel.reply({ embeds: [noUser] });
 
     const invalidTime = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -65,7 +65,7 @@ module.exports = {
 
     const milliseconds = ms(Time);
     if (!milliseconds || milliseconds < 10000 || milliseconds > 2419200000) {
-      return message.channel.send({ embeds: [invalidTime] });
+      return message.channel.reply({ embeds: [invalidTime] });
     }
 
     let reason = args.slice(2).join(" ");
@@ -103,7 +103,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.send({ embeds: [Success] });
+    message.channel.reply({ embeds: [Success] });
 
     const logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
@@ -128,6 +128,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logEmbed] });
+    logchannel.reply({ embeds: [logEmbed] });
   },
 };

@@ -32,7 +32,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: [er] }).then((msg) => {
+      return message.channel.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -53,7 +53,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!songSearch)
-      return message.channel.send({
+      return message.channel.reply({
         embeds: [noRequest],
       });
 
@@ -67,7 +67,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel)
-      return message.channel.send({
+      return message.channel.reply({
         embeds: [noChannel],
       });
 
@@ -86,7 +86,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!searchResult || !searchResult.tracks.length)
-      return message.channel.send({ embeds: [notFound] });
+      return message.channel.reply({ embeds: [notFound] });
 
     const queue = player.createQueue(message.guild, {
       metadata: message.channel,
@@ -105,7 +105,7 @@ module.exports = {
       if (!queue.connection) await queue.connect(message.member.voice.channel);
     } catch {
       queue.destroy();
-      return message.channel.send({ embeds: [errorPlaying] });
+      return message.channel.reply({ embeds: [errorPlaying] });
     }
     if (searchResult.playlist) {
       queue.addTracks(searchResult.tracks);

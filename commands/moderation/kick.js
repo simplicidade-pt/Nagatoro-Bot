@@ -24,7 +24,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.KICK_MEMBERS))
-      return message.channel.send({ embeds: [err] }).then((msg) => {
+      return message.channel.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -64,7 +64,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member.kickable)
-      return message.channel.send({ embeds: [kickable] }).then((msg) => {
+      return message.channel.reply({ embeds: [kickable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -85,7 +85,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embeds: kickmsg });
+    member.reply({ embeds: kickmsg });
     await member.kick("Moderator: " + message.member.user.tag + reason);
 
     // message.react("✅");
@@ -116,6 +116,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logEmbed] });
+    logchannel.reply({ embeds: [logEmbed] });
   },
 };

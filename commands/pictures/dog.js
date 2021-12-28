@@ -26,7 +26,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.channel.send({ embeds: [er] }).then((msg) => {
+      return message.channel.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -54,7 +54,7 @@ module.exports = {
         { json: true, url: "https://random.dog/woof.json" },
         (err, res, json) => {
           if (err) {
-            message.reply("There was an error!");
+            message.reply({ contents: "There was an error! " });
           } else {
             const embed = new Discord.MessageEmbed()
 
@@ -73,12 +73,12 @@ module.exports = {
               .setFooter("Requested by " + message.member.user.tag)
               .setImage(json.url);
 
-            message.channel.send({ embeds: [embed] });
+            message.channel.reply({ embeds: [embed] });
           }
         }
       );
     } catch (err) {
-      message.channel.send("There was an error!\n" + err).catch();
+      message.channel.reply("There was an error!\n" + err).catch();
     }
   },
 };

@@ -12,7 +12,7 @@ module.exports = {
   run: async (client, message, args) => {
     if (message.author.bot) return;
 
-    await message.channel.send({
+    await message.channel.reply({
       embeds: [
         {
           color: colors.info,
@@ -28,7 +28,7 @@ module.exports = {
     } else {
       const search = await wiki.search(message.suffix, 1);
       if (!search.results.length) {
-        return message.channel.send({
+        return message.channel.reply({
           embeds: [
             {
               color: colors.error,
@@ -57,7 +57,7 @@ module.exports = {
       }) to read more!`;
     }
     const mainImage = await result.mainImage().catch(() => null);
-    message.channel.send({
+    message.channel.reply({
       embeds: [
         {
           color: colors.success,

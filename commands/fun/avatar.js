@@ -29,7 +29,7 @@ module.exports = {
         .setFooter("Requested by " + message.member.user.tag)
         .setTimestamp();
 
-      message.channel.send({ embeds: [avatarEmbed] });
+      message.channel.reply({ embeds: [avatarEmbed] });
     } else {
       let avatarEmbed = new Discord.MessageEmbed()
         .setColor(colors.info)
@@ -39,7 +39,7 @@ module.exports = {
         .setImage(message.author.displayAvatarURL({ dynamic: true }))
         .setFooter("Requested by " + message.member.user.tag);
 
-      message.channel.send({ embeds: [avatarEmbed] });
+      message.channel.reply({ embeds: [avatarEmbed] });
     }
   },
 };

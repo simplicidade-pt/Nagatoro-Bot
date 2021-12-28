@@ -23,7 +23,7 @@ module.exports = {
       );
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.MOVE_MEMBERS))
-      return message.channel.send({ embeds: [err] }).then((msg) => {
+      return message.channel.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -39,7 +39,7 @@ module.exports = {
 
     const member = message.mentions.users.first();
     if (!member)
-      return message.channel.send({ embeds: [err1] }).then((msg) => {
+      return message.channel.reply({ embeds: [err1] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -57,7 +57,7 @@ module.exports = {
     // message.guild.voiceStates.cache.get(member.id)
 
     if (!message.guild.voiceStates.cache.get(member.id))
-      return message.channel.send({ embeds: [err2] }).then((msg) => {
+      return message.channel.reply({ embeds: [err2] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -65,7 +65,7 @@ module.exports = {
       .get(member.id)
       .voice.kick()
       .then((member) =>
-        message.channel.send(`${member}`)
+        message.channel.reply(`${member}`)
       )
       .catch(console.error);
     message.react(successemoji);
@@ -96,6 +96,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logembed] });
+    logchannel.reply({ embeds: [logembed] });
   },
 };

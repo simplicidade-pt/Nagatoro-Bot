@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.send({ embeds: [er] }).then((msg) => {
+      return message.channel.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -51,7 +51,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!queue?.playing)
-      return message.channel.send({
+      return message.channel.reply({
         embeds: [noQueue],
       });
 
@@ -68,6 +68,6 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    return message.channel.send({ embeds: [resumeembed] });
+    return message.channel.reply({ embeds: [resumeembed] });
   },
 };
