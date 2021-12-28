@@ -83,7 +83,7 @@ module.exports = {
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .addField("Moderator:", responsible_mod.user.tag, true)
+      .addField("Moderator:", message.member.user.tag, true)
       .addField("Target:", Target, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
