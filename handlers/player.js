@@ -42,7 +42,7 @@ player.on("trackStart", (queue, track) => {
     .setFooter("Automated Message")
     .setTimestamp();
 
-  queue.metadata.reply({ embeds: [trackStart] });
+  queue.metadata.send({ embeds: [trackStart] });
 });
 
 player.on("trackAdd", (queue, track) => {
@@ -63,7 +63,7 @@ player.on("trackAdd", (queue, track) => {
     .setFooter("Automated Message")
     .setTimestamp();
 
-  queue.metadata.reply({ embeds: [trackAdd] });
+  queue.metadata.send({ embeds: [trackAdd] });
 });
 
 player.on("botDisconnect", (queue) => {
@@ -77,7 +77,7 @@ player.on("botDisconnect", (queue) => {
     )
     .setTimestamp();
 
-  queue.metadata.reply({ embeds: [botDisconnect] });
+  queue.metadata.send({ embeds: [botDisconnect] });
 });
 
 player.on("channelEmpty", (queue) => {
@@ -91,7 +91,7 @@ player.on("channelEmpty", (queue) => {
     )
     .setTimestamp();
 
-  queue.metadata.reply({ embeds: [channelEmpty] });
+  queue.metadata.send({ embeds: [channelEmpty] });
 });
 
 player.on("queueEnd", (queue) => {
@@ -105,7 +105,7 @@ player.on("queueEnd", (queue) => {
     )
     .setTimestamp();
 
-  queue.metadata.reply({ embeds: [queueEnd] });
+  queue.metadata.send({ embeds: [queueEnd] });
 });
 
 module.exports = player;
