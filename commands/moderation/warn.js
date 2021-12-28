@@ -83,8 +83,8 @@ module.exports = {
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", Target, true)
-      .addField("Reason:", "```" + reason + "```", true)
+      .addField("Target:", "Target", true)
+      .addField("Reason:", "```" + "reason" + "```", true)
       .setTimestamp();
 
     const Guild = require("../../models/guild");
