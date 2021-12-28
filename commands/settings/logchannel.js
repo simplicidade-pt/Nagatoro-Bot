@@ -23,7 +23,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD))
-      return message.channel.reply({ embeds: [err] }).then((msg) => {
+      return message.member.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -77,7 +77,7 @@ module.exports = {
             )
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.reply({ embeds: [success] });
+          return message.member.reply({ embeds: [success] });
         } else {
           guild
             .updateOne({
@@ -99,7 +99,7 @@ module.exports = {
             )
             .setFooter("Requested by " + message.member.user.tag);
 
-          return message.channel.reply({ embeds: [success] });
+          return message.member.reply({ embeds: [success] });
         }
       }
     );

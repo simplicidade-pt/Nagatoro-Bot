@@ -24,7 +24,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS))
-      return message.channel.reply({ embeds: err }).then((msg) => {
+      return message.member.reply({ embeds: err }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -65,7 +65,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!member.bannable)
-      return message.channel.reply({ embeds: [bannable] }).then((msg) => {
+      return message.member.reply({ embeds: [bannable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 

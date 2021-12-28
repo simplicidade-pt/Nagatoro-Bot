@@ -32,7 +32,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.reply({ embeds: [er] }).then((msg) => {
+      return message.member.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -52,7 +52,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!queue)
-      return message.channel.reply({ embeds: [errq] }).catch(console.error);
+      return message.member.reply({ embeds: [errq] }).catch(console.error);
 
     let lyrics = null;
 
@@ -74,6 +74,6 @@ module.exports = {
 
     if (lyricsEmbed.description.length >= 2048)
       lyricsEmbed.description = lyricsEmbed.description.substr(0, 2046) + "```";
-    return message.channel.reply({ embeds: [lyricsEmbed] }).catch(console.error);
+    return message.member.reply({ embeds: [lyricsEmbed] }).catch(console.error);
   },
 };

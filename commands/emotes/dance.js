@@ -31,7 +31,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.channel.reply({ embeds: er }).then((msg) => {
+      return message.member.reply({ embeds: er }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -79,6 +79,6 @@ module.exports = {
       .setTimestamp()
       .setImage(response)
       .setFooter("Requested by " + message.member.user.tag);
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   },
 };

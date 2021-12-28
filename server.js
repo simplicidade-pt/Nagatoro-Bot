@@ -137,7 +137,7 @@ client.on("messageCreate", async (message) => {
   if (
     !message.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)
   ) {
-    message.channel.reply({
+    message.member.reply({
       content:
         'Senpai~ I need the "Embed messages" permissions to work properly, please contact your servers administrators!',
     });
@@ -220,7 +220,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds entertainment", message)) {
@@ -311,7 +311,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds music", message)) {
@@ -379,7 +379,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds moderation", message)) {
@@ -466,7 +466,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds activity", message)) {
@@ -511,7 +511,7 @@ client.on("messageCreate", async (message) => {
         ""
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds pictures", message)) {
@@ -545,7 +545,7 @@ client.on("messageCreate", async (message) => {
         "```" + prefix + "meme```"
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds miscellaneous", message)) {
@@ -588,7 +588,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 
   if (isCommand("cmds emotes", message)) {
@@ -644,7 +644,7 @@ client.on("messageCreate", async (message) => {
         true
       );
 
-    message.channel.reply({ embeds: [embed] });
+    message.member.reply({ embeds: [embed] });
   }
 });
 

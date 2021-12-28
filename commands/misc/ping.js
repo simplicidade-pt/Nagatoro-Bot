@@ -20,7 +20,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.channel.reply({
+    message.member.reply({
       embeds: [embed],
     });
   },

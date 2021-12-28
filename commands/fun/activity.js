@@ -43,7 +43,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.voice.channel) {
-      return message.channel.reply({ embeds: [err0] }).then((msg) => {
+      return message.member.reply({ embeds: [err0] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     }
@@ -57,7 +57,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE"))
-      return message.channel.reply({ embeds: [err1] }).then((msg) => {
+      return message.member.reply({ embeds: [err1] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -91,9 +91,9 @@ module.exports = {
       );
 
     const activity = ACTIVITIES[args[0] ? args[0].toLowerCase() : null];
-    if (!activity) return message.channel.reply({ embeds: [success0] });
+    if (!activity) return message.member.reply({ embeds: [success0] });
 
-    /* return message.channel.reply(
+    /* return message.member.reply(
         `❌ | Correct formats:\n${Object.keys(ACTIVITIES)
           .map(m => `- **${"n?"}activity ${m}**`)
           .join("\n")}`
@@ -128,7 +128,7 @@ module.exports = {
       .then((res) => res.json())
       .then((invite) => {
         if (invite.error || !invite.code)
-          return message.channel.reply({ embeds: [err3] }).then((msg) => {
+          return message.member.reply({ embeds: [err3] }).then((msg) => {
             setTimeout(() => msg.delete(), 15000);
           });
 
@@ -148,10 +148,10 @@ module.exports = {
           .setTimestamp()
           .setFooter("Requested by " + message.member.user.tag);
 
-        message.channel.reply({ embeds: [success1] });
+        message.member.reply({ embeds: [success1] });
       })
       .catch((e) => {
-        message.channel.reply({ embeds: [err3] });
+        message.member.reply({ embeds: [err3] });
       });
   },
 };

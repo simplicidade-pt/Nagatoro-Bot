@@ -60,6 +60,6 @@ module.exports = {
       .setTimestamp()
       .setThumbnail(userMention.avatarURL({ dynamic: true }));
 
-    message.channel.reply({ embeds: [myInfo] });
+    message.member.reply({ embeds: [myInfo] });
   },
 };
