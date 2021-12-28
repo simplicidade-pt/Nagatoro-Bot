@@ -128,6 +128,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.reply({ embeds: [logEmbed] });
+    logchannel.send({ embeds: [logEmbed] });
   },
 };

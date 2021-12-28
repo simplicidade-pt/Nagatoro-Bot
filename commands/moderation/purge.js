@@ -52,14 +52,11 @@ module.exports = {
       )
     );
 
-    const responsable_mod = message.member.user.tag;
-    const channel_occured = message.channel;
-
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Purge")
-      .addField("Moderator:", responsable_mod, true)
-      .addField("Channel:", channel_occured, true)
+      .addField("Moderator:", message.member.user.tag, true)
+      .addField("Channel:", message.channel, true)
       .addField("Amount:", "```" + deleteCount + "```", true)
       .setTimestamp();
 
@@ -77,6 +74,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.reply({ embeds: [logembed] });
+    logchannel.send({ embeds: [logembed] });
   },
 };

@@ -83,8 +83,8 @@ module.exports = {
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "Target", true)
-      .addField("Reason:", "```" + "reason" + "```", true)
+      .addField("Target:", "<@!" + Target.id + ">", true)
+      .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
 
     const Guild = require("../../models/guild");
@@ -101,6 +101,6 @@ module.exports = {
     );
 
     let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.reply({ embeds: [logEmbed] });
+    logchannel.send({ embeds: [logEmbed] });
   },
 };
