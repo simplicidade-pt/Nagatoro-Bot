@@ -56,14 +56,11 @@ module.exports = {
 
     message.reply({ embeds: [pinnedembed] }).then((msg) => msg.pin());
 
-    const responsable_mod = message.member.user.tag;
-    const channel_occured = message.channel;
-
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Pin")      
-      .addField("Moderator:", responsable_mod, true)
-      .addField("Channel:", channel_occured, true)
+      .addField("Moderator:", message.member.user.tag, true)
+      .addField("Channel:", message.channel, true)
       .addField("Message:", "```" + text + "```", true)
       .setTimestamp();
 

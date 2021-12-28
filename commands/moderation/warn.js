@@ -43,6 +43,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!Target) return message.reply({ embeds: [invalidmember] });
+    
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
 
@@ -78,8 +79,6 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     message.reply({ embeds: [success] });
-
-    const responsible_mod = message.member;
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)

@@ -54,8 +54,6 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag)
       .setTimestamp();
 
-    // message.guild.voiceStates.cache.get(member.id)
-
     if (!message.guild.voiceStates.cache.get(member.id))
       return message.reply({ embeds: [err2] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
@@ -70,15 +68,12 @@ module.exports = {
       .catch(console.error);
     message.react(successemoji);
 
-    const responsable_mod = message.member.user.tag;
-    const channel_occured = message.channel;
-
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || VC Removal")
-      .addField("Moderator:", responsable_mod, true)
+      .addField("Moderator:", message.member.user.tag, true)
       .addField("Target:", member, true)
-      .addField("Channel:", channel_occured, true)
+      .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
 

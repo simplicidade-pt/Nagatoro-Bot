@@ -49,9 +49,6 @@ module.exports = {
       message.guild.members.unban(bUser.user);
     });
 
-    const responsable_mod = message.member.user.tag;
-    const channel_occured = message.channel;
-
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
 
@@ -73,9 +70,9 @@ module.exports = {
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Unban")
-      .addField("Moderator:", responsable_mod, true)
+      .addField("Moderator:", message.member.user.tag, true)
       .addField("Target:", "<@!" + userID + ">", true)
-      .addField("Channel:", channel_occured, true)
+      .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
 
