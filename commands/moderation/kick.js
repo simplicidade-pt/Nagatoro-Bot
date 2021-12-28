@@ -85,7 +85,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.reply({ embeds: kickmsg });
+    member.send({ embeds: [kickmsg] });
     await member.kick("Moderator: " + message.member.user.tag + reason);
 
     // message.react("✅");

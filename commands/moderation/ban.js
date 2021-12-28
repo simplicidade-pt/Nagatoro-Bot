@@ -86,7 +86,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.reply({ embeds: [embed] });
+    member.send({ embeds: [embed] });
     await member
       .ban({ reason: "Moderator: " + message.member.user.tag + reason })
       .then(message.react("✅"));
