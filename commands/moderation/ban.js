@@ -91,13 +91,12 @@ module.exports = {
       .ban({ reason: "Moderator: " + message.member.user.tag + reason })
       .then(message.react("✅"));
 
-    const responsable_mod = message.member;
+    const responsable_mod = message.member.user.tag;
     const channel_occured = message.channel;
 
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .setTimestamp()
-      .setAuthor(" ➜ Action || Ban", responsable_mod.user.displayAvatarURL())
+      .setTitle(" ➜ Action || Ban")
       .addField("Moderator:", responsable_mod, true)
       .addField("Target:", member, true)
       .addField("Channel:", channel_occured, true)

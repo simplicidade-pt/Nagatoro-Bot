@@ -107,8 +107,7 @@ module.exports = {
 
     const logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .setTimestamp()
-      .setAuthor(" ➜ Action || Timeout", message.member.user.displayAvatarURL())
+      .setTitle(" ➜ Action || Timeout")
       .addField("Moderator:", "```" + message.member.user.tag + "```", true)
       .addField("Target:", "```" + Target.tag + "```", true)
       .addField("Time:", "```" + Time + "```", true)

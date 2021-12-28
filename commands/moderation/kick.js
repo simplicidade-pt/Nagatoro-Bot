@@ -90,13 +90,12 @@ module.exports = {
 
     // message.react("✅");
 
-    const responsable_mod = message.member;
+    const responsable_mod = message.member.user.tag;
     const channel_occured = message.channel;
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .setTimestamp()
-      .setAuthor(" ➜ Action || Kick", responsable_mod.user.displayAvatarURL())
+      .setTitle(" ➜ Action || Kick")
       .addField("Moderator:", responsable_mod, true)
       .addField("Target:", member, true)
       .addField("Channel:", channel_occured, true)

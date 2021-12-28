@@ -52,13 +52,12 @@ module.exports = {
       )
     );
 
-    const responsable_mod = message.member;
+    const responsable_mod = message.member.user.tag;
     const channel_occured = message.channel;
 
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .setTimestamp()
-      .setAuthor(" ➜ Action || Purge", responsable_mod.user.displayAvatarURL())
+      .setTitle(" ➜ Action || Purge")
       .addField("Moderator:", responsable_mod, true)
       .addField("Channel:", channel_occured, true)
       .addField("Amount:", "```" + deleteCount + "```", true)

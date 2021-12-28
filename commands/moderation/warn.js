@@ -80,15 +80,13 @@ module.exports = {
     message.channel.send({ embeds: [success] });
 
     const responsible_mod = message.member;
-    const channel_occured = message.channel;
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTimestamp()
       .setAuthor(" ➜ Action || Warn", responsible_mod.user.displayAvatarURL())
-      .addField("Moderator:", responsible_mod, true)
+      .addField("Moderator:", responsible_mod.user.tag, true)
       .addField("Target:", Target, true)
-      .addField("Channel:", channel_occured, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
 
