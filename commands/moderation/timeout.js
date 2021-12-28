@@ -25,7 +25,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.KICK_MEMBERS))
-      return message.member.reply({ embeds: [noPermission] }).then((msg) => {
+      return message.reply({ embeds: [noPermission] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -41,7 +41,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Time) return message.member.reply({ embeds: [noTime] });
+    if (!Time) return message.reply({ embeds: [noTime] });
 
     const noUser = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -52,7 +52,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Target) return message.member.reply({ embeds: [noUser] });
+    if (!Target) return message.reply({ embeds: [noUser] });
 
     const invalidTime = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -65,7 +65,7 @@ module.exports = {
 
     const milliseconds = ms(Time);
     if (!milliseconds || milliseconds < 10000 || milliseconds > 2419200000) {
-      return message.member.reply({ embeds: [invalidTime] });
+      return message.reply({ embeds: [invalidTime] });
     }
 
     let reason = args.slice(2).join(" ");
@@ -103,7 +103,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.member.reply({ embeds: [Success] });
+    message.reply({ embeds: [Success] });
 
     const logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)

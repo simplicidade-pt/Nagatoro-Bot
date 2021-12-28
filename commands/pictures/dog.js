@@ -26,7 +26,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
 
-      return message.member.reply({ embeds: [er] }).then((msg) => {
+      return message.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -73,12 +73,12 @@ module.exports = {
               .setFooter("Requested by " + message.member.user.tag)
               .setImage(json.url);
 
-            message.member.reply({ embeds: [embed] });
+            message.reply({ embeds: [embed] });
           }
         }
       );
     } catch (err) {
-      message.member.reply("There was an error!\n" + err).catch();
+      message.reply("There was an error!\n" + err).catch();
     }
   },
 };

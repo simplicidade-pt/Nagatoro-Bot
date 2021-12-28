@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.member.reply({ embeds: [er] }).then((msg) => {
+      return message.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -49,7 +49,7 @@ module.exports = {
 
     const queue = player.getQueue(message.guildId);
     if (!queue?.playing)
-      return message.member.reply({
+      return message.reply({
         embeds: [noSong],
       });
 
@@ -62,6 +62,6 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.member.reply({ embeds: [Skipped] });
+    message.reply({ embeds: [Skipped] });
   },
 };

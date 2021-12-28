@@ -67,6 +67,6 @@ module.exports = {
       .setThumbnail(message.guild.iconURL())
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.member.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };

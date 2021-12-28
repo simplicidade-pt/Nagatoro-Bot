@@ -16,6 +16,6 @@ module.exports = {
       .setTimestamp()
       .setTitle(emojis.Hype + "Here's the servers member count!")
       .setDescription("```" + message.guild.memberCount + "```", true);
-    message.member.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };

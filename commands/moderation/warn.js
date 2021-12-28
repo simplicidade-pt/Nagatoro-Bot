@@ -25,7 +25,7 @@ module.exports = {
     if (
       !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)
     )
-      return message.member.reply({ embeds: [err] }).then((msg) => {
+      return message.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -42,7 +42,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Target) return message.member.reply({ embeds: [invalidmember] });
+    if (!Target) return message.reply({ embeds: [invalidmember] });
     let reason = args.slice(1).join(" ");
     if (!reason) reason = "No reason provided";
 
@@ -77,7 +77,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.member.reply({ embeds: [success] });
+    message.reply({ embeds: [success] });
 
     const responsible_mod = message.member;
 

@@ -23,7 +23,7 @@ module.exports = {
     const text = args.slice(0).join(" ");
 
     if (text.length < 1)
-      return message.member.reply({ embeds: [err] }).then((msg) => {
+      return message.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -40,6 +40,6 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    message.member.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };

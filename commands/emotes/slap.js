@@ -30,7 +30,7 @@ module.exports = {
             message.member.user.tag
         );
 
-      return message.member.reply({ embeds: [er] }).then((msg) => {
+      return message.reply({ embeds: [er] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
     } else {
@@ -56,7 +56,7 @@ module.exports = {
       );
 
     let member = message.mentions.users.first();
-    if (!member) return message.member.reply({ embeds: [er2] });
+    if (!member) return message.reply({ embeds: [er2] });
 
     let gifs = [
       "https://media1.tenor.com/images/74db8b0b64e8d539aebebfbb2094ae84/tenor.gif?itemid=15144612",
@@ -113,6 +113,6 @@ module.exports = {
       )
       .setImage(response)
       .setFooter("Requested by " + message.member.user.tag);
-    message.member.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };

@@ -52,6 +52,6 @@ module.exports = {
       "nagatoro.png"
     );
 
-    message.member.reply({ files: [attachment] });
+    message.reply({ files: [attachment] });
   },
 };

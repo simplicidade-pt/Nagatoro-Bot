@@ -23,7 +23,7 @@ module.exports = {
       );
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.MOVE_MEMBERS))
-      return message.member.reply({ embeds: [err] }).then((msg) => {
+      return message.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -39,7 +39,7 @@ module.exports = {
 
     const member = message.mentions.users.first();
     if (!member)
-      return message.member.reply({ embeds: [err1] }).then((msg) => {
+      return message.reply({ embeds: [err1] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -57,7 +57,7 @@ module.exports = {
     // message.guild.voiceStates.cache.get(member.id)
 
     if (!message.guild.voiceStates.cache.get(member.id))
-      return message.member.reply({ embeds: [err2] }).then((msg) => {
+      return message.reply({ embeds: [err2] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -65,7 +65,7 @@ module.exports = {
       .get(member.id)
       .voice.kick()
       .then((member) =>
-        message.member.reply(`${member}`)
+        message.reply(`${member}`)
       )
       .catch(console.error);
     message.react(successemoji);

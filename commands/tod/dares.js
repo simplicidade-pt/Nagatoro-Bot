@@ -13,6 +13,6 @@ module.exports = {
       .setTitle("Senpai~")
       .setDescription(question)
       .setColor(colors.success);
-    message.member.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };

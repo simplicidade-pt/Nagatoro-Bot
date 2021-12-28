@@ -22,7 +22,7 @@ module.exports = {
       .setFooter("Requested by " + message.member.user.tag);
 
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS))
-      return message.member.reply({ embeds: [err] }).then((msg) => {
+      return message.reply({ embeds: [err] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
@@ -68,7 +68,7 @@ module.exports = {
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
-    message.member.reply({ embeds: [success] });
+    message.reply({ embeds: [success] });
 
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
