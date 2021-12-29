@@ -13,7 +13,6 @@ module.exports = {
     if (message.author.bot) return;
 
     const err = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
@@ -32,7 +31,6 @@ module.exports = {
     let member = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
@@ -61,18 +59,6 @@ module.exports = {
         .setFooter("Requested by " + message.member.user.tag);
   
     if (member.id == message.author.id) return message.reply({ embeds: [kickSelf] })
-
-    const kickable = new Discord.MessageEmbed()
-      .setColor(colors.error)
-      .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
-      .setTimestamp()
-      .setDescription(`Senpai~ I cannot kick this user, they're an administrator silly!`)
-      .setFooter("Requested by " + message.member.user.tag);
-
-    if (member.permissions.has("ADMINISTRATOR"))
-      return message.reply({ embeds: [kickable] }).then((msg) => {
-        setTimeout(() => msg.delete(), 15000);
-      });
 
     let reason = args.slice(1).join(" ");
     const maxLength = new Discord.MessageEmbed()

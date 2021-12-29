@@ -60,20 +60,6 @@ module.exports = {
   
     if (member.id == message.author.id) return message.reply({ embeds: [banSelf] })
 
-    const bannable = new Discord.MessageEmbed()
-      .setColor(colors.error)
-      .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
-      .setDescription(
-        `Senpai~ I cannot ban this user, they're an administrator silly!`
-      )
-      .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag);
-
-    if (member.permissions.has("ADMINISTRATOR"))
-      return message.reply({ embeds: [bannable] }).then((msg) => {
-        setTimeout(() => msg.delete(), 15000);
-      });
-
     let reason = args.slice(1).join(" ");
 
     const maxLength = new Discord.MessageEmbed()
