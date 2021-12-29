@@ -13,7 +13,6 @@ module.exports = {
     if (message.author.bot) return;
 
     const err = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTimestamp()
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
@@ -29,9 +28,9 @@ module.exports = {
       });
 
     const server = message.guild.name;
-    let member = message.mentions.users.first();
-    const invalidmember = new Discord.MessageEmbed()
+    const member = message.mentions.users.first();
 
+    const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
@@ -50,29 +49,46 @@ module.exports = {
           setTimeout(() => msg.delete(), 15000);
         });
 
-    if (member.id == message.author.id) {
-      return message.react("❌");
-    }
+        const banSelf = new Discord.MessageEmbed()
+        .setColor(colors.error)
+        .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+        .setDescription(
+          "Sorry senpai~ You cannot kick yourself"
+        )
+        .setTimestamp()
+        .setFooter("Requested by " + message.member.user.tag);
+  
+    if (member.id == message.author.id) return message.reply({ embeds: [banSelf] })
 
     const bannable = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
-        `Senpai~ I cannot ban this user, do they have a higher role then me?`
+        `Senpai~ I cannot ban this user, they're an administrator silly!`
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member.bannable)
+    if (!member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))
       return message.reply({ embeds: [bannable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
     let reason = args.slice(1).join(" ");
-    if (!reason) reason = "No reason provided";
 
-    var embed = new Discord.MessageEmbed()
+    const maxLength = new Discord.MessageEmbed()
+      .setColor(colors.error)
+      .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+      .setDescription(
+        "Sorry senpai~ Please make sure your reason is below `512` characters!"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (reason.length > 512) return message.reply({ embeds: [maxLength] })
+    if (!reason) reason = "No reason was provided.";
+
+    const embed = new Discord.MessageEmbed()
       .setColor(colors.error)
       .setTitle("You've been banned!")
       .setDescription(
@@ -91,11 +107,11 @@ module.exports = {
       .ban({ reason: "Moderator: " + message.member.user.tag + reason })
       .then(message.react("✅"));
 
-    var logembed = new Discord.MessageEmbed()
+    const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Ban")
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", member, true)
+      .addField("Target:", "<@!" + member.id + ">", true)
       .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();

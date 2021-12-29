@@ -51,25 +51,41 @@ module.exports = {
           setTimeout(() => msg.delete(), 15000);
         });
 
-    if (member.id == message.author.id) {
-      return message.react("❌");
-    }
+        const kickSelf = new Discord.MessageEmbed()
+        .setColor(colors.error)
+        .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+        .setDescription(
+          "Sorry senpai~ You cannot kick yourself"
+        )
+        .setTimestamp()
+        .setFooter("Requested by " + message.member.user.tag);
+  
+    if (member.id == message.author.id) return message.reply({ embeds: [kickSelf] })
 
     const kickable = new Discord.MessageEmbed()
 
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setTimestamp()
-      .setDescription(`Senpai~ I cannot kick this user. `)
+      .setDescription(`Senpai~ I cannot kick this user, they're an administrator silly!`)
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member.kickable)
+    if (!member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))
       return message.reply({ embeds: [kickable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
 
     let reason = args.slice(1).join(" ");
-    if (!reason) reason = "No reason provided";
+    const maxLength = new Discord.MessageEmbed()
+    .setColor(colors.error)
+    .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+    .setDescription(
+      "Sorry senpai~ Please make sure your reason is below `512` characters!"
+    )
+    .setTimestamp()
+    .setFooter("Requested by " + message.member.user.tag);
+  if (reason.length > 512) return message.reply({ embeds: [maxLength] })
+  if (!reason) reason = "No reason was provided.";
 
     const kickmsg = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -94,7 +110,7 @@ module.exports = {
       .setColor(colors.log)
       .setTitle(" ➜ Action || Kick")
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", member, true)
+      .addField("Target:", "<@!" + member.id + ">", true)
       .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
