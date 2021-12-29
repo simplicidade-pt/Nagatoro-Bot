@@ -63,14 +63,13 @@ module.exports = {
     if (member.id == message.author.id) return message.reply({ embeds: [kickSelf] })
 
     const kickable = new Discord.MessageEmbed()
-
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setTimestamp()
       .setDescription(`Senpai~ I cannot kick this user, they're an administrator silly!`)
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))
+    if (member.permissions.has("ADMINISTRATOR"))
       return message.reply({ embeds: [kickable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });

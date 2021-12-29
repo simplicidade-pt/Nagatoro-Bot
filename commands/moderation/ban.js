@@ -69,7 +69,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member.permissions.has(Discord.Permissions.FLAGS.ADMINISTRATOR))
+    if (member.permissions.has("ADMINISTRATOR"))
       return message.reply({ embeds: [bannable] }).then((msg) => {
         setTimeout(() => msg.delete(), 15000);
       });
