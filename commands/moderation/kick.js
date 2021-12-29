@@ -55,7 +55,7 @@ module.exports = {
         .setColor(colors.error)
         .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
         .setDescription(
-          "Sorry senpai~ You cannot kick yourself"
+          "Sorry senpai~ You can't kick yourself!"
         )
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
