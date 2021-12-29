@@ -28,7 +28,7 @@ module.exports = {
       });
 
     const server = message.guild.name;
-    let member = message.mentions.users.first();
+    let Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -39,7 +39,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member)
+    if (!Target)
       return message
         .reply({
           embeds: [invalidmember],
@@ -58,7 +58,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
   
-    if (member.id == message.author.id) return message.reply({ embeds: [kickSelf] })
+    if (Target.id == message.author.id) return message.reply({ embeds: [kickSelf] })
 
     let reason = args.slice(1).join(" ");
     const maxLength = new Discord.MessageEmbed()
@@ -86,8 +86,8 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embeds: [kickmsg] });
-    await member.kick("Moderator: " + message.member.user.tag + reason);
+      Target.send({ embeds: [kickmsg] });
+      Target.kick("Moderator: " + message.member.user.tag + " / Reason: " + reason);
 
     // message.react("✅");
 
@@ -95,7 +95,7 @@ module.exports = {
       .setColor(colors.log)
       .setTitle(" ➜ Action || Kick")
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "<@!" + member.id + ">", true)
+      .addField("Target:", "<@!" + Target.id + ">", true)
       .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
