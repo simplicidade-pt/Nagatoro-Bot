@@ -28,7 +28,7 @@ module.exports = {
       });
 
     const server = message.guild.name;
-    const member = message.mentions.users.first();
+    const Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -39,7 +39,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!member)
+    if (!Target)
       return message
         .reply({
           embeds: [invalidmember],
@@ -58,7 +58,7 @@ module.exports = {
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
   
-    if (member.id == message.author.id) return message.reply({ embeds: [banSelf] })
+    if (Target.id == message.author.id) return message.reply({ embeds: [banSelf] })
 
     let reason = args.slice(1).join(" ");
 
@@ -88,16 +88,16 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    member.send({ embeds: [embed] });
-    await member
-      .ban({ reason: "Moderator: " + message.member.user.tag + reason })
+      Target.send({ embeds: [embed] });
+    await Target
+      .ban({ days: "0", reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason })
       .then(message.react("✅"));
 
     const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Ban")
       .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "<@!" + member.id + ">", true)
+      .addField("Target:", "<@!" + Target.id + ">", true)
       .addField("Channel:", message.channel, true)
       .addField("Reason:", "```" + reason + "```", true)
       .setTimestamp();
