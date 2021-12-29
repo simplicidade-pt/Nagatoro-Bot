@@ -27,8 +27,8 @@ module.exports = {
         setTimeout(() => msg.delete(), 15000);
       });
 
-    const server = message.guild.name;
-    const Target = message.mentions.users.first();
+    let server = message.guild.name;
+    let Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
