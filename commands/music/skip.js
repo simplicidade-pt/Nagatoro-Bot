@@ -53,7 +53,7 @@ module.exports = {
         embeds: [noSong],
       });
 
-    await queue.skip();
+    queue.skip();
 
     const Skipped = new Discord.MessageEmbed()
       .setColor(colors.success)
