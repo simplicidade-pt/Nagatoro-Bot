@@ -7,7 +7,10 @@ const emojis = require("../configuration/emojis.json");
 
 const player = new Player(client, {
    ytdlOptions: { 
-     quality: 'highestaudio' 
+      filter: "audioonly",
+      opusEncoded: "true",
+      quality: 'highestaudio',
+      highWaterMark: 1 << 30,
     } 
 });
 
