@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch");
 const ms = require("ms");
+// const fetch = require("node-fetch");
 
 const colors = require("../../configuration/colors.json");
 const configs = require("../../configuration/settings.json");
@@ -69,8 +69,20 @@ module.exports = {
     }
 
     let reason = args.slice(2).join(" ");
-    if (!reason) reason = "No reason provided";
 
+    const maxLength = new Discord.MessageEmbed()
+      .setColor(colors.error)
+      .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+      .setDescription(
+        "Sorry senpai~ Please make sure your reason is below `512` characters!"
+      )
+      .setTimestamp()
+      .setFooter("Requested by " + message.member.user.tag);
+
+    if (reason.length > 512) return message.reply({ embeds: [maxLength] })
+    if (!reason) reason = "No reason was provided.";
+
+    /*
     await fetch(
       `https://discord.com/api/guilds/${message.guild.id}/members/${Target.id}`,
       {
@@ -86,6 +98,11 @@ module.exports = {
         },
       }
     );
+*/
+
+  Target.timeout(milliseconds, reason)
+    .then(console.log)
+    .catch(console.error);
 
     const Success = new Discord.MessageEmbed()
       .setColor(colors.success)
