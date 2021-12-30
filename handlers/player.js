@@ -6,10 +6,9 @@ const colors = require("../configuration/colors.json");
 const emojis = require("../configuration/emojis.json");
 
 const player = new Player(client, {
-  ytdlOptions: {
-    // quality: "highestaudio",
-    highWaterMark: 1 << 25,
-  },
+   ytdlOptions: { 
+     quality: 'highestaudio' 
+    } 
 });
 
 player.on("error", (queue, error) => {
