@@ -80,6 +80,7 @@ player.on("botDisconnect", (queue) => {
     .setTimestamp();
 
   queue.metadata.send({ embeds: [botDisconnect] });
+  queue.destroy(true);
 });
 
 player.on("channelEmpty", (queue) => {
@@ -94,6 +95,7 @@ player.on("channelEmpty", (queue) => {
     .setTimestamp();
 
   queue.metadata.send({ embeds: [channelEmpty] });
+  queue.destroy(true);
 });
 
 player.on("queueEnd", (queue) => {
@@ -108,6 +110,7 @@ player.on("queueEnd", (queue) => {
     .setTimestamp();
 
   queue.metadata.send({ embeds: [queueEnd] });
+  queue.destroy(true);
 });
 
 module.exports = player;

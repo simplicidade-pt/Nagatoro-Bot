@@ -58,7 +58,7 @@ module.exports = {
     const Skipped = new Discord.MessageEmbed()
       .setColor(colors.success)
       .setTitle("Senpai~" + emojis.Hype)
-      .setDescription("I've successfully skipped the song!")
+      .setDescription("I've successfully skipped the song, next song it is!")
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
