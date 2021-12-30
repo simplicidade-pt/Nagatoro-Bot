@@ -87,9 +87,7 @@ module.exports = {
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
       Target.send({ embeds: [kickmsg] });
-      Target.kick("Moderator: " + message.member.user.tag + " / Reason: " + reason);
-
-    // message.react("✅");
+      message.guild.members.cache.get(Target.id).kick("Moderator: " + message.member.user.tag + " / Reason: " + reason);
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
