@@ -654,7 +654,7 @@ client.on("guildMemberAdd", async (member) => {
   const Guild = require("./models/guild");
   const settings = await Guild.findOne(
     {
-      guildID: message.guild.id,
+      guildID: member.guild.id,
     },
     (err, guild) => {
       if (err) return console.error(err);
