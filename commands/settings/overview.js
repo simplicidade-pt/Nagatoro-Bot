@@ -33,7 +33,7 @@ module.exports = {
       (err, guild) => {
         if (err) console.error(err);
         if (!guild) {
-          message.reply({ embeds: [err] });
+          message.reply({ contents: err });
         }
       }
     );

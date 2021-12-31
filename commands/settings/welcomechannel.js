@@ -38,10 +38,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!channel)
-      return message.channel
-        .reply({ embeds: [err1] })
-        .then((m) => m.delete({ timeout: 15000 }));
+    if (!channel) return message.reply({ embeds: [err1] }).then((m) => m.delete({ timeout: 15000 }));
 
     await Guild.findOne(
       {
