@@ -674,7 +674,7 @@ client.on("guildMemberAdd", async (member) => {
   const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
 
   let welcomechannel = member.guild.channels.cache.get(
-    settings.welcomechannelId
+    settings.welcomeChannelID
   );
 
   welcomechannel.send({
