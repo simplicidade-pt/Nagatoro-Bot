@@ -675,7 +675,7 @@ client.on("guildMemberAdd", async (member) => {
     settings.welcomechannelId
   );
 
-  welcomechannel.reply({
+  welcomechannel.send({
     content:
       "Welcome " +
       "<@" +
@@ -685,7 +685,7 @@ client.on("guildMemberAdd", async (member) => {
       "**" +
       member.guild.name +
       "** " +
-      emojis.Greeting,
+      emojis.Greeting
   });
   welcomechannel.send({ files: [attachment] });
 });
