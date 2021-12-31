@@ -60,7 +60,7 @@ module.exports = {
       lyrics = await lyricsFinder(queue.current.title, "");
       if (!lyrics)
         lyrics =
-          `Senpai~ I found no lyrics for ${queue.current.title} ` + emojis.Sip;
+          `Senpai~ I found no lyrics for ${queue.current.title} `;
     } catch (error) {
       lyrics = `No lyrics found for "${queue.current.title}"`;
     }
