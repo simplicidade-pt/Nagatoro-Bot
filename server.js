@@ -650,7 +650,6 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-
   const Guild = require("./models/guild");
   const settings = await Guild.findOne(
     {
@@ -658,15 +657,16 @@ client.on("guildMemberAdd", async (member) => {
     },
     (err, guild) => {
       if (err) return console.error(err);
-      if (guild) {
-        console.log(guild);
+      if (!guild) {
+        return;
       }
     }
   );
 
+  if (!settings) return;
+
   const { CanvasSenpai } = require("canvas-senpai");
   const canva = new CanvasSenpai();
-
   let data = await canva.welcome(member, {
     link: "https://cdn.discordapp.com/attachments/831022454872211476/850516466977603604/Backgrounddddd.png",
   });
@@ -677,9 +677,8 @@ client.on("guildMemberAdd", async (member) => {
     settings.welcomeChannelID
   );
 
-  welcomechannel.send({
-    content:
-      "Welcome " +
+  welcomechannel.send(
+    "Welcome " +
       "<@" +
       member +
       ">, " +
@@ -688,8 +687,8 @@ client.on("guildMemberAdd", async (member) => {
       member.guild.name +
       "** " +
       emojis.Greeting
-  });
-  welcomechannel.send({ files: [attachment] });
+  );
+  welcomechannel.send(attachment);
 });
 
 client.mongoose.init();
