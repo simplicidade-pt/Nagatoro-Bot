@@ -42,7 +42,7 @@ module.exports = {
       .setColor(colors.info)
       .setTitle("Configurations" + " " + emojis.Giggle)
       .setDescription(
-        `Hey Senpai~ here's your current server configurations:`
+        "Hey Senpai~ here's your current server (" + message.guild.name + ") configurations:"
       )
       .addField(
         emojis.Tag + " Welcome Logs",

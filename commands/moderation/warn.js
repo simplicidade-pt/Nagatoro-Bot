@@ -84,7 +84,7 @@ module.exports = {
       .setColor(colors.log)
       .addField("Moderator:", message.member.user.tag, true)
       .addField("Target:", "<@!" + Target.id + ">", true)
-      .addField("Reason:", "```" + reason + "```", true)
+      .addField("Reason:", "```" + reason + "```")
       .setTimestamp();
 
     const Guild = require("../../models/guild");

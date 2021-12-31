@@ -649,21 +649,19 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-  const Guild = require("./models/guild");
+
+  const Guild = require("../../models/guild");
   const settings = await Guild.findOne(
     {
-      guildID: member.guild.id,
+      guildID: message.guild.id,
     },
     (err, guild) => {
       if (err) return console.error(err);
-      if (!guild) {
-        return;
+      if (guild) {
+        console.log(guild);
       }
     }
   );
-
-  if (!settings) return;
-  console.log("join-send/qa")
 
   const { CanvasSenpai } = require("canvas-senpai");
   const canva = new CanvasSenpai();

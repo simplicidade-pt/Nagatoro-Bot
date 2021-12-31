@@ -33,7 +33,7 @@ module.exports = {
       .setColor(colors.error)
       .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
       .setDescription(
-        `**Silly senpai~ you need to mention a channel to set the moderation logs to.**`
+        `Silly senpai~ you need to mention a channel to set the moderation logs to.`
       )
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
