@@ -649,14 +649,6 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on("guildMemberAdd", async (member) => {
-  const { CanvasSenpai } = require("canvas-senpai");
-  const canva = new CanvasSenpai();
-  let data = await canva.welcome(member, {
-    link: "https://cdn.discordapp.com/attachments/831022454872211476/850516466977603604/Backgrounddddd.png",
-  });
-
-  const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
-
   const Guild = require("./models/guild");
   const settings = await Guild.findOne(
     {
@@ -671,6 +663,17 @@ client.on("guildMemberAdd", async (member) => {
   );
 
   if (!settings) return;
+  console.log("join-send/qa")
+
+  const { CanvasSenpai } = require("canvas-senpai");
+  const canva = new CanvasSenpai();
+
+  let data = await canva.welcome(member, {
+    link: "https://cdn.discordapp.com/attachments/831022454872211476/850516466977603604/Backgrounddddd.png",
+  });
+
+  const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
+
   let welcomechannel = member.guild.channels.cache.get(
     settings.welcomechannelId
   );
