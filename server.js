@@ -678,7 +678,7 @@ client.on("guildMemberAdd", async (member) => {
   );
 
   welcomechannel.send(
-    "Welcome " +
+    { contents: "Welcome " +
       "<@" +
       member +
       ">, " +
@@ -686,9 +686,9 @@ client.on("guildMemberAdd", async (member) => {
       "**" +
       member.guild.name +
       "** " +
-      emojis.Greeting
+      emojis.Greeting}
   );
-  welcomechannel.send(attachment);
+  welcomechannel.send({ files: [attachment] });
 });
 
 client.mongoose.init();
