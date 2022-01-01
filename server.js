@@ -649,7 +649,7 @@ client.on("messageCreate", async (message) => {
   }
 });
 
-client.on("guildMemberAdd", async (member) => {
+client.on("guildMemberAdd", async (client, member) => {
   const Guild = require("./models/guild");
   const settings = await Guild.findOne(
     {
@@ -674,7 +674,7 @@ client.on("guildMemberAdd", async (member) => {
   const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
   let welcomechannel = member.guild.channels.cache.get(settings.welcomeChannelID);
 
-  welcomechannel.send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Greeting});
+  welcomechannel.send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
   welcomechannel.send({ files: [attachment] });
 });
 
