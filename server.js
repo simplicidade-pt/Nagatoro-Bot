@@ -672,10 +672,10 @@ client.on("guildMemberAdd", async (member) => {
   });
 
   const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
-  let welcomechannel = client.guilds.cache.get(member.guild.id).channels.cache.get(settings.welcomeChannelID)
+ // let welcomechannel = client.guilds.cache.get(member.guild.id).channels.cache.get(settings.welcomeChannelID)
 
-  welcomechannel.send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
-  welcomechannel.send({ files: [attachment] });
+  client.guilds.cache.get(member.guild.id).channels.cache.get(settings.welcomeChannelID).send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
+  client.guilds.cache.get(member.guild.id).channels.cache.get(settings.welcomeChannelID).send({ files: [attachment] });
 });
 
 client.mongoose.init();
