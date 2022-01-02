@@ -80,9 +80,9 @@ module.exports = {
       .setDescription(
         emojis.Hmm +
           " You've been banned from from `" +
-          server +
+          server.toString() +
           "` with the reason: ```" +
-          reason +
+          reason.toString() +
           "```"
       )
       .setTimestamp()

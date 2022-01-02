@@ -57,7 +57,7 @@ module.exports = {
       .setTitle(" ➜ Action || Purge")
       .addField("Moderator:", message.member.user.tagtext.toString(), true)
       .addField("Channel:", message.channeltext.toString(), true)
-      .addField("Amount:", "```" + deleteCount + "```", true)
+      .addField("Amount:", "```" + deleteCount.toString() + "```", true)
       .setTimestamp();
 
     const Guild = require("../../models/guild");
