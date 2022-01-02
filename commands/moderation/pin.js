@@ -59,9 +59,9 @@ module.exports = {
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Pin")      
-      .addField("Moderator:", message.member.user.tag, true)
-      .addField("Channel:", message.channel, true)
-      .addField("Message:", "```" + text + "```", true)
+      .addField("Moderator:", message.member.user.tag.toString(), true)
+      .addField("Channel:", message.channel.toString(), true)
+      .addField("Message:", "```" + text.toString() + "```", true)
       .setTimestamp();
 
     const Guild = require("../../models/guild");
