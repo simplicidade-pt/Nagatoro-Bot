@@ -55,8 +55,8 @@ module.exports = {
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Purge")
-      .addField("Moderator:", message.member.user.tag, true)
-      .addField("Channel:", message.channel, true)
+      .addField("Moderator:", message.member.user.tagtext.toString(), true)
+      .addField("Channel:", message.channeltext.toString(), true)
       .addField("Amount:", "```" + deleteCount + "```", true)
       .setTimestamp();
 
