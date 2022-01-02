@@ -52,9 +52,9 @@ module.exports = {
       .setTitle(":pushpin: Pinned Message")
       .setDescription(text)
       .setTimestamp()
-      .setFooter("Requested by " + message.member.user.tag);
+      .setFooter("Pinned by " + message.member.user.tag);
 
-    message.reply({ embeds: [pinnedembed] }).then((msg) => msg.pin());
+    message.channel.reply({ embeds: [pinnedembed] }).then((msg) => msg.pin());
 
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
