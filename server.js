@@ -664,6 +664,9 @@ client.on("guildMemberAdd", async (member) => {
   );
 
   if (!settings) return;
+  let welcomechannel = member.guild.channels.cache.get(
+    settings.welcomeChannelID
+  );
 
   const { CanvasSenpai } = require("canvas-senpai");
   const canva = new CanvasSenpai();
@@ -672,7 +675,6 @@ client.on("guildMemberAdd", async (member) => {
   });
 
   const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
- let welcomechannel = client.guilds.cache.get(member.guild.id).channels.cache.get(settings.welcomeChannelID.toString())
 
  welcomechannel.send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
  welcomechannel.send({ files: [attachment] });
