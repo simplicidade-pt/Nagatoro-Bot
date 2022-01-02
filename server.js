@@ -678,5 +678,12 @@ client.on("guildMemberAdd", async (member) => {
   welcomechannel.send({ files: [attachment] });
 });
 
+
+client.login("NjU0MzgzNTg3OTY1MTQxMDIz.XfEwNQ.t53Rqau2wD_t3jNYmb-kAJgjp3U");
+
+/*
+
 client.mongoose.init();
 client.login(process.env.token);
+
+*/

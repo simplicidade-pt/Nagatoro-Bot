@@ -27,8 +27,8 @@ module.exports = {
         setTimeout(() => msg.delete(), 15000);
       });
 
-    let server = message.guild.name;
-    let Target = message.mentions.users.first();
+    let server = message.guild.name.toString();
+    let Target = message.mentions.users.first().toString();
 
     const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
@@ -53,7 +53,7 @@ module.exports = {
         .setColor(colors.error)
         .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
         .setDescription(
-          "Sorry senpai~ You can't ban yourself!"
+          "Silly senpai~ why would you want to ban youself?"
         )
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
@@ -88,16 +88,17 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-      Target.send({ embeds: [embed] });
-      message.guild.members.cache.get(Target.id).ban({ reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason })
+      Target.send({ embeds: [embed] }).then(
+        setTimeout(() =>  message.guild.members.cache.get(Target.id).ban({ reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason }), 3000)
+      )
 
     const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Ban")
-      .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "<@!" + Target.id + ">", true)
-      .addField("Channel:", message.channel, true)
-      .addField("Reason:", "```" + reason + "```", true)
+      .addField("Moderator:", message.member.user.tag.toString(), true)
+      .addField("Target:", "<@!" + Target.id.toString() + ">", true)
+      .addField("Channel:", message.channel.toString(), true)
+      .addField("Reason:", "```" + reason.toString() + "```", true)
       .setTimestamp();
 
     const Guild = require("../../models/guild");

@@ -27,7 +27,7 @@ module.exports = {
         setTimeout(() => msg.delete(), 15000);
       });
 
-    let server = message.guild.name;
+    let server = message.guild.name.toString();
     let Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
@@ -39,13 +39,10 @@ module.exports = {
       .setTimestamp()
       .setFooter("Requested by " + message.member.user.tag);
 
-    if (!Target)
-      return message
-        .reply({
+    if (!Target) return message.reply({
           embeds: [invalidmember],
           allowedMentions: { repliedUser: false },
-        })
-        .then((msg) => {
+        }).then((msg) => {
           setTimeout(() => msg.delete(), 15000);
         });
 
@@ -53,65 +50,67 @@ module.exports = {
         .setColor(colors.error)
         .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
         .setDescription(
-          "Sorry senpai~ You can't kick yourself!"
+          "Silly senpai~ why would you want to kick youself?"
         )
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
   
     if (Target.id == message.author.id) return message.reply({ embeds: [kickSelf] })
 
-    let reason = args.slice(1).join(" ");
-    const maxLength = new Discord.MessageEmbed()
-    .setColor(colors.error)
-    .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
-    .setDescription(
-      "Sorry senpai~ Please make sure your reason is below `512` characters!"
-    )
-    .setTimestamp()
-    .setFooter("Requested by " + message.member.user.tag);
-  if (reason.length > 512) return message.reply({ embeds: [maxLength] })
+  let reason = args.slice(1).join(" ");
+  const maxLength = new Discord.MessageEmbed()
+  .setColor(colors.error)
+  .setTitle(configs.missing_title_moderation + " " + emojis.Hmm)
+  .setDescription(
+    "Sorry senpai~ Please make sure your reason is below `512` characters!"
+  )
+  .setTimestamp()
+  .setFooter("Requested by " + message.member.user.tag);
+if (reason.length > 512) return message.reply({ embeds: [maxLength] })
   if (!reason) reason = "No reason was provided.";
 
-    const kickmsg = new Discord.MessageEmbed()
-      .setColor(colors.error)
-      .setTitle("You've been kicked!")
-      .setDescription(
-        emojis.Hmm +
-          " You've been kicked from from `" +
-          server +
-          "` with the reason: ```" +
-          reason +
-          "```"
-      )
-      .setTimestamp()
-      .setFooter("Responsible moderator: " + message.member.user.tag);
+  const kickmsg = new Discord.MessageEmbed()
+  .setColor(colors.error)
+  .setTitle("You've been kicked!")
+  .setDescription(
+    emojis.Hmm +
+      " You've been kicked from from `" +
+      server.toString() +
+      "` with the reason: ```" +
+      reason.toString() +
+      "```"
+  )
+  .setTimestamp()
+  .setFooter("Responsible moderator: " + message.member.user.tag);
 
-      Target.send({ embeds: [kickmsg] });
-      message.guild.members.cache.get(Target.id).kick("Moderator: " + message.member.user.tag + " / Reason: " + reason);
+  Target.send({ embeds: [kickmsg] }).then(
+    setTimeout(() =>  message.guild.members.cache.get(Target.id).kick("Moderator: " + message.member.user.tag + " / Reason: " + reason), 3000)
+  )
 
-    var logEmbed = new Discord.MessageEmbed()
-      .setColor(colors.log)
-      .setTitle(" ➜ Action || Kick")
-      .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "<@!" + Target.id + ">", true)
-      .addField("Channel:", message.channel, true)
-      .addField("Reason:", "```" + reason + "```", true)
-      .setTimestamp();
+var logEmbed = new Discord.MessageEmbed()
+  .setColor(colors.log)
+  .setTitle(" ➜ Action || Kick")
+  .addField("Moderator:", message.member.user.tag.toString(), true)
+  .addField("Target:", "<@!" + Target.id.toString() + ">", true)
+  .addField("Channel:", message.channel.toString(), true)
+  .addField("Reason:", "```" + reason + "```", true)
+  .setTimestamp();
 
-    const Guild = require("../../models/guild");
-    const settings = await Guild.findOne(
-      {
-        guildID: message.guild.id,
-      },
-      (err, guild) => {
-        if (err) return console.error(err);
-        if (guild) {
-          console.log(guild);
-        }
-      }
-    );
+const Guild = require("../../models/guild");
+const settings = await Guild.findOne(
+  {
+    guildID: message.guild.id,
+  },
+  (err, guild) => {
+    if (err) return console.error(err);
+    if (guild) {
+      console.log(guild);
+    }
+  }
+);
 
-    let logchannel = message.guild.channels.cache.get(settings.logchannelId);
-    logchannel.send({ embeds: [logEmbed] });
+let logchannel = message.guild.channels.cache.get(settings.logchannelId);
+logchannel.send({ embeds: [logEmbed] });
+
   },
 };
