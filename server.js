@@ -62,7 +62,8 @@ client.on("ready", () => {
       ];
 
     client.user.setPresence({
-      activities: [{ name: status + " " + selectedemoji }],
+      // activities: [{ name: status + " " + selectedemoji }],
+      activities: [{ name: " Genshin Impact" }],
       status: "available",
       url: "https://www.twitch.tv/scxipted",
     });
