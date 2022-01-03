@@ -671,7 +671,7 @@ client.on("guildMemberAdd", member => {
 
   const { CanvasSenpai } = require("canvas-senpai");
   const canva = new CanvasSenpai();
-  let data = await canva.welcome(member, {
+  let data = canva.welcome(member, {
     link: "https://cdn.discordapp.com/attachments/831022454872211476/850516466977603604/Backgrounddddd.png",
   });
 
