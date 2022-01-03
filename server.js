@@ -650,6 +650,7 @@ client.on("messageCreate", async (message) => {
   }
 });
 
+/*
 client.on("guildMemberAdd", member => {
   const Guild = require("./models/guild");
   const settings = Guild.findOne(
@@ -681,6 +682,7 @@ client.on("guildMemberAdd", member => {
   member.guild.channels.cache.get(settings.welcomeChannelID).send({ files: [attachment] });
  
 });
+*/
 
 client.mongoose.init();
 client.login(process.env.token);
