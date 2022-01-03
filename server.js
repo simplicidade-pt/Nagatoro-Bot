@@ -28,6 +28,7 @@ const client = new Discord.Client({
   ],
   allowedMentions: { parse: ["users", "roles"], repliedUser: true },
 });
+
 module.exports = client;
 
 client.mongoose = require("./utils/mongoose");
@@ -649,9 +650,7 @@ client.on("messageCreate", async (message) => {
   }
 });
 
-/*
-
-client.on("guildMemberAdd", async (member) => {
+client.on("guildMemberAdd", member => {
   const Guild = require("./models/guild");
   const settings = await Guild.findOne(
     {
@@ -678,12 +677,10 @@ client.on("guildMemberAdd", async (member) => {
 
   const attachment = new Discord.MessageAttachment(data, "welcome-image.png");
 
- welcomechannel.send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
- welcomechannel.send({ files: [attachment] });
+  member.guild.channels.cache.get(settings.welcomeChannelID).send({ contents: "Welcome " + "<@" + member + ">, " + " to " + "**" + member.guild.name + "** " + emojis.Nice});
+  member.guild.channels.cache.get(settings.welcomeChannelID).send({ files: [attachment] });
  
 });
-
-*/
 
 client.mongoose.init();
 client.login(process.env.token);
