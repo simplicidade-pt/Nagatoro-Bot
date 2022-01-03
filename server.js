@@ -652,7 +652,7 @@ client.on("messageCreate", async (message) => {
 
 client.on("guildMemberAdd", member => {
   const Guild = require("./models/guild");
-  const settings = await Guild.findOne(
+  const settings = Guild.findOne(
     {
       guildID: member.guild.id,
     },
