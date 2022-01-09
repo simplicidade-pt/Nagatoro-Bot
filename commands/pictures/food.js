@@ -36,7 +36,7 @@ module.exports = {
       }, 10000);
     }
 
-    let reddit = ["food"];
+    let reddit = ["Food", "AmericanFood", "chinesefood", "burgers", "dessert"];
     let msg = [
       "All yours, senpai~",
       "Here you go senpai~",
