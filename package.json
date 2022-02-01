@@ -26,7 +26,8 @@
     "wikijs": "^6.3.0"
   },
   "devDependencies": {
-    "ansi-regex": ">=5.0.1"
+    "ansi-regex": ">=5.0.1",
+    "simple-get": ">=4.0.1"
   },
   "engines": {
     "node": "v16.13.1"
