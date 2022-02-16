@@ -59,7 +59,7 @@ module.exports = {
     var logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Pin")      
-      .addField("Moderator:", message.member.user.tag.toString(), true)
+      .addField("Moderator:", "<@!" + message.member.user.id + ">", true)
       .addField("Channel:", message.channel.toString(), true)
       .addField("Message:", "```" + text.toString() + "```", true)
       .setTimestamp();
