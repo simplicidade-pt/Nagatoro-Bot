@@ -88,9 +88,8 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-      Target.send({ embeds: [embed] }).then(
-        setTimeout(() =>  message.guild.members.cache.get(Target.id).ban({ reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason }), 3000)
-      ).catch(console.error)
+    Target.send({ embeds: [embed] }).catch(console.error)
+    message.guild.members.cache.get(Target.id).ban({ reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason })
 
     const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)

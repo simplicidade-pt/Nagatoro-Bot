@@ -82,8 +82,9 @@ module.exports = {
 
     var logEmbed = new Discord.MessageEmbed()
       .setColor(colors.log)
-      .addField("Moderator:", message.member.user.tag, true)
-      .addField("Target:", "<@!" + Target.id + ">", true)
+      .setTitle(" ➜ Action || Warn")
+      .addField("Moderator:", "<@!" + message.member.user.id + ">", true)
+      .addField("Warned:", "<@!" + Target.id + ">", true)
       .addField("Reason:", "```" + reason + "```")
       .setTimestamp();
 
