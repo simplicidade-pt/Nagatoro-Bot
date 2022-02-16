@@ -90,7 +90,7 @@ module.exports = {
 
       Target.send({ embeds: [embed] }).then(
         setTimeout(() =>  message.guild.members.cache.get(Target.id).ban({ reason: "Moderator: " + message.member.user.tag + " / Reason: " + reason }), 3000)
-      )
+      ).catch(console.error)
 
     const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)

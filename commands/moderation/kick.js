@@ -85,7 +85,7 @@ if (reason.length > 512) return message.reply({ embeds: [maxLength] })
 
   Target.send({ embeds: [kickmsg] }).then(
     setTimeout(() =>  message.guild.members.cache.get(Target.id).kick("Moderator: " + message.member.user.tag + " / Reason: " + reason), 3000)
-  )
+  ).catch(console.error)
 
 var logEmbed = new Discord.MessageEmbed()
   .setColor(colors.log)
