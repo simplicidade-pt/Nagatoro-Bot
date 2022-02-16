@@ -68,9 +68,9 @@ module.exports = {
       .setColor(colors.success)
       .setTitle("Successfully warned!")
       .setDescription(
-        "Teehee senpai~ I've successfully warned `" +
+        "Teehee senpai~ I've successfully warned <@!" +
           Target +
-          "`" +
+          ">" +
           " with the reason: ```" +
           reason +
           "```"
