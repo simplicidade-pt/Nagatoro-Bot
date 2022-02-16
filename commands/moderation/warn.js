@@ -61,7 +61,7 @@ module.exports = {
       .setTimestamp()
       .setFooter("Responsible moderator: " + message.member.user.tag);
 
-    Target.send({ embeds: [embed] });
+    Target.send({ embeds: [embed] }).catch(console.log)
 
     const success = new Discord.MessageEmbed()
 
