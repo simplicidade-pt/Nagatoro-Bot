@@ -28,7 +28,7 @@ module.exports = {
       });
 
     let server = message.guild.name.toString();
-    let Target = message.mentions.users.first().toString();
+    let Target = message.mentions.users.first();
 
     const invalidmember = new Discord.MessageEmbed()
       .setColor(colors.error)
