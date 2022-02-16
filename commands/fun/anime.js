@@ -12,7 +12,19 @@ module.exports = {
   description: "Get information about an anime",
   usage: "anime <anime_name>",
   run: (client, message, args) => {
-    if (message.author.bot) return;
+   if (message.author.bot) return;
+
+   const nsfwerr = new Discord.MessageEmbed()
+   .setColor(colors.error)
+   .setTitle(configs.missing_title_fun + emojis.Hmm)
+   .setDescription(
+     emojis.Sip +
+       "Senpai~ This command searches can retrieve **NSFW content** and therefor is restricted to **NSFW channels!**"
+   )
+   .setTimestamp()
+   .setFooter("Requested by " + message.member.user.tag);
+
+ if (!message.channel.nsfw) return message.reply({ embeds: [nsfwerr] });
 
     if (!args.length) {
       const errm = new Discord.MessageEmbed()
@@ -80,7 +92,7 @@ module.exports = {
             .setTitle(configs.missing_title_fun + emojis.Hmm)
             .setDescription(
               emojis.Sip +
-                "**Senpai~ Did you type it correctly? \n I wasn't able to find the anime you were looking for.**"
+                "Senpai~ Did you type it correctly? \n I wasn't able to find the anime you were looking for."
             )
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
