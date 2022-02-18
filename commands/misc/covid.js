@@ -32,7 +32,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
 
     .setColor(colors.info)
-    .setTitle("Note: Statistics may differ from other sources")
+    .setTitle("Note: Statistics shown may differ from other sources")
     .setDescription(emojis.Search + " Covid19 statistics " + emojis.At + " " + args.join(" "))
     .setThumbnail(body.countryInfo.flag.toString())
     .addField("Cases", "```" + body.cases.toString() + "```", true)
