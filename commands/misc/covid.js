@@ -28,12 +28,11 @@ module.exports = {
         return message.reply({ embeds: [errm] });
       }
 
-    await api.countries({country: specified}).then((body) => {  
+    await api.countries({country: specified}).then((body) => {
     const embed = new Discord.MessageEmbed()
 
     .setColor(colors.info)
     .setTitle("Note: Statistics shown may differ from other sources")
-    .setDescription(emojis.Search + " Covid19 statistics " + emojis.At + " " + args.join(" "))
     .setThumbnail(body.countryInfo.flag.toString())
     .addField("Cases", "```" + body.cases.toString() + "```", true)
     .addField("Cases Today", "```" + body.todayCases.toString() + "```", true)
