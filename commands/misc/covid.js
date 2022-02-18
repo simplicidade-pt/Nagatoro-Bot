@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const api = require('covidapi');
 
 const emojis = require("../../configuration/emojis.json");
 const colors = require("../../configuration/colors.json");
