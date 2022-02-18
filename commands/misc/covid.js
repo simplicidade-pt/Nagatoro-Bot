@@ -35,12 +35,12 @@ module.exports = {
     .setColor(colors.info)
     .setTitle(emojis.Search + " results for " + args.join(" "))
     .setDescription("Number of cases may differ from other sources")
-    .addField("Cases", data.cases, true)
-    .addField("Cases Today", data.todayCases, true)
-    .addField ("Critical Cases", data.critical, true)
-    .addField("Active", data.active, true)
-    .addField("Deaths", data.deaths, true)
-    .addField("Recovered", data.recovered, true)
+    .addField("Cases", data.cases.toString(), true)
+    .addField("Cases Today", data.todayCases.toString(), true)
+    .addField ("Critical Cases", data.critical.toString(), true)
+    .addField("Active", data.active.toString(), true)
+    .addField("Deaths", data.deaths.toString(), true)
+    .addField("Recovered", data.recovered.toString(), true)
 
     message.reply({ embeds: [embed] });
   },
