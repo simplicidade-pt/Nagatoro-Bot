@@ -3,6 +3,7 @@ const api = require('covidapi');
 
 const emojis = require("../../configuration/emojis.json");
 const colors = require("../../configuration/colors.json");
+const configs = require("../../configuration/settings.json");
 
 module.exports = {
   name: "covid",
