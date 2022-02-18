@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const api = require('covidapi');
+const api = require('novelcovid');
 
 const emojis = require("../../configuration/emojis.json");
 const colors = require("../../configuration/colors.json");
