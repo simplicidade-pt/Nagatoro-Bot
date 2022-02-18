@@ -33,8 +33,8 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
 
     .setColor(colors.info)
-    .setTitle(emojis.Search + " results for " + args.join(" "))
-    .setDescription("Number of cases may differ from other sources")
+    .setTitle(emojis.Search + " results for " + args.join(" ")+ " :globe:")
+    .setDescription("Note: Statistics may differ from other sources")
     .addField("Cases", data.cases.toString(), true)
     .addField("Cases Today", data.todayCases.toString(), true)
     .addField ("Critical Cases", data.critical.toString(), true)
