@@ -24,7 +24,7 @@ module.exports = {
    .setTimestamp()
    .setFooter("Requested by " + message.member.user.tag);
 
- if (!message.channel.nsfw) return message.reply({ embeds: [nsfwerr] });
+ // if (!message.channel.nsfw) return message.reply({ embeds: [nsfwerr] });
 
     if (!args.length) {
       const errm = new Discord.MessageEmbed()
@@ -32,7 +32,7 @@ module.exports = {
         .setTitle(configs.missing_title_fun + emojis.Hmm)
         .setDescription(
           emojis.Sip +
-            "Senpai~ Which anime should I search for again? \n Please mention a anime to search for silly senpai."
+            "Which anime do you want me to search for again? \n Please mention a anime to search for silly senpai!"
         )
         .setTimestamp()
         .setFooter("Requested by " + message.member.user.tag);
@@ -61,19 +61,21 @@ module.exports = {
 
     message.reply({ embeds: [searching] }).then((msg) => {
       get(option).then((body) => {
+        if (body.data[0].attributes.nsfw && !message.channel.nsfw) return message.reply({ embeds: [nsfwerr] });
         try {
           let embed = new Discord.MessageEmbed()
             .setTitle(body.data[0].attributes.titles.en)
             .setColor(colors.success)
             .setDescription("```" + body.data[0].attributes.synopsis + "```")
-            .setThumbnail(body.data[0].attributes.posterImage.original)
+            .setThumbnail(body.data[0].attributes.posterImage.large)
+            .setImage()
             .addField(
               "Ratings",
               "```" + body.data[0].attributes.averageRating + "```",
               true
             )
             .addField(
-              "TOTAL EPISODES",
+              "Total Episodes",
               "```" + body.data[0].attributes.episodeCount + "```",
               true
             )
@@ -92,7 +94,7 @@ module.exports = {
             .setTitle(configs.missing_title_fun + emojis.Hmm)
             .setDescription(
               emojis.Sip +
-                "Senpai~ Did you type it correctly? \n I wasn't able to find the anime you were looking for."
+                "Did you type it in correctly? \n I wasn't able to find the anime you were looking for."
             )
             .setTimestamp()
             .setFooter("Requested by " + message.member.user.tag);
