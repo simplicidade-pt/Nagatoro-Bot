@@ -34,13 +34,21 @@ module.exports = {
     .setColor(colors.info)
     .setTitle(emojis.Search + " results for " + args.join(" ")+ " :globe:")
     .setDescription("Note: Statistics may differ from other sources")
-    .setThumbnail(body.countryInfo.flag)
-    .addField("Cases", body.cases, true)
-    .addField("Cases Today", body.todayCases, true)
-    .addField ("Critical Cases", body.critical, true)
-    .addField("Active", body.active, true)
-    .addField("Deaths", body.deaths, true)
-    .addField("Recovered", body.recovered, true)
+    .setThumbnail(body.countryInfo.flag.toString())
+    .addField("Cases", body.cases.toString(), true)
+    .addField("Cases Today", body.todayCases.toString(), true)
+    .addField ("Critical Cases", body.critical.toString(), true)
+    .addField("Active", body.active.toString(), true)
+    .addField("Deaths", body.deaths.toString(), true)
+    .addField("Recovered", body.recovered.toString(), true)
+
+    console.log(body.countryInfo.flag) 
+    console.log(body.cases)
+    console.log(body.todayCases)
+    console.log(body.active)
+    console.log(body.critical)
+    console.log(body.deaths)
+    console.log(body.recovered)
 
     message.reply({ embeds: [embed] });
   });
