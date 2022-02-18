@@ -44,14 +44,6 @@ module.exports = {
     .setTimestamp()
     .setFooter("Requested by " + message.member.user.tag);
 
-    console.log(body.countryInfo.flag) 
-    console.log(body.cases)
-    console.log(body.todayCases)
-    console.log(body.active)
-    console.log(body.critical)
-    console.log(body.deaths)
-    console.log(body.recovered)
-
     message.reply({ embeds: [embed] });
   });
   },
