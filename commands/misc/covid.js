@@ -12,7 +12,6 @@ module.exports = {
   usage: "covid",
   run: async (client, message, args) => {
     if (message.author.bot) return;
-
     const specified = args.join(" ")
 
     if (!args.length) {
@@ -21,7 +20,7 @@ module.exports = {
           .setTitle(configs.missing_title_fun + emojis.Hmm)
           .setDescription(
             emojis.Sip +
-              "Which countries statistics did you want me to search for again? \n Please mention a valid country to search for silly senpai!"
+              "Please mention a valid country to search for silly senpai!"
           )
           .setTimestamp()
           .setFooter("Requested by " + message.member.user.tag);
@@ -29,19 +28,21 @@ module.exports = {
         return message.reply({ embeds: [errm] });
       }
 
-    const data = await api.countries({country: specified})
+    await api.countries({country: specified}).then((body) => {  
     const embed = new Discord.MessageEmbed()
 
     .setColor(colors.info)
     .setTitle(emojis.Search + " results for " + args.join(" ")+ " :globe:")
     .setDescription("Note: Statistics may differ from other sources")
-    .addField("Cases", data.cases.toString(), true)
-    .addField("Cases Today", data.todayCases.toString(), true)
-    .addField ("Critical Cases", data.critical.toString(), true)
-    .addField("Active", data.active.toString(), true)
-    .addField("Deaths", data.deaths.toString(), true)
-    .addField("Recovered", data.recovered.toString(), true)
+    .setThumbnail(body.countryInfo.flag)
+    .addField("Cases", body.cases, true)
+    .addField("Cases Today", body.todayCases, true)
+    .addField ("Critical Cases", body.critical, true)
+    .addField("Active", body.active, true)
+    .addField("Deaths", body.deaths, true)
+    .addField("Recovered", body.recovered, true)
 
     message.reply({ embeds: [embed] });
+  });
   },
 };
