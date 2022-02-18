@@ -8,7 +8,7 @@ module.exports = {
   category: "misc",
   description: "Shows covid count",
   usage: "covid",
-  run: async (client, message) => {
+  run: async (client, message, args) => {
     if (message.author.bot) return;
 
     const specified = args.join(" ")
@@ -29,6 +29,7 @@ module.exports = {
 
     const data = await api.countries({country: specified})
     const embed = new Discord.MessageEmbed()
+
     .setColor(colors.info)
     .setTitle(emojis.Search + " results for " + args.join(" "))
     .setDescription("Number of cases may differ from other sources")
@@ -40,6 +41,5 @@ module.exports = {
     .addField("Recovered", countrydata.recovered, true)
 
     message.reply({ embeds: [embed] });
-
   },
 };
