@@ -12,7 +12,7 @@ module.exports = {
     const Target = message.mentions.users.first() || message.member.user
     let avatarEmbed = new Discord.MessageEmbed()
         .setColor(colors.info)
-        .setTitle(Target.username + "'s Avatar")
+        .setTitle("Here is " + Target.username + "'s avatar, senpai~ !")
         .setImage(Target.displayAvatarURL({ size: 4096, format: "png"}))
         .setFooter("Requested by " + message.member.user.tag)
         .setTimestamp();
