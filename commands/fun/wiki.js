@@ -1,5 +1,4 @@
 const wiki = require("wikijs").default();
-
 const colors = require("../../configuration/colors.json");
 // const emojis = require("../../configuration/emojis.json");
 // const configs = require("../../configuration/settings.json");
@@ -16,8 +15,8 @@ module.exports = {
       embeds: [
         {
           color: colors.info,
-          title: `Searching Wikipedia ⌛`,
-          description: `Please allow me a moment!`,
+          title: `Beep boop`,
+          description: `Fetching a random page, please allow me a moment!`,
         },
       ],
     });
@@ -32,11 +31,11 @@ module.exports = {
           embeds: [
             {
               color: colors.error,
-              title: "What was that again? 📚🤓",
+              title: "What was that again? 📚",
               description:
                 "Even Wikipedia doesn't seem to know what you're talking about.",
               footer: {
-                text: "Check for typos or try searching for something else!",
+                text: "Issue",
               },
             },
           ],

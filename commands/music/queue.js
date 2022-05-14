@@ -57,7 +57,7 @@ module.exports = {
 
     const currentTrack = queue.current;
     const tracks = queue.tracks.slice(0, 10).map((m, i) => {
-      return "${i + 1}. [**${m.title}**](${m.url}) - `${m.requestedBy.tag}`";
+      return `${i + 1}. [**${m.title}**](${m.url}) - ${'<@' + m.requestedBy.id + '>'}`;
     });
 
     const songQueue = new Discord.MessageEmbed()
