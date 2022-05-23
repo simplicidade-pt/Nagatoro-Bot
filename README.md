@@ -1,6 +1,6 @@
 ## Take your discord server to the next level with Nagatoro, with welcome images, random images, high-quality music, moderation logs, etc.
 
-![basX4rf](https://user-images.githubusercontent.com/51927118/154810425-e9d7b1b4-1947-498c-ae73-5d0dfd9fc4e4.jpg)
+![image](https://user-images.githubusercontent.com/51927118/169911705-7f8574da-d0dc-4071-99c8-2421122143c0.png)
 
 # What is Nagatoro?
 
