@@ -94,7 +94,7 @@ module.exports = {
     const logembed = new Discord.MessageEmbed()
       .setColor(colors.log)
       .setTitle(" ➜ Action || Ban")
-      .addField("Moderator:", message.member.user.tag.toString(), true)
+      .addField("Moderator:", "<@!" + message.member.user.id + ">", true)
       .addField("Target:", "<@!" + Target.id.toString() + ">", true)
       .addField("Channel:", message.channel.toString(), true)
       .addField("Reason:", "```" + reason.toString() + "```", true)
