@@ -9,7 +9,7 @@ require("http")
 const configs = require("./configuration/settings.json");
 const colors = require("./configuration/colors.json");
 const emojis = require("./configuration/emojis.json");
-const settings = require(`./botconfig/config.json`);
+const settings = require(`./configuration/config.json`);
 
 const prefix = configs.prefix;
 
