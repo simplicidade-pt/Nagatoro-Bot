@@ -9,11 +9,11 @@ require("http")
 const configs = require("./configuration/settings.json");
 const colors = require("./configuration/colors.json");
 const emojis = require("./configuration/emojis.json");
+const settings = require(`./botconfig/config.json`);
 
 const prefix = configs.prefix;
 
 const Discord = require("discord.js");
-
 const { Collection } = require("discord.js");
 const { config } = require("dotenv");
 
@@ -76,7 +76,7 @@ client.aliases = new Collection();
 client.cooldowns = new Collection();
 client.slashCommands = new Collection();
 client.categories = require("fs").readdirSync(`./commands`);
-["events", "commands", "slashCommands", settings.antiCrash ? "antiCrash" : null]
+["events", "commands", "slashcommands", settings.Crash ? "crash" : null]
     .filter(Boolean)
     .forEach(h => {
         require(`./handlers/${h}`)(client);
