@@ -76,7 +76,7 @@ client.aliases = new Collection();
 client.cooldowns = new Collection();
 client.slashCommands = new Collection();
 client.categories = require("fs").readdirSync(`./commands`);
-["events", "commands", "slashcommands", settings.Crash ? "crash" : null]
+["events", "commands", "slashcommands", settings.antiCrash ? "crash" : null]
     .filter(Boolean)
     .forEach(h => {
         require(`./handlers/${h}`)(client);
