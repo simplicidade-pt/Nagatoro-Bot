@@ -7,6 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@discordjs/builders": "^1.1.0",
     "ascii-table": "0.0.9",
     "canvas": "^2.8.0",
     "canvas-senpai": "^2.0.3",
