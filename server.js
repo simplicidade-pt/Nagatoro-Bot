@@ -73,6 +73,14 @@ client.on("ready", () => {
 // Collections
 client.commands = new Collection();
 client.aliases = new Collection();
+client.cooldowns = new Collection();
+client.slashCommands = new Collection();
+client.categories = require("fs").readdirSync(`./commands`);
+["events", "commands", "slashCommands", settings.antiCrash ? "antiCrash" : null]
+    .filter(Boolean)
+    .forEach(h => {
+        require(`./handlers/${h}`)(client);
+    })
 
 config({
   path: __dirname + "/.env",
