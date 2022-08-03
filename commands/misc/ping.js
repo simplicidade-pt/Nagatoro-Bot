@@ -6,7 +6,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "ping", 
-  description: "Gives you information on how fast the Bot is", 
+  description: "pong", 
   cooldown: 1,
   memberpermissions: [],
   requiredroles: [],
