@@ -12,7 +12,7 @@ guildName with the name of the server,
 logchannelId with the logging channel ID (If set),
 welcomechannelId with the welcome channel ID (If set)
 
-No other information further than the above-mentioned information will be stored.
+No other information than the above-mentioned information will be stored.
 
 # Updating Data
 
@@ -28,9 +28,9 @@ Stored data can be removed automatically by removing the bot from a Server. This
 ## Manual removal
 
 Manual removal of the data can be requested through email at
-support@scxipted.tech using the following format:
+solvit.pt@gmail.com using the following format:
 
 Header: Request to delete data from Nagatoro
 Please include your server's ID within the body of your email along with any information you’d like to share.
 
-For security reasons will we request you to supply us with proof of ownership of the server, that you wish the data to be removed. Only the server owner may request manual removal of data and requesting it will result in the bot being removed from the server, if still present on it.
+For security reasons we request you to supply us with proof of ownership of the server, that you wish the data to be removed. Only the server owner may request manual removal of data and requesting it will result in the bot being removed from the server, if still present on it.
